@@ -1,1004 +1,133 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escape Room: O Enigma Web</title>
+  <style>
+    body {
+      background-color: #0f172a;
+      color: #e2e8f0;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: #1e293b;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      max-width: 500px;
+      width: 90%;
+      border: 1px solid #334155;
+    }
+    h1 { color: #38bdf8; margin-top: 0; }
+    
+    /* Pista 1: Visível apenas ao passar o mouse ou selecionar */
+    .hidden-text {
+      color: #1e293b;
+      cursor: pointer;
+      user-select: all;
+      background-color: #1e293b;
+      padding: 2px 6px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+    .hidden-text:hover {
+      color: #facc15;
+      background-color: #334155;
+    }
 
-<title>O Mistério da Sala 13</title>
+    .clue-box {
+      border: 1px dashed #475569;
+      padding: 10px;
+      margin: 15px 0;
+      border-radius: 4px;
+    }
 
-<style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-body{
-    min-height:100vh;
-    background:
-        radial-gradient(circle at center,#20233d 0%,#0b0c16 65%,#050509 100%);
-    color:#fff;
-    font-family:Arial,Helvetica,sans-serif;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
-}
-
-.game{
-    width:100%;
-    max-width:1000px;
-    min-height:650px;
-    background:rgba(10,11,20,.95);
-    border:2px solid #3f4165;
-    border-radius:22px;
-    box-shadow:0 0 40px rgba(0,0,0,.7);
-    overflow:hidden;
-    position:relative;
-}
-
-header{
-    padding:20px 25px;
-    background:linear-gradient(90deg,#111327,#191b35);
-    border-bottom:1px solid #3f4165;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:20px;
-}
-
-.logo{
-    font-size:25px;
-    font-weight:bold;
-}
-
-.logo span{
-    color:#63a4ff;
-}
-
-.stats{
-    display:flex;
-    gap:15px;
-    flex-wrap:wrap;
-    justify-content:flex-end;
-}
-
-.stat{
-    background:#101225;
-    border:1px solid #343755;
-    padding:9px 14px;
-    border-radius:10px;
-    font-size:14px;
-}
-
-main{
-    padding:30px;
-}
-
-.screen{
-    display:none;
-}
-
-.screen.active{
-    display:block;
-}
-
-.intro{
-    text-align:center;
-    padding:45px 20px;
-}
-
-.icon{
-    font-size:80px;
-    margin-bottom:15px;
-}
-
-h1{
-    font-size:42px;
-    margin-bottom:15px;
-}
-
-h2{
-    font-size:30px;
-    margin-bottom:15px;
-}
-
-p{
-    color:#c8c9d8;
-    line-height:1.6;
-}
-
-.description{
-    max-width:700px;
-    margin:0 auto 25px;
-}
-
-button{
-    border:none;
-    cursor:pointer;
-    color:white;
-    font-weight:bold;
-    border-radius:12px;
-    padding:13px 20px;
-    font-size:16px;
-    transition:.2s;
-}
-
-button:hover{
-    transform:translateY(-2px);
-    filter:brightness(1.15);
-}
-
-.primary{
-    background:#347cff;
-    box-shadow:0 5px 20px rgba(52,124,255,.25);
-}
-
-.secondary{
-    background:#292c47;
-}
-
-.danger{
-    background:#b52f48;
-}
-
-.room-title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:20px;
-    margin-bottom:20px;
-}
-
-.room{
-    min-height:430px;
-    background:
-        linear-gradient(rgba(15,16,28,.9),rgba(8,9,16,.95)),
-        repeating-linear-gradient(
-            90deg,
-            transparent 0,
-            transparent 48px,
-            rgba(255,255,255,.015) 49px
-        );
-    border:1px solid #363952;
-    border-radius:18px;
-    padding:25px;
-    position:relative;
-}
-
-.objects{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:15px;
-    margin-top:25px;
-}
-
-.object{
-    min-height:100px;
-    background:#17192b;
-    border:1px solid #393c59;
-    border-radius:14px;
-    padding:20px;
-    text-align:left;
-}
-
-.object h3{
-    margin-bottom:8px;
-}
-
-.object button{
-    margin-top:12px;
-    font-size:13px;
-    padding:9px 12px;
-}
-
-.locked{
-    opacity:.55;
-}
-
-.puzzle{
-    margin-top:20px;
-    background:#121426;
-    border:1px solid #41445f;
-    border-radius:14px;
-    padding:20px;
-}
-
-.puzzle input{
-    width:100%;
-    max-width:300px;
-    margin-top:15px;
-    padding:13px;
-    background:#080914;
-    border:1px solid #454866;
-    color:white;
-    border-radius:10px;
-    font-size:18px;
-    outline:none;
-}
-
-.puzzle button{
-    margin-top:10px;
-}
-
-.message{
-    margin-top:15px;
-    min-height:25px;
-    font-weight:bold;
-}
-
-.clue{
-    color:#8db9ff;
-}
-
-.success{
-    color:#6dffae;
-}
-
-.error{
-    color:#ff6d7d;
-}
-
-.secret{
-    display:none;
-    margin-top:15px;
-    padding:15px;
-    background:#22243a;
-    border-radius:10px;
-    border-left:4px solid #63a4ff;
-}
-
-.secret.show{
-    display:block;
-}
-
-.progress{
-    height:8px;
-    background:#22243a;
-    border-radius:20px;
-    margin:20px 0;
-    overflow:hidden;
-}
-
-.progress-bar{
-    height:100%;
-    width:0%;
-    background:#4d91ff;
-    transition:.4s;
-}
-
-.center{
-    text-align:center;
-}
-
-.big-result{
-    font-size:70px;
-    margin-bottom:15px;
-}
-
-footer{
-    text-align:center;
-    color:#73758d;
-    padding:15px;
-    border-top:1px solid #292b43;
-    font-size:13px;
-}
-
-@media(max-width:700px){
-    h1{font-size:32px;}
-    .objects{grid-template-columns:1fr;}
-    header{flex-direction:column;align-items:flex-start;}
-    .stats{justify-content:flex-start;}
-    main{padding:18px;}
-}
-</style>
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    input {
+      flex: 1;
+      padding: 10px;
+      background: #0f172a;
+      border: 1px solid #475569;
+      color: #fff;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #0284c7;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover { background: #0369a1; }
+    
+    #result {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="game">
+  <div class="card">
+    <h1>Escape Room Digital</h1>
+    <p>Sua missão é encontrar 4 dígitos escondidos nesta página para desbloquear o terminal.</p>
 
-<header>
-    <div class="logo">🔐 <span>Sala 13</span></div>
-
-    <div class="stats">
-        <div class="stat">⏱️ <span id="timer">10:00</span></div>
-        <div class="stat">❤️ Tentativas: <span id="attempts">3</span></div>
-        <div class="stat">🔎 Códigos: <span id="codes">0</span>/4</div>
-    </div>
-</header>
-
-<main>
-
-<!-- INTRO -->
-<section id="intro" class="screen active">
-
-    <div class="intro">
-
-        <div class="icon">🚪</div>
-
-        <h1>O Mistério da Sala 13</h1>
-
-        <p class="description">
-            Você entrou em uma sala abandonada.
-            A porta se fechou sozinha.
-            Para escapar, você precisará encontrar
-            <strong>4 códigos secretos</strong>.
-        </p>
-
-        <p class="description">
-            Mas cuidado...
-            <br>
-            <strong>nem todas as pistas estão dizendo a verdade.</strong> 👀
-        </p>
-
-        <button class="primary" onclick="startGame()">
-            🔓 ENTRAR NA SALA
-        </button>
-
+    <!-- PISTA 1: Escondida no texto CSS -->
+    <div class="clue-box">
+      <strong>Pista 1:</strong> Passe o mouse ou selecione o texto escuro ao lado: 
+      <span class="hidden-text">[ O 1º dígito é 8 ]</span>
     </div>
 
-</section>
-
-
-<!-- SALA 1 -->
-<section id="room1" class="screen">
-
-    <div class="room-title">
-        <div>
-            <h2>🚪 Sala 1 — A Entrada</h2>
-            <p>Encontre o primeiro código.</p>
-        </div>
+    <!-- PISTA 2: Escondida no atributo HTML (visível apenas ao inspecionar o elemento) -->
+    <div class="clue-box" data-segredo-oculto="O 2º dígito é 4. Parabéns por inspecionar o elemento!">
+      <strong>Pista 2:</strong> Inspecione o código HTML (F12) deste quadro para encontrar o atributo oculto.
     </div>
 
-    <div class="progress">
-        <div class="progress-bar" id="progress"></div>
+    <!-- PISTA 3: Pista acionada no console do navegador -->
+    <div class="clue-box">
+      <strong>Pista 3:</strong> Abra o Console do Desenvolvedor (F12) para ler a dica enviada via JavaScript.
     </div>
 
-    <div class="room">
-
-        <p>
-            A sala está quase completamente escura.
-            Há quatro objetos que chamam sua atenção.
-        </p>
-
-        <div class="objects">
-
-            <div class="object">
-                <h3>🕰️ Relógio</h3>
-                <p>Os ponteiros estão parados.</p>
-                <button class="secondary" onclick="inspectClock()">
-                    Examinar
-                </button>
-            </div>
-
-            <div class="object">
-                <h3>🖼️ Quadro</h3>
-                <p>Um quadro antigo está torto.</p>
-                <button class="secondary" onclick="inspectPicture()">
-                    Examinar
-                </button>
-            </div>
-
-            <div class="object">
-                <h3>📚 Estante</h3>
-                <p>Existem vários livros.</p>
-                <button class="secondary" onclick="inspectBooks()">
-                    Examinar
-                </button>
-            </div>
-
-            <div class="object">
-                <h3>💻 Computador</h3>
-                <p>O computador pede uma senha.</p>
-                <button class="secondary" onclick="openPuzzle1()">
-                    Examinar
-                </button>
-            </div>
-
-        </div>
-
-        <div id="room1message" class="message"></div>
-
-        <div id="puzzle1" class="puzzle" style="display:none">
-
-            <h3>💻 Senha do computador</h3>
-
-            <p>
-                Digite o código encontrado nas pistas.
-            </p>
-
-            <input
-                id="code1"
-                maxlength="4"
-                placeholder="Código"
-            >
-
-            <br>
-
-            <button class="primary" onclick="checkCode1()">
-                DESBLOQUEAR
-            </button>
-
-            <div id="answer1" class="message"></div>
-
-        </div>
-
+    <div class="controls">
+      <input type="text" id="passcode" placeholder="____" maxlength="4">
+      <button onclick="unlock()">DESBLOQUEAR</button>
     </div>
 
-</section>
-
-
-<!-- SALA 2 -->
-<section id="room2" class="screen">
-
-    <div class="room-title">
-
-        <div>
-            <h2>🧩 Sala 2 — O Enigma</h2>
-            <p>Agora as pistas ficaram mais estranhas...</p>
-        </div>
-
-    </div>
-
-    <div class="progress">
-        <div class="progress-bar" style="width:50%"></div>
-    </div>
-
-    <div class="room">
-
-        <p>
-            Uma mensagem aparece no computador:
-        </p>
-
-        <div class="puzzle">
-
-            <h3>📜 Enigma</h3>
-
-            <p>
-                “Tenho números, mas não sei contar.
-                Tenho ponteiros, mas não sei apontar.
-                Tenho duas mãos, mas não posso abraçar.
-                Quem sou eu?”
-            </p>
-
-            <input
-                id="answerPuzzle"
-                placeholder="Digite sua resposta"
-            >
-
-            <br>
-
-            <button class="primary" onclick="checkPuzzle()">
-                RESPONDER
-            </button>
-
-            <div id="puzzleMessage" class="message"></div>
-
-        </div>
-
-        <div class="secret" id="secret2">
-            👀 Você encontrou uma mensagem secreta:
-            <br><br>
-            <strong>
-                “Observe sempre os números pares.”
-            </strong>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- SALA 3 -->
-<section id="room3" class="screen">
-
-    <div class="room-title">
-
-        <div>
-            <h2>🔢 Sala 3 — O Cofre</h2>
-            <p>Você encontrou um cofre.</p>
-        </div>
-
-    </div>
-
-    <div class="progress">
-        <div class="progress-bar" style="width:75%"></div>
-    </div>
-
-    <div class="room">
-
-        <p>
-            Na parede existe uma sequência:
-        </p>
-
-        <div class="puzzle">
-
-            <h3>🔢 Sequência</h3>
-
-            <p style="font-size:24px;margin:20px 0">
-                2 — 4 — 8 — 16 — ?
-            </p>
-
-            <p>
-                Qual é o próximo número?
-            </p>
-
-            <input
-                id="sequence"
-                type="number"
-                placeholder="Número"
-            >
-
-            <br>
-
-            <button class="primary" onclick="checkSequence()">
-                ABRIR COFRE
-            </button>
-
-            <div id="sequenceMessage" class="message"></div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- SALA FINAL -->
-<section id="room4" class="screen">
-
-    <div class="room-title">
-
-        <div>
-            <h2>🚨 Sala Final</h2>
-            <p>A última porta está diante de você.</p>
-        </div>
-
-    </div>
-
-    <div class="progress">
-        <div class="progress-bar" style="width:100%"></div>
-    </div>
-
-    <div class="room">
-
-        <div class="center">
-
-            <div style="font-size:70px">
-                🔐
-            </div>
-
-            <h2>A Última Senha</h2>
-
-            <p>
-                Quatro números foram descobertos.
-                Agora você precisa lembrar da primeira pista.
-            </p>
-
-            <div class="puzzle">
-
-                <p>
-                    O relógio da primeira sala estava parado em:
-                </p>
-
-                <p style="font-size:30px;margin:15px">
-                    🕰️ 13:13
-                </p>
-
-                <p>
-                    Qual é o código final?
-                </p>
-
-                <input
-                    id="finalCode"
-                    maxlength="4"
-                    placeholder="Código final"
-                >
-
-                <br>
-
-                <button class="primary" onclick="finishGame()">
-                    🚪 TENTAR ESCAPAR
-                </button>
-
-                <div id="finalMessage" class="message"></div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- FINAL BOM -->
-<section id="goodEnd" class="screen">
-
-    <div class="intro">
-
-        <div class="big-result">🎉</div>
-
-        <h1>VOCÊ ESCAPOU!</h1>
-
-        <p class="description">
-            A porta da Sala 13 se abriu.
-            Você conseguiu resolver todos os enigmas!
-        </p>
-
-        <p class="description">
-            🏆 <strong>Final verdadeiro desbloqueado.</strong>
-        </p>
-
-        <button class="primary" onclick="restart()">
-            🔄 JOGAR NOVAMENTE
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- FINAL RUIM -->
-<section id="badEnd" class="screen">
-
-    <div class="intro">
-
-        <div class="big-result">😵</div>
-
-        <h1>O TEMPO ACABOU</h1>
-
-        <p class="description">
-            A sala ficou completamente escura...
-        </p>
-
-        <p class="description">
-            Talvez na próxima você consiga escapar. 👀
-        </p>
-
-        <button class="primary" onclick="restart()">
-            🔄 TENTAR NOVAMENTE
-        </button>
-
-    </div>
-
-</section>
-
-</main>
-
-<footer>
-    💙 Jullya Games — Deus abençoe por jogar!
-</footer>
-
-</div>
-
-
-<script>
-
-let time = 600;
-let timerInterval;
-
-let attempts = 3;
-let codes = 0;
-
-let currentRoom = 0;
-
-
-/* =========================
-   INICIAR
-========================= */
-
-function startGame(){
-
-    document.getElementById("intro").classList.remove("active");
-    document.getElementById("room1").classList.add("active");
-
-    time = 600;
-    attempts = 3;
-    codes = 0;
-
-    updateStats();
-
-    timerInterval = setInterval(updateTimer,1000);
-}
-
-
-/* =========================
-   TIMER
-========================= */
-
-function updateTimer(){
-
-    time--;
-
-    let minutes = Math.floor(time / 60);
-    let seconds = time % 60;
-
-    document.getElementById("timer").textContent =
-        String(minutes).padStart(2,"0") +
-        ":" +
-        String(seconds).padStart(2,"0");
-
-    if(time <= 0){
-
-        clearInterval(timerInterval);
-
-        showScreen("badEnd");
+    <div id="result"></div>
+  </div>
+
+  <script>
+    // Imprime a pista no console para quem usar DevTools
+    console.log("%c🔍 DICA DO CONSOLE: Os últimos dois dígitos correspondem ao ano da chegada do homem à Lua no século XX (69).", "color: #38bdf8; font-size: 14px; font-weight: bold;");
+
+    function unlock() {
+      const code = document.getElementById('passcode').value.trim();
+      const resultDiv = document.getElementById('result');
+
+      // Senha: 8469
+      if (code === "8469") {
+        resultDiv.style.color = "#4ade80";
+        resultDiv.innerHTML = "🔓 ACESSO CONCEDIDO! Você decifrou todas as pistas e escapou da página.";
+      } else {
+        resultDiv.style.color = "#f87171";
+        resultDiv.innerHTML = "🔒 ACESSO NEGADO! Verifique as pistas e tente novamente.";
+      }
     }
-}
-
-
-/* =========================
-   ESTATÍSTICAS
-========================= */
-
-function updateStats(){
-
-    document.getElementById("attempts").textContent = attempts;
-    document.getElementById("codes").textContent = codes;
-}
-
-
-/* =========================
-   TROCAR SALA
-========================= */
-
-function showScreen(id){
-
-    document.querySelectorAll(".screen").forEach(screen=>{
-        screen.classList.remove("active");
-    });
-
-    document.getElementById(id).classList.add("active");
-}
-
-
-/* =========================
-   SALA 1 — PISTAS
-========================= */
-
-function inspectClock(){
-
-    document.getElementById("room1message").innerHTML =
-        "🕰️ O relógio está parado exatamente em <strong>13:13</strong>.";
-}
-
-
-function inspectPicture(){
-
-    document.getElementById("room1message").innerHTML =
-        "🖼️ Atrás do quadro existe um pequeno papel: <strong>2 + 2 = 4</strong>.";
-}
-
-
-function inspectBooks(){
-
-    document.getElementById("room1message").innerHTML =
-        "📚 Um livro está diferente dos outros. Na capa está escrito: <strong>13</strong>.";
-}
-
-
-function openPuzzle1(){
-
-    document.getElementById("puzzle1").style.display = "block";
-}
-
-
-/* =========================
-   PRIMEIRO CÓDIGO
-========================= */
-
-function checkCode1(){
-
-    let code = document.getElementById("code1").value;
-
-    if(code === "1313"){
-
-        codes++;
-
-        updateStats();
-
-        document.getElementById("answer1").innerHTML =
-            "<span class='success'>✅ Computador desbloqueado!</span>";
-
-        setTimeout(()=>{
-            showScreen("room2");
-        },1000);
-
-    }else{
-
-        attempts--;
-
-        updateStats();
-
-        document.getElementById("answer1").innerHTML =
-            "<span class='error'>❌ Código incorreto!</span>";
-
-        if(attempts <= 0){
-
-            clearInterval(timerInterval);
-
-            setTimeout(()=>{
-                showScreen("badEnd");
-            },700);
-        }
-    }
-}
-
-
-/* =========================
-   SALA 2
-========================= */
-
-function checkPuzzle(){
-
-    let answer =
-        document.getElementById("answerPuzzle")
-        .value
-        .toLowerCase()
-        .trim();
-
-    if(
-        answer === "relógio" ||
-        answer === "relogio"
-    ){
-
-        codes++;
-
-        updateStats();
-
-        document.getElementById("puzzleMessage").innerHTML =
-            "<span class='success'>✅ Correto! A resposta era RELÓGIO.</span>";
-
-        document.getElementById("secret2")
-            .classList.add("show");
-
-        setTimeout(()=>{
-            showScreen("room3");
-        },1500);
-
-    }else{
-
-        attempts--;
-
-        updateStats();
-
-        document.getElementById("puzzleMessage").innerHTML =
-            "<span class='error'>❌ Não é essa...</span>";
-
-        if(attempts <= 0){
-
-            clearInterval(timerInterval);
-
-            setTimeout(()=>{
-                showScreen("badEnd");
-            },700);
-        }
-    }
-}
-
-
-/* =========================
-   SALA 3
-========================= */
-
-function checkSequence(){
-
-    let answer =
-        document.getElementById("sequence").value;
-
-    if(answer === "32"){
-
-        codes++;
-
-        updateStats();
-
-        document.getElementById("sequenceMessage").innerHTML =
-            "<span class='success'>✅ O cofre foi aberto!</span>";
-
-        setTimeout(()=>{
-            showScreen("room4");
-        },1000);
-
-    }else{
-
-        attempts--;
-
-        updateStats();
-
-        document.getElementById("sequenceMessage").innerHTML =
-            "<span class='error'>❌ Sequência incorreta!</span>";
-
-        if(attempts <= 0){
-
-            clearInterval(timerInterval);
-
-            setTimeout(()=>{
-                showScreen("badEnd");
-            },700);
-        }
-    }
-}
-
-
-/* =========================
-   FINAL
-========================= */
-
-function finishGame(){
-
-    let code =
-        document.getElementById("finalCode").value;
-
-    if(code === "1313"){
-
-        clearInterval(timerInterval);
-
-        codes++;
-
-        updateStats();
-
-        document.getElementById("finalMessage").innerHTML =
-            "<span class='success'>🔓 A porta está abrindo...</span>";
-
-        setTimeout(()=>{
-            showScreen("goodEnd");
-        },1200);
-
-    }else{
-
-        attempts--;
-
-        updateStats();
-
-        document.getElementById("finalMessage").innerHTML =
-            "<span class='error'>❌ Código errado!</span>";
-
-        if(attempts <= 0){
-
-            clearInterval(timerInterval);
-
-            setTimeout(()=>{
-                showScreen("badEnd");
-            },700);
-        }
-    }
-}
-
-
-/* =========================
-   RECOMEÇAR
-========================= */
-
-function restart(){
-
-    clearInterval(timerInterval);
-
-    time = 600;
-    attempts = 3;
-    codes = 0;
-
-    document.getElementById("timer").textContent = "10:00";
-
-    document.getElementById("code1").value = "";
-    document.getElementById("answerPuzzle").value = "";
-    document.getElementById("sequence").value = "";
-    document.getElementById("finalCode").value = "";
-
-    document.getElementById("puzzle1").style.display = "none";
-
-    document.getElementById("secret2")
-        .classList.remove("show");
-
-    updateStats();
-
-    showScreen("intro");
-}
-
-</script>
-
+  </script>
 </body>
 </html>
-```
