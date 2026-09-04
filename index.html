@@ -1,303 +1,436 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NÃO CLIQUE!</title>
+
+<title>Escolha Seu Destino — Jullya Games</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-body {
-    min-height: 100vh;
-    font-family: Arial, Helvetica, sans-serif;
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    min-height:100vh;
+    color:#f8fafc;
     background:
-        radial-gradient(circle at center, #3b0000 0%, #150000 45%, #050505 100%);
-    color: white;
-    overflow-x: hidden;
+        radial-gradient(circle at top,#172554 0%,#0f172a 45%,#020617 100%);
 }
 
-header {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 10;
-    display: flex;
-    gap: 8px;
-    padding: 12px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+button{
+    font-family:inherit;
 }
 
-.info {
-    background: rgba(0,0,0,.75);
-    border: 1px solid #444;
-    border-radius: 12px;
-    padding: 9px 13px;
-    font-size: 13px;
-    box-shadow: 0 0 15px rgba(0,0,0,.5);
+.hidden{
+    display:none!important;
 }
 
-.info strong {
-    color: #ff3333;
+/* =========================
+   TELA INICIAL
+========================= */
+
+#startScreen{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
 }
 
-main {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 80px 20px 100px;
+.startBox{
+    width:min(760px,100%);
+    padding:45px 30px;
+    text-align:center;
+    background:rgba(15,23,42,.94);
+    border:1px solid #334155;
+    border-radius:28px;
+    box-shadow:0 0 80px rgba(59,130,246,.15);
 }
 
-h1 {
-    font-size: clamp(42px, 8vw, 90px);
-    color: #ff2222;
-    text-shadow:
-        0 0 10px #ff0000,
-        0 0 30px #ff0000;
-    margin-bottom: 10px;
-    animation: pulseTitle 1.5s infinite;
+.logo{
+    font-size:75px;
+    margin-bottom:10px;
 }
 
-.subtitle {
-    color: #aaa;
-    font-size: 17px;
-    margin-bottom: 45px;
+.startBox h1{
+    font-size:clamp(36px,8vw,70px);
+    margin-bottom:10px;
 }
 
-#counter {
-    font-size: 25px;
-    font-weight: bold;
-    margin-bottom: 25px;
+.startBox h1 span{
+    color:#38bdf8;
 }
 
-#clickButton {
-    width: 240px;
-    height: 240px;
-    border-radius: 50%;
-    border: 8px solid #7a0000;
-    background: radial-gradient(circle at 35% 30%, #ff5555, #e00000 45%, #790000 100%);
-    color: white;
-    font-size: 30px;
-    font-weight: 900;
-    cursor: pointer;
-    box-shadow:
-        0 0 20px #ff0000,
-        0 0 60px rgba(255,0,0,.45),
-        inset 0 -15px 20px rgba(0,0,0,.35);
-    transition: transform .08s, filter .2s;
+.subtitle{
+    color:#94a3b8;
+    line-height:1.7;
+    max-width:600px;
+    margin:0 auto 25px;
 }
 
-#clickButton:hover {
-    filter: brightness(1.15);
-    transform: scale(1.03);
+.features{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin:25px 0;
 }
 
-#clickButton:active {
-    transform: scale(.92);
+.feature{
+    background:#172033;
+    border:1px solid #334155;
+    padding:10px 14px;
+    border-radius:12px;
 }
 
-.progress-container {
-    width: min(500px, 90vw);
-    margin-top: 40px;
+.mainButton{
+    border:none;
+    padding:15px 30px;
+    border-radius:14px;
+    color:white;
+    background:linear-gradient(135deg,#2563eb,#38bdf8);
+    font-weight:bold;
+    font-size:17px;
+    cursor:pointer;
+    transition:.2s;
 }
 
-.progress-text {
-    display: flex;
-    justify-content: space-between;
-    color: #aaa;
-    font-size: 13px;
-    margin-bottom: 7px;
+.mainButton:hover{
+    transform:translateY(-3px) scale(1.02);
 }
 
-.progress {
-    width: 100%;
-    height: 12px;
-    background: #222;
-    border-radius: 20px;
-    overflow: hidden;
-    border: 1px solid #444;
+/* =========================
+   JOGO
+========================= */
+
+#game{
+    display:none;
 }
 
-.progress-bar {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #ff0000, #ff5555);
-    transition: width .3s;
+header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    padding:13px 20px;
+    background:rgba(2,6,23,.92);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid #1e293b;
 }
 
-footer {
-    position: fixed;
-    bottom: 12px;
-    right: 15px;
-    color: #777;
-    font-size: 12px;
+.headerInside{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
 }
 
-/* MODAL */
-
-.modal-bg {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.85);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 50;
-    padding: 20px;
+.logoSmall{
+    font-weight:bold;
 }
 
-.modal {
-    width: min(500px, 95vw);
-    background: #151515;
-    border: 2px solid #ff2222;
-    border-radius: 20px;
-    padding: 30px;
-    text-align: center;
-    box-shadow: 0 0 50px rgba(255,0,0,.5);
-    animation: appear .3s;
+.logoSmall span{
+    color:#38bdf8;
 }
 
-.modal h2 {
-    color: #ff3333;
-    font-size: 30px;
-    margin-bottom: 15px;
+.stats{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
 }
 
-.modal p {
-    color: #ddd;
-    line-height: 1.5;
-    margin-bottom: 20px;
+.stat{
+    padding:8px 12px;
+    background:#111827;
+    border:1px solid #334155;
+    border-radius:10px;
+    font-size:14px;
 }
 
-.modal button,
-.code-button {
-    border: none;
-    border-radius: 10px;
-    padding: 13px 22px;
-    background: #e00000;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
+#score{
+    color:#facc15;
 }
 
-.modal button:hover {
-    background: #ff2222;
+/* =========================
+   CONTEÚDO
+========================= */
+
+.container{
+    max-width:1100px;
+    margin:30px auto;
+    padding:0 15px;
 }
 
-#codeInput {
-    width: 100%;
-    padding: 13px;
-    border-radius: 10px;
-    border: 1px solid #555;
-    background: #080808;
-    color: white;
-    text-align: center;
-    font-size: 18px;
-    margin-bottom: 12px;
-    outline: none;
+.storyCard{
+    background:rgba(15,23,42,.95);
+    border:1px solid #334155;
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
 }
 
-/* CONQUISTAS */
-
-.achievements {
-    position: fixed;
-    left: 15px;
-    top: 15px;
-    z-index: 10;
-    width: 180px;
+.scene{
+    min-height:330px;
+    padding:40px 30px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:
+        radial-gradient(circle at center,rgba(30,64,175,.25),transparent 60%);
 }
 
-.achievement-title {
-    color: #ffd700;
-    font-weight: bold;
-    margin-bottom: 8px;
+.sceneIcon{
+    font-size:75px;
+    margin-bottom:15px;
 }
 
-.achievement {
-    background: rgba(0,0,0,.7);
-    border: 1px solid #333;
-    padding: 8px;
-    border-radius: 8px;
-    margin-bottom: 5px;
-    font-size: 11px;
-    color: #777;
+.scene h2{
+    font-size:clamp(26px,5vw,43px);
+    margin-bottom:15px;
 }
 
-.achievement.unlocked {
-    border-color: #ffd700;
-    color: #ffd700;
+.sceneText{
+    max-width:720px;
+    color:#cbd5e1;
+    line-height:1.8;
+    font-size:17px;
 }
 
-/* NOTIFICAÇÃO */
-
-.notification {
-    position: fixed;
-    top: 80px;
-    left: 50%;
-    transform: translateX(-50%) translateY(-100px);
-    background: #111;
-    border: 1px solid #ff2222;
-    padding: 13px 20px;
-    border-radius: 10px;
-    z-index: 100;
-    opacity: 0;
-    transition: .4s;
+.choices{
+    padding:25px;
+    background:#0b1220;
+    border-top:1px solid #334155;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
 }
 
-.notification.show {
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
+.choice{
+    padding:17px;
+    border-radius:14px;
+    border:1px solid #334155;
+    background:#172033;
+    color:white;
+    cursor:pointer;
+    text-align:left;
+    transition:.2s;
+    font-size:15px;
 }
 
-.shake {
-    animation: shake .3s;
+.choice:hover{
+    background:#1e3a5f;
+    border-color:#38bdf8;
+    transform:translateY(-2px);
 }
 
-@keyframes pulseTitle {
-    0%,100% { transform: scale(1); }
-    50% { transform: scale(1.03); }
+.choiceNumber{
+    color:#38bdf8;
+    font-weight:bold;
+    margin-right:7px;
 }
 
-@keyframes appear {
-    from {
-        opacity: 0;
-        transform: scale(.8);
+/* =========================
+   PROGRESSO
+========================= */
+
+.progressPanel{
+    margin-top:20px;
+    background:#0f172a;
+    border:1px solid #334155;
+    border-radius:18px;
+    padding:18px;
+}
+
+.progressTop{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:10px;
+    color:#cbd5e1;
+}
+
+.progressBar{
+    height:10px;
+    background:#1e293b;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#2563eb,#38bdf8);
+    transition:.4s;
+}
+
+/* =========================
+   FINAL
+========================= */
+
+#endingScreen{
+    display:none;
+    min-height:100vh;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.endingBox{
+    width:min(700px,100%);
+    padding:45px 30px;
+    background:#0f172a;
+    border:1px solid #334155;
+    border-radius:28px;
+    text-align:center;
+    box-shadow:0 0 90px rgba(59,130,246,.15);
+}
+
+.endingIcon{
+    font-size:85px;
+}
+
+.endingBox h1{
+    margin:15px 0 10px;
+    font-size:42px;
+}
+
+.endingNumber{
+    color:#38bdf8;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.endingText{
+    color:#cbd5e1;
+    line-height:1.8;
+    margin-bottom:25px;
+}
+
+.finalStats{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:25px;
+}
+
+.finalStat{
+    padding:12px 18px;
+    border-radius:12px;
+    background:#172033;
+    border:1px solid #334155;
+}
+
+.secondaryButton{
+    border:1px solid #475569;
+    background:#172033;
+    color:white;
+    padding:13px 20px;
+    border-radius:12px;
+    cursor:pointer;
+    margin-left:8px;
+}
+
+.secondaryButton:hover{
+    background:#263449;
+}
+
+/* =========================
+   INVENTÁRIO
+========================= */
+
+.inventory{
+    margin-top:20px;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:8px;
+}
+
+.item{
+    padding:8px 12px;
+    border-radius:9px;
+    background:#172033;
+    border:1px solid #334155;
+    font-size:13px;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+#toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translateX(-50%) translateY(100px);
+    background:#0f172a;
+    border:1px solid #38bdf8;
+    color:white;
+    padding:13px 18px;
+    border-radius:12px;
+    opacity:0;
+    transition:.3s;
+    z-index:200;
+    text-align:center;
+}
+
+#toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
+
+/* =========================
+   CONFETES
+========================= */
+
+.confetti{
+    position:fixed;
+    top:-20px;
+    width:8px;
+    height:14px;
+    z-index:300;
+    animation:fall 3s linear forwards;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh) rotate(720deg);
     }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
 }
 
-@keyframes shake {
-    0%,100% { transform: translateX(0); }
-    25% { transform: translateX(-8px); }
-    75% { transform: translateX(8px); }
-}
+/* =========================
+   MOBILE
+========================= */
 
-@media(max-width:700px) {
-    .achievements {
-        display: none;
+@media(max-width:700px){
+
+    .headerInside{
+        flex-direction:column;
+        align-items:flex-start;
     }
 
-    header {
-        left: 0;
-        justify-content: center;
+    .scene{
+        padding:35px 20px;
+        min-height:360px;
     }
 
-    #clickButton {
-        width: 190px;
-        height: 190px;
-        font-size: 24px;
+    .choices{
+        grid-template-columns:1fr;
+    }
+
+    .endingBox{
+        padding:35px 20px;
+    }
+
+    .secondaryButton{
+        margin:10px 0 0;
     }
 }
 </style>
@@ -305,411 +438,1231 @@ footer {
 
 <body>
 
-<header>
-    <div class="info">🖱️ Cliques: <strong id="clicks">0</strong></div>
-    <div class="info">📈 Progresso: <strong id="progress">0%</strong></div>
-    <div class="info">🏆 Conquistas: <strong id="achievementCount">0/6</strong></div>
-    <div class="info">👑 Recorde: <strong id="record">0</strong></div>
-</header>
+<!-- ==================================================
+     TELA INICIAL
+================================================== -->
 
-<div class="achievements">
-    <div class="achievement-title">🏆 CONQUISTAS</div>
+<section id="startScreen">
 
-    <div class="achievement" id="a1">🔴 Primeiro clique</div>
-    <div class="achievement" id="a2">😈 50 cliques</div>
-    <div class="achievement" id="a3">💯 100 cliques</div>
-    <div class="achievement" id="a4">🔥 500 cliques</div>
-    <div class="achievement" id="a5">👑 1000 cliques</div>
-    <div class="achievement" id="a6">🤯 2000 cliques</div>
-</div>
+    <div class="startBox">
 
-<main>
+        <div class="logo">🧙‍♀️</div>
 
-    <h1>NÃO CLIQUE!</h1>
+        <h1>ESCOLHA <span>SEU DESTINO</span></h1>
 
-    <div class="subtitle">
-        Você foi avisado. 👀
-    </div>
-
-    <div id="counter">
-        Cliques: 0
-    </div>
-
-    <button id="clickButton">
-        NÃO<br>CLIQUE
-    </button>
-
-    <div class="progress-container">
-        <div class="progress-text">
-            <span>Próximo evento</span>
-            <span id="nextEvent">50 cliques</span>
-        </div>
-
-        <div class="progress">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
-    </div>
-
-</main>
-
-<footer>
-    Desenvolvido por Anna Jullya ❤️
-</footer>
-
-<!-- MODAL DESAFIO -->
-
-<div class="modal-bg" id="challengeModal">
-
-    <div class="modal">
-
-        <h2 id="challengeTitle">😈 DESAFIO TROLL</h2>
-
-        <p id="challengeText"></p>
-
-        <button onclick="closeChallenge()">
-            CONSEGUI!
-        </button>
-
-    </div>
-
-</div>
-
-<!-- MODAL CÓDIGO -->
-
-<div class="modal-bg" id="codeModal">
-
-    <div class="modal">
-
-        <h2>🔐 CÓDIGO SECRETO</h2>
-
-        <p>
-            Você chegou a <b>100 cliques!</b><br>
-            Digite o código secreto para ganhar <b>+100 cliques.</b>
+        <p class="subtitle">
+            Uma decisão pode mudar tudo.
+            Explore lugares misteriosos, faça escolhas,
+            encontre itens secretos e descubra finais diferentes.
         </p>
 
-        <input
-            id="codeInput"
-            placeholder="Digite o código..."
-            autocomplete="off"
-        >
+        <div class="features">
+            <div class="feature">🔀 Vários caminhos</div>
+            <div class="feature">🏆 20 finais</div>
+            <div class="feature">🔐 Finais secretos</div>
+            <div class="feature">🎒 Itens</div>
+            <div class="feature">⭐ Pontuação</div>
+        </div>
 
-        <button class="code-button" onclick="checkCode()">
-            RESGATAR +100
+        <button class="mainButton" onclick="startGame()">
+            ✨ COMEÇAR A AVENTURA
         </button>
 
-        <p id="codeMessage"></p>
+        <p style="margin-top:25px;color:#64748b;font-size:13px;">
+            Jullya Games 💙
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================================
+     JOGO
+================================================== -->
+
+<div id="game">
+
+<header>
+
+    <div class="headerInside">
+
+        <div class="logoSmall">
+            🎮 JULLYA <span>GAMES</span>
+        </div>
+
+        <div class="stats">
+
+            <div class="stat">
+                ⭐ Pontos: <span id="score">0</span>
+            </div>
+
+            <div class="stat">
+                🏆 Finais: <span id="endingCount">0</span>/20
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<div class="container">
+
+    <div class="storyCard">
+
+        <div class="scene">
+
+            <div class="sceneIcon" id="sceneIcon">
+                🌲
+            </div>
+
+            <h2 id="sceneTitle">
+                A Floresta
+            </h2>
+
+            <div class="sceneText" id="sceneText">
+                Você acorda em uma floresta desconhecida.
+            </div>
+
+        </div>
+
+        <div class="choices" id="choices"></div>
+
+    </div>
+
+
+    <div class="progressPanel">
+
+        <div class="progressTop">
+            <span>🏆 Finais descobertos</span>
+            <span id="progressText">0/20</span>
+        </div>
+
+        <div class="progressBar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="inventory" id="inventory"></div>
 
     </div>
 
 </div>
 
-<div class="notification" id="notification">
-    Conquista desbloqueada! 🏆
 </div>
+
+
+<!-- ==================================================
+     TELA DE FINAL
+================================================== -->
+
+<section id="endingScreen">
+
+    <div class="endingBox">
+
+        <div class="endingIcon" id="endingIcon">
+            🏆
+        </div>
+
+        <h1 id="endingTitle">
+            Você conseguiu!
+        </h1>
+
+        <div class="endingNumber" id="endingNumber">
+            FINAL #1
+        </div>
+
+        <p class="endingText" id="endingText"></p>
+
+        <div class="finalStats">
+
+            <div class="finalStat">
+                ⭐ <span id="endingScore">0</span> pontos
+            </div>
+
+            <div class="finalStat">
+                🏆 <span id="endingTotal">0</span>/20 finais
+            </div>
+
+        </div>
+
+        <button class="mainButton" onclick="newAdventure()">
+            🔀 OUTRO DESTINO
+        </button>
+
+        <button class="secondaryButton" onclick="goHome()">
+            🏠 MENU
+        </button>
+
+    </div>
+
+</section>
+
+
+<div id="toast"></div>
+
 
 <script>
 
-let clicks = Number(localStorage.getItem("clicks")) || 0;
-let record = Number(localStorage.getItem("record")) || 0;
+/* ==================================================
+   DADOS DO JOGO
+================================================== */
 
-let challengesDone =
-    Number(localStorage.getItem("challengesDone")) || 0;
+let currentScene = "start";
 
-let codesUsed =
-    Number(localStorage.getItem("codesUsed")) || 0;
+let score = 0;
 
-const challenges = [
+let inventory = [];
 
-    {
-        title: "🧠 DESAFIO DA PACIÊNCIA",
-        text: "Fique 5 segundos sem clicar em absolutamente NADA. Sim, é sério. 😈"
-    },
+let discovered = JSON.parse(
+    localStorage.getItem("jullyaDestinos") || "[]"
+);
 
-    {
-        title: "👀 DESAFIO SUSPEITO",
-        text: "Olhe para o botão por 3 segundos e pense: 'eu não deveria clicar nisso'."
-    },
 
-    {
-        title: "😂 DESAFIO TROLL",
-        text: "Dê uma volta pela sala e volte. O botão continuará aqui. Infelizmente."
-    },
+/* ==================================================
+   CENAS
+================================================== */
 
-    {
-        title: "🤯 DESAFIO IMPOSSÍVEL",
-        text: "Tente convencer alguém de que clicar nesse botão é uma péssima ideia."
-    },
+const scenes = {
 
-    {
-        title: "😈 PEGADINHA",
-        text: "Agora NÃO clique no botão por 5 segundos... ou talvez você queira clicar?"
-    },
-
-    {
-        title: "🔥 DESAFIO FINAL",
-        text: "Fale em voz alta: 'EU SOU MAIS INTELIGENTE QUE ESSE BOTÃO!'"
-    },
-
-    {
-        title: "💀 QUASE...",
-        text: "Você chegou até aqui. Isso significa que claramente não sabe obedecer. 😂"
-    },
-
-    {
-        title: "🕵️ DESAFIO SECRETO",
-        text: "Encontre alguma coisa vermelha perto de você. O botão aprova."
-    }
-
-];
-
-const secretCodes = [
-    "JULLYA100",
-    "NAOCLIQUE",
-    "ANNA100",
-    "TROLL100",
-    "DEUSABENCOE"
-];
-
-const button = document.getElementById("clickButton");
-
-button.addEventListener("click", () => {
-
-    clicks++;
-
-    if(clicks > record) {
-        record = clicks;
-    }
-
-    save();
-    update();
-
-    button.classList.remove("shake");
-
-    void button.offsetWidth;
-
-    button.classList.add("shake");
-
-    // A cada 50
-    if(clicks % 50 === 0) {
-        showChallenge();
-    }
-
-    // A cada 100
-    if(clicks % 100 === 0) {
-
-        setTimeout(() => {
-            showCode();
-        }, 500);
-
-    }
-
-    checkAchievements();
-
-});
-
-function save() {
-
-    localStorage.setItem("clicks", clicks);
-    localStorage.setItem("record", record);
-    localStorage.setItem("challengesDone", challengesDone);
-    localStorage.setItem("codesUsed", codesUsed);
-
-}
-
-function update() {
-
-    document.getElementById("clicks").textContent = clicks;
-
-    document.getElementById("counter").textContent =
-        "Cliques: " + clicks;
-
-    document.getElementById("record").textContent =
-        record;
-
-    let percentage =
-        Math.min((clicks % 50) / 50 * 100, 100);
-
-    document.getElementById("progress").textContent =
-        Math.floor(percentage) + "%";
-
-    document.getElementById("progressBar").style.width =
-        percentage + "%";
-
-    let next =
-        50 - (clicks % 50);
-
-    if(next === 50) next = 50;
-
-    document.getElementById("nextEvent").textContent =
-        next + " cliques";
-
-    let unlocked = 0;
-
-    for(let i = 1; i <= 6; i++) {
-
-        let required = [
-            1,
-            50,
-            100,
-            500,
-            1000,
-            2000
-        ][i - 1];
-
-        if(clicks >= required) {
-
-            document
-                .getElementById("a" + i)
-                .classList.add("unlocked");
-
-            unlocked++;
-
+start:{
+    icon:"🌲",
+    title:"A Floresta Misteriosa",
+    text:
+    "Você abre os olhos e percebe que está no meio de uma floresta. " +
+    "O céu está ficando escuro. À sua frente existem três caminhos.",
+    choices:[
+        {
+            text:"🌲 Seguir pela floresta",
+            next:"forest"
+        },
+        {
+            text:"🏰 Seguir em direção ao castelo",
+            next:"castle"
+        },
+        {
+            text:"🕳️ Entrar no túnel",
+            next:"tunnel"
         }
+    ]
+},
 
-    }
-
-    document.getElementById("achievementCount")
-        .textContent = unlocked + "/6";
-
-}
-
-function showChallenge() {
-
-    let challenge =
-        challenges[challengesDone % challenges.length];
-
-    document.getElementById("challengeTitle")
-        .textContent = challenge.title;
-
-    document.getElementById("challengeText")
-        .textContent = challenge.text;
-
-    document.getElementById("challengeModal")
-        .style.display = "flex";
-
-    challengesDone++;
-
-    save();
-
-}
-
-function closeChallenge() {
-
-    document.getElementById("challengeModal")
-        .style.display = "none";
-
-    notify("Desafio concluído! 😈");
-
-}
-
-function showCode() {
-
-    document.getElementById("codeModal")
-        .style.display = "flex";
-
-    document.getElementById("codeInput")
-        .value = "";
-
-    document.getElementById("codeMessage")
-        .textContent = "";
-
-}
-
-function checkCode() {
-
-    let input =
-        document.getElementById("codeInput")
-        .value
-        .trim()
-        .toUpperCase();
-
-    if(secretCodes.includes(input)) {
-
-        clicks += 100;
-
-        codesUsed++;
-
-        if(clicks > record) {
-            record = clicks;
+forest:{
+    icon:"🌲",
+    title:"O Caminho da Floresta",
+    text:
+    "O caminho fica cada vez mais estreito. " +
+    "Você encontra uma pequena cabana abandonada e uma ponte sobre um rio.",
+    choices:[
+        {
+            text:"🏚️ Entrar na cabana",
+            next:"cabin"
+        },
+        {
+            text:"🌉 Atravessar a ponte",
+            next:"bridge"
+        },
+        {
+            text:"🌳 Subir em uma árvore",
+            next:"tree"
         }
+    ]
+},
 
-        document.getElementById("codeMessage")
-            .style.color = "#55ff55";
+castle:{
+    icon:"🏰",
+    title:"O Castelo",
+    text:
+    "Você chega a um enorme castelo. " +
+    "Há uma porta dourada e uma passagem secreta atrás de uma estátua.",
+    choices:[
+        {
+            text:"🚪 Entrar pela porta dourada",
+            next:"goldDoor"
+        },
+        {
+            text:"🗿 Investigar a estátua",
+            next:"statue"
+        },
+        {
+            text:"🏃 Ir embora",
+            next:"castleExit"
+        }
+    ]
+},
 
-        document.getElementById("codeMessage")
-            .textContent =
-            "🎉 CORRETO! +100 CLIQUES!";
+tunnel:{
+    icon:"🕳️",
+    title:"O Túnel",
+    text:
+    "O túnel é escuro. Você encontra uma tocha apagada e duas passagens.",
+    choices:[
+        {
+            text:"🔥 Acender a tocha",
+            next:"torch"
+        },
+        {
+            text:"⬅️ Caminho da esquerda",
+            next:"leftTunnel"
+        },
+        {
+            text:"➡️ Caminho da direita",
+            next:"rightTunnel"
+        }
+    ]
+},
 
-        save();
-        update();
+cabin:{
+    icon:"🏚️",
+    title:"A Cabana",
+    text:
+    "Dentro da cabana há uma mesa, uma chave enferrujada e um baú.",
+    choices:[
+        {
+            text:"🔑 Pegar a chave",
+            next:"key",
+            item:"🔑 Chave enferrujada"
+        },
+        {
+            text:"📦 Abrir o baú",
+            next:"chest"
+        }
+    ]
+},
 
-        setTimeout(() => {
+bridge:{
+    icon:"🌉",
+    title:"A Ponte",
+    text:
+    "A ponte balança perigosamente. Do outro lado existe uma pequena vila.",
+    choices:[
+        {
+            text:"🏘️ Ir até a vila",
+            next:"village"
+        },
+        {
+            text:"🏊 Descer até o rio",
+            next:"river"
+        }
+    ]
+},
 
-            document.getElementById("codeModal")
-                .style.display = "none";
+tree:{
+    icon:"🌳",
+    title:"No Alto da Árvore",
+    text:
+    "Do alto você vê uma luz azul brilhando ao longe.",
+    choices:[
+        {
+            text:"🔵 Seguir a luz",
+            next:"blueLight"
+        },
+        {
+            text:"🌲 Permanecer escondido",
+            ending:1
+        }
+    ]
+},
 
-        }, 1200);
+goldDoor:{
+    icon:"🚪",
+    title:"A Porta Dourada",
+    text:
+    "A porta se abre sozinha. Dentro existe uma sala cheia de moedas.",
+    choices:[
+        {
+            text:"💰 Pegar as moedas",
+            next:"treasure"
+        },
+        {
+            text:"👀 Procurar uma saída",
+            next:"goldRoom"
+        }
+    ]
+},
 
-    } else {
+statue:{
+    icon:"🗿",
+    title:"A Estátua",
+    text:
+    "A estátua possui uma pequena abertura. Você encontra um cristal azul.",
+    choices:[
+        {
+            text:"💎 Pegar o cristal",
+            next:"crystal",
+            item:"💎 Cristal azul"
+        },
+        {
+            text:"🚶 Ignorar e entrar no castelo",
+            next:"castleInside"
+        }
+    ]
+},
 
-        document.getElementById("codeMessage")
-            .style.color = "#ff4444";
+castleExit:{
+    icon:"🌙",
+    title:"A Estrada",
+    text:
+    "Você deixa o castelo para trás e encontra uma estrada iluminada pela lua.",
+    choices:[
+        {
+            text:"🌙 Seguir a estrada",
+            ending:2
+        },
+        {
+            text:"🌲 Voltar para a floresta",
+            next:"forest"
+        }
+    ]
+},
 
-        document.getElementById("codeMessage")
-            .textContent =
-            "❌ Código errado! Tente outro.";
+torch:{
+    icon:"🔥",
+    title:"A Tocha",
+    text:
+    "A chama revela uma inscrição na parede: " +
+    "\"Quem procura poder pode perder o caminho.\"",
+    choices:[
+        {
+            text:"🧭 Seguir a inscrição",
+            ending:3
+        },
+        {
+            text:"➡️ Continuar pelo túnel",
+            next:"rightTunnel"
+        }
+    ]
+},
 
-    }
+leftTunnel:{
+    icon:"🕯️",
+    title:"A Câmara Esquecida",
+    text:
+    "Você encontra uma sala subterrânea com uma coroa antiga.",
+    choices:[
+        {
+            text:"👑 Pegar a coroa",
+            ending:4,
+            item:"👑 Coroa antiga"
+        },
+        {
+            text:"🚪 Procurar outra saída",
+            next:"secretRoom"
+        }
+    ]
+},
 
+rightTunnel:{
+    icon:"💧",
+    title:"O Lago Subterrâneo",
+    text:
+    "Existe um pequeno barco. Uma placa diz: \"Somente os corajosos atravessam.\"",
+    choices:[
+        {
+            text:"🚣 Entrar no barco",
+            ending:5
+        },
+        {
+            text:"↩️ Voltar",
+            next:"tunnel"
+        }
+    ]
+},
+
+key:{
+    icon:"🔑",
+    title:"A Chave",
+    text:
+    "A chave possui um símbolo de estrela. " +
+    "Você percebe uma porta pequena atrás da estante.",
+    choices:[
+        {
+            text:"⭐ Abrir a porta secreta",
+            next:"secretDoor"
+        },
+        {
+            text:"🚪 Procurar a saída da cabana",
+            ending:6
+        }
+    ]
+},
+
+chest:{
+    icon:"📦",
+    title:"O Baú",
+    text:
+    "O baú contém apenas um bilhete: \"A resposta estava perto de você o tempo todo.\"",
+    choices:[
+        {
+            text:"🪞 Olhar no espelho",
+            ending:7
+        },
+        {
+            text:"😐 Ignorar o bilhete",
+            ending:8
+        }
+    ]
+},
+
+village:{
+    icon:"🏘️",
+    title:"A Vila",
+    text:
+    "A vila parece completamente abandonada. Uma igreja possui uma luz acesa.",
+    choices:[
+        {
+            text:"⛪ Entrar na igreja",
+            next:"church"
+        },
+        {
+            text:"🏠 Entrar em uma casa",
+            next:"house"
+        }
+    ]
+},
+
+river:{
+    icon:"🌊",
+    title:"O Rio",
+    text:
+    "Você encontra uma pequena caixa flutuando na água.",
+    choices:[
+        {
+            text:"📦 Pegar a caixa",
+            ending:9
+        },
+        {
+            text:"🌊 Seguir o rio",
+            ending:10
+        }
+    ]
+},
+
+blueLight:{
+    icon:"🔵",
+    title:"A Luz Azul",
+    text:
+    "A luz vem de uma pequena fada que está presa dentro de uma esfera.",
+    choices:[
+        {
+            text:"🧚 Libertar a fada",
+            ending:11
+        },
+        {
+            text:"🔮 Tocar na esfera",
+            ending:12
+        }
+    ]
+},
+
+treasure:{
+    icon:"💰",
+    title:"O Tesouro",
+    text:
+    "As moedas parecem infinitas. No centro existe uma única porta.",
+    choices:[
+        {
+            text:"🚪 Entrar na porta",
+            ending:13
+        },
+        {
+            text:"💰 Ficar com o tesouro",
+            ending:14
+        }
+    ]
+},
+
+goldRoom:{
+    icon:"🔎",
+    title:"A Sala Dourada",
+    text:
+    "Você encontra uma inscrição escondida: \"O verdadeiro tesouro não pode ser comprado.\"",
+    choices:[
+        {
+            text:"💙 Procurar o verdadeiro tesouro",
+            ending:15
+        },
+        {
+            text:"💰 Pegar tudo",
+            ending:14
+        }
+    ]
+},
+
+crystal:{
+    icon:"💎",
+    title:"O Cristal",
+    text:
+    "O cristal começa a brilhar. Uma passagem aparece na parede.",
+    choices:[
+        {
+            text:"✨ Entrar na passagem",
+            ending:16
+        },
+        {
+            text:"💎 Guardar o cristal",
+            ending:17
+        }
+    ]
+},
+
+castleInside:{
+    icon:"🏰",
+    title:"O Interior do Castelo",
+    text:
+    "Um corredor leva até uma enorme sala. No centro há um trono vazio.",
+    choices:[
+        {
+            text:"👑 Sentar no trono",
+            ending:18
+        },
+        {
+            text:"🚶 Continuar andando",
+            ending:19
+        }
+    ]
+},
+
+secretRoom:{
+    icon:"🔐",
+    title:"A Sala Secreta",
+    text:
+    "As paredes estão cobertas de mapas. Um deles mostra exatamente onde você está.",
+    choices:[
+        {
+            text:"🗺️ Seguir o mapa",
+            ending:20
+        },
+        {
+            text:"🔐 Procurar o segredo da sala",
+            ending:20
+        }
+    ]
+},
+
+church:{
+    icon:"⛪",
+    title:"A Igreja",
+    text:
+    "Dentro existe uma pequena caixa com uma mensagem sobre esperança.",
+    choices:[
+        {
+            text:"💙 Ler a mensagem",
+            ending:15
+        },
+        {
+            text:"🚪 Sair da igreja",
+            ending:2
+        }
+    ]
+},
+
+house:{
+    icon:"🏠",
+    title:"A Casa",
+    text:
+    "A casa está vazia. Em cima da mesa existe uma fotografia antiga.",
+    choices:[
+        {
+            text:"🖼️ Examinar a fotografia",
+            ending:7
+        },
+        {
+            text:"🚪 Sair",
+            ending:2
+        }
+    ]
+},
+
+secretDoor:{
+    icon:"🚪",
+    title:"A Porta Secreta",
+    text:
+    "A chave funciona. Atrás da porta existe uma sala completamente azul.",
+    choices:[
+        {
+            text:"🔵 Entrar",
+            ending:16
+        },
+        {
+            text:"🔙 Voltar",
+            next:"cabin"
+        }
+    ]
 }
 
-function checkAchievements() {
+};
 
-    const achievements = [
-        [1, "a1", "Primeiro clique! 🔴"],
-        [50, "a2", "50 cliques! 😈"],
-        [100, "a3", "100 cliques! 💯"],
-        [500, "a4", "500 cliques! 🔥"],
-        [1000, "a5", "1000 cliques! 👑"],
-        [2000, "a6", "2000 cliques! 🤯"]
-    ];
 
-    achievements.forEach(item => {
+/* ==================================================
+   FINAIS
+================================================== */
 
-        const required = item[0];
-        const id = item[1];
+const endings = {
 
-        if(clicks === required) {
+1:{
+    icon:"🌳",
+    title:"O Observador",
+    text:
+    "Você decidiu não se arriscar. " +
+    "Do alto da árvore, observou tudo até o amanhecer. " +
+    "Talvez tenha sido prudente... talvez não."
+},
 
-            notify(item[2]);
+2:{
+    icon:"🌙",
+    title:"A Estrada Sem Fim",
+    text:
+    "Você seguiu pela estrada iluminada pela lua. " +
+    "Depois de muito caminhar, encontrou o caminho de volta para casa."
+},
 
-        }
+3:{
+    icon:"🧭",
+    title:"O Caminho Perdido",
+    text:
+    "Você seguiu a inscrição e descobriu que nem todo caminho precisa levar a algum lugar."
+},
+
+4:{
+    icon:"👑",
+    title:"A Rainha da Caverna",
+    text:
+    "Você encontrou uma coroa esquecida há séculos. " +
+    "A partir daquele dia, todos passaram a contar histórias sobre você."
+},
+
+5:{
+    icon:"🚣",
+    title:"O Outro Lado",
+    text:
+    "Você atravessou o lago e encontrou uma saída secreta da floresta. " +
+    "Coragem recompensada!"
+},
+
+6:{
+    icon:"🚪",
+    title:"Fuga Pela Cabana",
+    text:
+    "Você encontrou uma saída escondida e conseguiu deixar a floresta."
+},
+
+7:{
+    icon:"🪞",
+    title:"O Reflexo",
+    text:
+    "Ao olhar para o espelho, você percebe que a verdadeira pista era você mesmo."
+},
+
+8:{
+    icon:"😂",
+    title:"Final Troll",
+    text:
+    "Você ignorou completamente a pista. " +
+    "O jogo olha para você e diz: \"Era só ter lido o bilhete!\" 😂"
+},
+
+9:{
+    icon:"📦",
+    title:"A Caixa Misteriosa",
+    text:
+    "Dentro da caixa havia um mapa que mostrava o caminho de volta."
+},
+
+10:{
+    icon:"🌊",
+    title:"Seguindo o Rio",
+    text:
+    "Você seguiu o rio e acabou chegando ao oceano. " +
+    "Não era exatamente o destino que esperava."
+},
+
+11:{
+    icon:"🧚",
+    title:"O Amigo Mágico",
+    text:
+    "Você libertou a fada. Como agradecimento, ela abriu um portal que levou você para casa."
+},
+
+12:{
+    icon:"🔮",
+    title:"O Portal",
+    text:
+    "Ao tocar na esfera, você foi transportado para um lugar completamente diferente."
+},
+
+13:{
+    icon:"🚪",
+    title:"A Porta Dourada",
+    text:
+    "Você entrou pela porta e encontrou uma saída escondida atrás dela."
+},
+
+14:{
+    icon:"💰",
+    title:"O Caçador de Tesouros",
+    text:
+    "Você escolheu o ouro. Ficou rico... mas nunca descobriu o verdadeiro segredo do castelo."
+},
+
+15:{
+    icon:"💙",
+    title:"O Verdadeiro Tesouro",
+    text:
+    "Você descobriu que o verdadeiro tesouro era a coragem e as escolhas que fez durante a aventura."
+},
+
+16:{
+    icon:"✨",
+    title:"O Mundo Secreto",
+    text:
+    "Você atravessou o portal e descobriu um mundo escondido que ninguém conhecia."
+},
+
+17:{
+    icon:"💎",
+    title:"O Guardião do Cristal",
+    text:
+    "Você ficou com o cristal e descobriu que ele possuía um poder extraordinário."
+},
+
+18:{
+    icon:"👑",
+    title:"O Novo Rei",
+    text:
+    "Você sentou no trono e descobriu que o castelo estava esperando por um novo governante."
+},
+
+19:{
+    icon:"🏰",
+    title:"O Castelo Sem Fim",
+    text:
+    "Você continuou andando pelos corredores. " +
+    "Quanto mais avançava, mais salas apareciam. " +
+    "Talvez a aventura nunca termine."
+},
+
+20:{
+    icon:"🗺️",
+    title:"O DESTINO SECRETO",
+    text:
+    "Você encontrou o mapa secreto. " +
+    "Ele revela que todos os caminhos estavam conectados desde o começo. " +
+    "Você descobriu um dos finais mais raros do jogo! 🔐"
+}
+
+};
+
+
+/* ==================================================
+   INICIAR
+================================================== */
+
+function startGame(){
+
+    document.getElementById("startScreen").style.display="none";
+
+    document.getElementById("game").style.display="block";
+
+    score=0;
+    inventory=[];
+
+    currentScene="start";
+
+    updateStats();
+
+    renderScene();
+}
+
+
+/* ==================================================
+   MOSTRAR CENA
+================================================== */
+
+function renderScene(){
+
+    const scene=scenes[currentScene];
+
+    if(!scene) return;
+
+    document.getElementById("sceneIcon").textContent=
+        scene.icon;
+
+    document.getElementById("sceneTitle").textContent=
+        scene.title;
+
+    document.getElementById("sceneText").textContent=
+        scene.text;
+
+    const choices=
+        document.getElementById("choices");
+
+    choices.innerHTML="";
+
+    scene.choices.forEach((choice,index)=>{
+
+        const button=document.createElement("button");
+
+        button.className="choice";
+
+        button.innerHTML=
+            `<span class="choiceNumber">${index+1}.</span>`+
+            choice.text;
+
+        button.onclick=()=>choose(choice);
+
+        choices.appendChild(button);
 
     });
 
-}
-
-function notify(text) {
-
-    const notification =
-        document.getElementById("notification");
-
-    notification.textContent = text;
-
-    notification.classList.add("show");
-
-    setTimeout(() => {
-
-        notification.classList.remove("show");
-
-    }, 2500);
+    updateInventory();
 
 }
 
-update();
+
+/* ==================================================
+   ESCOLHA
+================================================== */
+
+function choose(choice){
+
+    score+=25;
+
+    if(choice.item){
+
+        if(!inventory.includes(choice.item)){
+
+            inventory.push(choice.item);
+
+            score+=75;
+
+            showToast(
+                "🎒 Item encontrado: "+
+                choice.item
+            );
+        }
+    }
+
+    if(choice.ending){
+
+        finishGame(choice.ending);
+
+        return;
+    }
+
+    if(choice.next){
+
+        currentScene=choice.next;
+
+        renderScene();
+
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+    }
+
+    updateStats();
+}
+
+
+/* ==================================================
+   FINAL
+================================================== */
+
+function finishGame(number){
+
+    const ending=endings[number];
+
+    if(!ending) return;
+
+    /*
+       Bônus para finais secretos
+    */
+
+    if(number===20){
+
+        score+=500;
+
+    }else{
+
+        score+=100;
+
+    }
+
+    if(!discovered.includes(number)){
+
+        discovered.push(number);
+
+        localStorage.setItem(
+            "jullyaDestinos",
+            JSON.stringify(discovered)
+        );
+
+        showToast(
+            "🏆 Novo final descoberto!"
+        );
+
+    }else{
+
+        showToast(
+            "🔄 Você já descobriu esse final."
+        );
+    }
+
+    document.getElementById("game").style.display="none";
+
+    document.getElementById("endingScreen").style.display="flex";
+
+    document.getElementById("endingIcon").textContent=
+        ending.icon;
+
+    document.getElementById("endingTitle").textContent=
+        ending.title;
+
+    document.getElementById("endingNumber").textContent=
+        "FINAL #"+number;
+
+    document.getElementById("endingText").textContent=
+        ending.text;
+
+    document.getElementById("endingScore").textContent=
+        score;
+
+    document.getElementById("endingTotal").textContent=
+        discovered.length;
+
+    updateProgress();
+
+    /*
+       Final secreto
+    */
+
+    if(number===20){
+
+        createConfetti();
+
+    }
+}
+
+
+/* ==================================================
+   NOVA AVENTURA
+================================================== */
+
+function newAdventure(){
+
+    document.getElementById("endingScreen").style.display="none";
+
+    document.getElementById("game").style.display="block";
+
+    score=0;
+    inventory=[];
+
+    currentScene="start";
+
+    updateStats();
+
+    renderScene();
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* ==================================================
+   MENU
+================================================== */
+
+function goHome(){
+
+    document.getElementById("endingScreen").style.display="none";
+
+    document.getElementById("game").style.display="none";
+
+    document.getElementById("startScreen").style.display="flex";
+}
+
+
+/* ==================================================
+   INVENTÁRIO
+================================================== */
+
+function updateInventory(){
+
+    const box=
+        document.getElementById("inventory");
+
+    box.innerHTML="";
+
+    if(inventory.length===0){
+
+        const item=document.createElement("div");
+
+        item.className="item";
+
+        item.textContent=
+            "🎒 Inventário vazio";
+
+        box.appendChild(item);
+
+        return;
+    }
+
+    inventory.forEach(item=>{
+
+        const element=
+            document.createElement("div");
+
+        element.className="item";
+
+        element.textContent=item;
+
+        box.appendChild(element);
+
+    });
+}
+
+
+/* ==================================================
+   ESTATÍSTICAS
+================================================== */
+
+function updateStats(){
+
+    document.getElementById("score").textContent=
+        score;
+
+    document.getElementById("endingCount").textContent=
+        discovered.length;
+
+    document.getElementById("progressText").textContent=
+        discovered.length+"/20";
+
+    document.getElementById("progress").style.width=
+        (discovered.length/20*100)+"%";
+}
+
+
+/* ==================================================
+   TOAST
+================================================== */
+
+let toastTimeout;
+
+function showToast(text){
+
+    const toast=
+        document.getElementById("toast");
+
+    toast.textContent=text;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimeout);
+
+    toastTimeout=setTimeout(()=>{
+
+        toast.classList.remove("show");
+
+    },2500);
+}
+
+
+/* ==================================================
+   CONFETES
+================================================== */
+
+function createConfetti(){
+
+    for(let i=0;i<100;i++){
+
+        const piece=
+            document.createElement("div");
+
+        piece.className="confetti";
+
+        piece.style.left=
+            Math.random()*100+"vw";
+
+        piece.style.background=
+            ["#38bdf8","#60a5fa","#facc15","#22c55e","#f472b6"]
+            [Math.floor(Math.random()*5)];
+
+        piece.style.animationDelay=
+            Math.random()*2+"s";
+
+        document.body.appendChild(piece);
+
+        setTimeout(()=>{
+
+            piece.remove();
+
+        },5000);
+    }
+}
+
+
+/* ==================================================
+   PROGRESSO
+================================================== */
+
+function updateProgress(){
+
+    document.getElementById("endingCount").textContent=
+        discovered.length;
+
+    document.getElementById("progressText").textContent=
+        discovered.length+"/20";
+
+    document.getElementById("progress").style.width=
+        (discovered.length/20*100)+"%";
+}
+
+
+/* ==================================================
+   TECLADO
+================================================== */
+
+document.addEventListener("keydown",function(event){
+
+    /*
+       Teclas 1,2,3 escolhem opções
+    */
+
+    if(
+        document.getElementById("game").style.display!=="block"
+    ){
+        return;
+    }
+
+    const number=parseInt(event.key);
+
+    if(number>=1 && number<=3){
+
+        const buttons=
+            document.querySelectorAll(".choice");
+
+        if(buttons[number-1]){
+
+            buttons[number-1].click();
+
+        }
+    }
+
+});
+
+
+/* ==================================================
+   ATUALIZAÇÃO INICIAL
+================================================== */
+
+updateProgress();
 
 </script>
 
 </body>
 </html>
-```
