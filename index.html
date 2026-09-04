@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Escolha Seu Destino | Jullya Games</title>
+<title>Escolha Seu Destino — Jullya Games</title>
 
 <style>
 *{
@@ -15,89 +14,72 @@
 
 body{
     font-family:Arial,Helvetica,sans-serif;
-    background:#020617;
-    color:white;
+    background:#050814;
+    color:#fff;
     min-height:100vh;
     overflow-x:hidden;
 }
 
-button{
-    font-family:inherit;
-}
-
 /* =========================
-   INÍCIO
+   MENU
 ========================= */
 
-#startScreen{
+#menu{
     min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    padding:20px;
-    background:
-        radial-gradient(circle at center,#172554,#020617 70%);
-}
-
-.startBox{
-    width:min(760px,100%);
     text-align:center;
-    padding:50px 30px;
-    background:rgba(15,23,42,.96);
-    border:1px solid #334155;
-    border-radius:28px;
-    box-shadow:0 0 100px rgba(56,189,248,.12);
+    padding:25px;
+    background:
+        radial-gradient(circle at 50% 35%,#273968 0%,#0d1428 35%,#03050b 80%);
 }
 
-.logo{
-    font-size:80px;
+.menu-box{
+    width:min(900px,100%);
+    padding:55px 30px;
+    border-radius:30px;
+    background:rgba(5,9,22,.82);
+    border:1px solid rgba(255,255,255,.14);
+    box-shadow:0 0 80px rgba(60,100,255,.2);
+    backdrop-filter:blur(10px);
 }
 
-.startBox h1{
-    font-size:clamp(35px,8vw,70px);
-    margin:10px 0;
-}
-
-.startBox h1 span{
-    color:#38bdf8;
-}
-
-.startBox p{
-    max-width:600px;
-    margin:15px auto;
-    color:#94a3b8;
-    line-height:1.7;
-}
-
-.features{
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:10px;
-    margin:25px 0;
-}
-
-.feature{
-    padding:10px 14px;
-    background:#172033;
-    border:1px solid #334155;
-    border-radius:12px;
-}
-
-.startButton{
-    border:none;
-    padding:16px 35px;
-    font-size:18px;
+.jullya{
+    color:#72a7ff;
     font-weight:bold;
+    letter-spacing:5px;
+    margin-bottom:15px;
+}
+
+.menu-box h1{
+    font-size:clamp(42px,7vw,78px);
+    margin-bottom:15px;
+    text-shadow:0 0 30px #4777ff;
+}
+
+.menu-box p{
+    color:#cbd5e1;
+    font-size:18px;
+    line-height:1.6;
+}
+
+.start{
+    margin-top:30px;
+    padding:18px 42px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(135deg,#3977ff,#734cff);
     color:white;
-    background:linear-gradient(135deg,#2563eb,#38bdf8);
-    border-radius:15px;
+    font-size:19px;
+    font-weight:bold;
     cursor:pointer;
     transition:.25s;
+    box-shadow:0 12px 35px rgba(55,90,255,.35);
 }
 
-.startButton:hover{
-    transform:scale(1.05);
+.start:hover{
+    transform:translateY(-5px) scale(1.03);
 }
 
 /* =========================
@@ -106,576 +88,795 @@ button{
 
 #game{
     display:none;
+    min-height:100vh;
 }
 
 header{
-    position:sticky;
-    top:0;
-    z-index:100;
-    padding:13px 20px;
-    background:rgba(2,6,23,.92);
-    backdrop-filter:blur(12px);
-    border-bottom:1px solid #1e293b;
-}
-
-.headerInside{
-    max-width:1200px;
-    margin:auto;
+    min-height:72px;
+    padding:12px 25px;
+    background:#050914;
+    border-bottom:1px solid rgba(255,255,255,.1);
     display:flex;
     justify-content:space-between;
     align-items:center;
     gap:15px;
+    position:sticky;
+    top:0;
+    z-index:20;
 }
 
-.brand{
+.logo{
+    color:#72a7ff;
     font-weight:bold;
-    font-size:18px;
-}
-
-.brand span{
-    color:#38bdf8;
+    letter-spacing:3px;
 }
 
 .stats{
     display:flex;
+    gap:10px;
     flex-wrap:wrap;
-    gap:8px;
+    justify-content:center;
 }
 
 .stat{
-    background:#111827;
-    border:1px solid #334155;
     padding:8px 12px;
-    border-radius:10px;
+    border-radius:9px;
+    background:#111a2e;
+    color:#dbeafe;
     font-size:14px;
 }
 
-#score{
-    color:#facc15;
+.game{
+    width:min(1400px,100%);
+    margin:auto;
+    padding:30px 22px 45px;
+}
+
+.story{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.story h2{
+    font-size:clamp(28px,4vw,44px);
+    margin-bottom:8px;
+}
+
+.story p{
+    color:#aebbd0;
+    max-width:800px;
+    margin:auto;
+    line-height:1.5;
 }
 
 /* =========================
-   CENÁRIO
+   CENÁRIOS
 ========================= */
 
-.gameContainer{
-    max-width:1200px;
-    margin:25px auto;
-    padding:0 15px;
+.choices{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
 }
 
-.scene{
+.choice{
     position:relative;
-    height:650px;
+    height:360px;
+    border:2px solid rgba(255,255,255,.12);
+    border-radius:22px;
     overflow:hidden;
-    border:5px solid #334155;
-    border-radius:25px;
-    background:#0f172a;
-    box-shadow:
-        0 25px 80px rgba(0,0,0,.6),
-        inset 0 0 100px rgba(0,0,0,.4);
-    transition:background .6s;
+    cursor:pointer;
+    background:#101827;
+    transition:.35s;
+    box-shadow:0 15px 40px rgba(0,0,0,.35);
 }
 
-/* céu */
-.scene::before{
-    content:"";
-    position:absolute;
-    left:0;
-    right:0;
-    top:0;
-    height:70%;
-    background:
-        radial-gradient(circle at 70% 20%,rgba(255,255,255,.12),transparent 5%),
-        radial-gradient(circle at 20% 30%,rgba(255,255,255,.06),transparent 8%);
+.choice:hover{
+    transform:translateY(-9px) scale(1.015);
+    border-color:#6ea8ff;
+    box-shadow:0 20px 55px rgba(62,100,255,.3);
 }
 
-/* chão */
-.scene::after{
-    content:"";
+.choice:active{
+    transform:scale(.97);
+}
+
+.choice.locked{
+    pointer-events:none;
+    opacity:.5;
+}
+
+.scene-art{
     position:absolute;
+    inset:0;
+    overflow:hidden;
+}
+
+.choice-info{
+    position:absolute;
+    z-index:10;
     bottom:0;
     left:0;
     right:0;
-    height:30%;
-    background:
-        repeating-linear-gradient(
-            90deg,
-            rgba(255,255,255,.025) 0,
-            rgba(255,255,255,.025) 70px,
-            rgba(0,0,0,.06) 70px,
-            rgba(0,0,0,.06) 140px
-        ),
-        #111827;
-    border-top:4px solid #263449;
+    padding:22px;
+    background:linear-gradient(
+        transparent,
+        rgba(0,0,0,.94)
+    );
+}
+
+.choice-info h3{
+    font-size:25px;
+    margin-bottom:6px;
+}
+
+.choice-info p{
+    color:#d0d7e4;
+    font-size:14px;
+    line-height:1.4;
+}
+
+.enter{
+    display:inline-block;
+    margin-top:10px;
+    padding:7px 12px;
+    border-radius:8px;
+    background:rgba(80,130,255,.25);
+    color:#cfe0ff;
+    font-size:12px;
 }
 
 /* =========================
-   CENÁRIO FLORESTA
+   CÉU
 ========================= */
 
-.scene.forest{
-    background:
-        radial-gradient(circle at 50% 15%,#172554,#052e16 55%,#020617);
-}
-
-.scene.forest .tree{
-    display:block;
-}
-
-.tree{
-    display:none;
+.sky{
     position:absolute;
-    bottom:120px;
-    width:90px;
-    height:300px;
-    background:#422818;
-    border-radius:40px;
-    z-index:2;
+    inset:0;
+    background:linear-gradient(#101b3b 0%,#27385b 55%,#607080 100%);
 }
 
-.tree::before{
-    content:"";
-    position:absolute;
-    width:230px;
-    height:180px;
-    left:-70px;
-    top:-90px;
-    border-radius:50%;
-    background:#14532d;
-    box-shadow:
-        80px -35px #166534,
-        160px 15px #15803d,
-        35px 60px #166534;
-}
-
-.tree1{
-    left:40px;
-}
-
-.tree2{
-    right:70px;
-    transform:scale(.8);
+.night .sky{
+    background:linear-gradient(#030817,#0b1630 60%,#17243a);
 }
 
 .moon{
     position:absolute;
-    width:80px;
-    height:80px;
+    width:65px;
+    height:65px;
     border-radius:50%;
-    background:#f8fafc;
-    right:120px;
-    top:50px;
-    box-shadow:0 0 35px rgba(255,255,255,.25);
-    z-index:1;
+    background:#fff4bd;
+    right:35px;
+    top:30px;
+    box-shadow:0 0 35px #fff1a8;
+}
+
+.star{
+    position:absolute;
+    width:3px;
+    height:3px;
+    border-radius:50%;
+    background:white;
+    animation:twinkle 2s infinite alternate;
+}
+
+.s1{left:15%;top:18%}
+.s2{left:40%;top:10%}
+.s3{left:70%;top:22%}
+.s4{left:82%;top:12%}
+.s5{left:55%;top:30%}
+
+@keyframes twinkle{
+    from{opacity:.2}
+    to{opacity:1}
 }
 
 /* =========================
-   PORTAS
+   CHÃO
 ========================= */
 
-.doors{
+.ground{
     position:absolute;
-    z-index:20;
+    bottom:0;
     left:0;
     right:0;
-    bottom:80px;
-    display:flex;
-    justify-content:center;
-    align-items:flex-end;
-    gap:50px;
-    padding:0 25px;
+    height:40%;
+    background:#142015;
 }
 
-.doorChoice{
-    position:relative;
-    width:180px;
-    height:330px;
-    cursor:pointer;
-    transition:.3s;
-    filter:drop-shadow(0 15px 15px rgba(0,0,0,.6));
-}
-
-.doorChoice:hover{
-    transform:translateY(-15px) scale(1.04);
-}
-
-.doorChoice:hover .door{
-    box-shadow:
-        0 0 25px rgba(56,189,248,.45),
-        inset 0 0 20px rgba(255,255,255,.05);
-}
-
-.door{
+.grass{
     position:absolute;
-    inset:0;
-    border:12px solid #29180f;
-    border-radius:10px 10px 4px 4px;
-    background:
-        linear-gradient(90deg,
-        rgba(0,0,0,.2),
-        transparent 30%,
-        rgba(255,255,255,.05),
-        transparent 70%,
-        rgba(0,0,0,.2)
-        ),
-        #713f22;
-    transition:.3s;
+    bottom:0;
+    width:100%;
+    height:45%;
+    background:repeating-linear-gradient(
+        90deg,
+        #152719 0 12px,
+        #1a3020 12px 25px
+    );
 }
 
-.door::before,
-.door::after{
-    content:"";
+/* =========================
+   ÁRVORES
+========================= */
+
+.tree{
     position:absolute;
-    left:22px;
-    right:22px;
-    height:95px;
-    border:6px solid #29180f;
+    bottom:17%;
+    width:65px;
+    height:160px;
+}
+
+.trunk{
+    position:absolute;
+    bottom:0;
+    left:25px;
+    width:20px;
+    height:90px;
+    background:#51351f;
     border-radius:5px;
 }
 
-.door::before{
-    top:25px;
-}
-
-.door::after{
-    bottom:25px;
-}
-
-.doorHandle{
+.leaves{
     position:absolute;
-    width:15px;
-    height:15px;
+    top:0;
+    left:0;
+    width:70px;
+    height:90px;
     border-radius:50%;
-    background:#facc15;
-    right:22px;
-    top:50%;
-    box-shadow:0 0 8px #facc15;
+    background:#173b27;
+    box-shadow:
+        35px 15px 0 #1d472c,
+        -22px 28px 0 #214c2e;
 }
 
-.doorLabel{
+.t1{left:5%;transform:scale(.9)}
+.t2{left:25%;transform:scale(1.15)}
+.t3{right:15%;transform:scale(.8)}
+.t4{right:2%;transform:scale(1.1)}
+
+/* =========================
+   CABANA
+========================= */
+
+.cabin-art{
+    background:linear-gradient(#182945,#344760);
+}
+
+.cabin-house{
     position:absolute;
+    width:210px;
+    height:135px;
+    bottom:22%;
     left:50%;
     transform:translateX(-50%);
-    bottom:-55px;
-    white-space:nowrap;
-    padding:8px 13px;
-    border-radius:10px;
-    background:rgba(2,6,23,.9);
-    border:1px solid #334155;
-    font-weight:bold;
+    background:#70472d;
+    border:5px solid #42291b;
 }
 
-/* portas especiais */
-
-.door.castle{
-    background:
-        linear-gradient(90deg,#111827,#334155,#111827);
-    border-color:#64748b;
+.cabin-roof{
+    position:absolute;
+    width:250px;
+    height:110px;
+    bottom:43%;
+    left:50%;
+    transform:translateX(-50%);
+    background:#38271f;
+    clip-path:polygon(50% 0,100% 100%,0 100%);
 }
 
-.door.castle::before,
-.door.castle::after{
-    border-color:#64748b;
+.cabin-door{
+    position:absolute;
+    width:45px;
+    height:80px;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    background:#302015;
+    border:3px solid #17100c;
 }
 
-.door.tunnel{
-    background:
-        radial-gradient(circle at center,#020617,#000);
-    border-color:#1e293b;
+.window{
+    position:absolute;
+    width:45px;
+    height:42px;
+    background:#f5ce62;
+    border:5px solid #342218;
+    bottom:55px;
 }
 
-.door.tunnel::before,
-.door.tunnel::after{
-    border-color:#1e293b;
+.window.left{left:22px}
+.window.right{right:22px}
+
+.smoke{
+    position:absolute;
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    background:#a7b0bd;
+    right:28%;
+    top:17%;
+    opacity:.6;
+    animation:smoke 3s infinite;
+}
+
+@keyframes smoke{
+    0%{transform:translateY(15px);opacity:.1}
+    50%{opacity:.6}
+    100%{transform:translate(-15px,-30px);opacity:0}
 }
 
 /* =========================
-   TEXTO DO CENÁRIO
+   CASTELO
 ========================= */
 
-.sceneInfo{
+.castle-art{
+    background:linear-gradient(#071126,#1b3154);
+}
+
+.castle-wall{
     position:absolute;
-    top:25px;
+    bottom:15%;
+    left:18%;
+    width:64%;
+    height:125px;
+    background:#56616e;
+    border:4px solid #303842;
+}
+
+.tower{
+    position:absolute;
+    bottom:15%;
+    width:75px;
+    height:190px;
+    background:#68737e;
+    border:4px solid #303842;
+}
+
+.tower.left{left:10%}
+.tower.right{right:10%}
+
+.tower-top{
+    position:absolute;
+    top:-50px;
+    left:-8px;
+    width:83px;
+    height:55px;
+    background:#343c46;
+    clip-path:polygon(50% 0,100% 100%,0 100%);
+}
+
+.castle-door{
+    position:absolute;
+    bottom:15%;
     left:50%;
     transform:translateX(-50%);
-    z-index:30;
-    width:min(700px,90%);
-    text-align:center;
-}
-
-.sceneTitle{
-    font-size:clamp(25px,5vw,42px);
-    text-shadow:0 3px 10px #000;
-    margin-bottom:10px;
-}
-
-.sceneDescription{
-    color:#cbd5e1;
-    line-height:1.6;
-    text-shadow:0 2px 5px #000;
+    width:60px;
+    height:90px;
+    border-radius:30px 30px 0 0;
+    background:#151b25;
+    border:4px solid #252c36;
 }
 
 /* =========================
-   PAINEL
+   FLORESTA
 ========================= */
 
-.panel{
-    margin-top:20px;
-    padding:20px;
-    background:#0f172a;
-    border:1px solid #334155;
-    border-radius:18px;
+.forest-art{
+    background:#0b1820;
 }
 
-.panelTop{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
+.forest-art .ground{
+    background:#102316;
 }
 
-.panelTitle{
-    color:#cbd5e1;
+.fog{
+    position:absolute;
+    width:160%;
+    height:100px;
+    left:-30%;
+    bottom:25%;
+    background:rgba(210,225,220,.08);
+    filter:blur(15px);
+    animation:fogMove 6s infinite alternate;
 }
+
+@keyframes fogMove{
+    from{transform:translateX(-5%)}
+    to{transform:translateX(5%)}
+}
+
+/* =========================
+   PONTE
+========================= */
+
+.bridge-art{
+    background:linear-gradient(#273e55 0 55%,#172d3c 56%);
+}
+
+.water{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:45%;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            #12394b 0 10px,
+            #1b5266 10px 15px
+        );
+    animation:water 2s linear infinite;
+}
+
+@keyframes water{
+    to{background-position:0 20px}
+}
+
+.bridge{
+    position:absolute;
+    width:80%;
+    height:60px;
+    left:10%;
+    bottom:32%;
+    background:#69462b;
+    transform:rotate(-4deg);
+    border:5px solid #422a1a;
+    box-shadow:0 15px 0 rgba(0,0,0,.2);
+}
+
+.rope{
+    position:absolute;
+    width:90%;
+    height:20px;
+    left:5%;
+    bottom:calc(32% + 55px);
+    border-top:5px solid #3d2b1b;
+    border-radius:50%;
+}
+
+/* =========================
+   VILA
+========================= */
+
+.village-art{
+    background:linear-gradient(#172b45,#536777);
+}
+
+.house{
+    position:absolute;
+    bottom:22%;
+    width:105px;
+    height:80px;
+    background:#8b5a3c;
+    border:4px solid #4a3022;
+}
+
+.house:before{
+    content:"";
+    position:absolute;
+    width:125px;
+    height:65px;
+    left:-14px;
+    top:-45px;
+    background:#4c3025;
+    clip-path:polygon(50% 0,100% 100%,0 100%);
+}
+
+.house.h1{left:10%}
+.house.h2{right:12%}
+
+.lamp{
+    position:absolute;
+    bottom:20%;
+    left:50%;
+    width:12px;
+    height:80px;
+    background:#29231e;
+}
+
+.lamp:before{
+    content:"";
+    position:absolute;
+    width:25px;
+    height:25px;
+    left:-6px;
+    top:-25px;
+    border-radius:50%;
+    background:#ffd76a;
+    box-shadow:0 0 25px #ffd76a;
+}
+
+/* =========================
+   TÚNEL / CAVERNA
+========================= */
+
+.cave-art{
+    background:
+        radial-gradient(circle at 50% 40%,#4b2d75,#17162c 35%,#05060c 75%);
+}
+
+.cave-rock{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:
+        radial-gradient(ellipse at top,#293044 0 10%,transparent 11%),
+        radial-gradient(ellipse at 20% 100%,#202534 0 15%,transparent 16%),
+        radial-gradient(ellipse at 80% 100%,#1c2230 0 20%,transparent 21%);
+}
+
+.crystal{
+    position:absolute;
+    width:20px;
+    height:45px;
+    background:#6e8cff;
+    clip-path:polygon(50% 0,100% 30%,75% 100%,25% 100%,0 30%);
+    filter:drop-shadow(0 0 10px #526eff);
+    animation:crystal 2s infinite alternate;
+}
+
+.c1{left:20%;bottom:20%}
+.c2{left:32%;bottom:30%;transform:scale(.7)}
+.c3{right:22%;bottom:22%;transform:scale(1.3)}
+
+@keyframes crystal{
+    from{filter:drop-shadow(0 0 5px #526eff)}
+    to{filter:drop-shadow(0 0 20px #9aaaff)}
+}
+
+/* =========================
+   IGREJA
+========================= */
+
+.church-art{
+    background:linear-gradient(#17243c,#566475);
+}
+
+.church{
+    position:absolute;
+    bottom:20%;
+    left:50%;
+    transform:translateX(-50%);
+    width:150px;
+    height:130px;
+    background:#c5c1ae;
+    border:5px solid #777466;
+}
+
+.church-roof{
+    position:absolute;
+    top:-70px;
+    left:-20px;
+    width:190px;
+    height:90px;
+    background:#484238;
+    clip-path:polygon(50% 0,100% 100%,0 100%);
+}
+
+.church-tower{
+    position:absolute;
+    width:50px;
+    height:150px;
+    right:-40px;
+    bottom:0;
+    background:#b5b19f;
+    border:5px solid #777466;
+}
+
+.cross{
+    position:absolute;
+    top:-42px;
+    left:15px;
+    width:20px;
+    height:45px;
+    background:#4d4033;
+}
+
+.cross:after{
+    content:"";
+    position:absolute;
+    width:45px;
+    height:15px;
+    left:-12px;
+    top:12px;
+    background:#4d4033;
+}
+
+/* =========================
+   TESOURO
+========================= */
+
+.treasure-art{
+    background:
+        radial-gradient(circle,#806523,#251b0d 50%,#070604);
+}
+
+.gold{
+    position:absolute;
+    width:180px;
+    height:100px;
+    bottom:23%;
+    left:50%;
+    transform:translateX(-50%);
+    background:linear-gradient(145deg,#ffef72,#a9790c);
+    border-radius:50% 50% 20% 20%;
+    box-shadow:
+        20px -20px 0 #dcae27,
+        -25px -10px 0 #bd8c15,
+        30px 20px 0 #f3cf4c;
+}
+
+.coin{
+    position:absolute;
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    background:#ffe16a;
+    box-shadow:0 0 10px #ffdb43;
+}
+
+/* =========================
+   SALA SECRETA
+========================= */
+
+.secret-art{
+    background:
+        radial-gradient(circle at 50% 45%,#472e65,#171322 40%,#05050a);
+}
+
+.throne{
+    position:absolute;
+    bottom:20%;
+    left:50%;
+    transform:translateX(-50%);
+    width:100px;
+    height:130px;
+    background:#4b2330;
+    border:8px solid #c09531;
+    border-radius:45px 45px 5px 5px;
+}
+
+.crown{
+    position:absolute;
+    top:-35px;
+    left:25px;
+    font-size:45px;
+}
+
+/* =========================
+   ANIMAÇÃO DE ESCOLHA
+========================= */
+
+.choice.selected{
+    animation:selected .6s forwards;
+}
+
+@keyframes selected{
+    0%{transform:scale(1)}
+    50%{transform:scale(1.05)}
+    100%{transform:scale(.85);opacity:0}
+}
+
+/* =========================
+   PROGRESSO
+========================= */
 
 .progress{
-    color:#38bdf8;
-    font-weight:bold;
+    max-width:700px;
+    margin:30px auto 0;
+}
+
+.progress-top{
+    display:flex;
+    justify-content:space-between;
+    color:#94a3b8;
+    font-size:13px;
+    margin-bottom:7px;
+}
+
+.progress-bar{
+    height:9px;
+    border-radius:20px;
+    background:#151e31;
+    overflow:hidden;
+}
+
+.progress-fill{
+    height:100%;
+    width:0;
+    background:linear-gradient(90deg,#3977ff,#8b5cf6);
+    transition:.5s;
 }
 
 .inventory{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-top:15px;
-}
-
-.item{
-    padding:8px 12px;
-    border-radius:9px;
-    background:#172033;
-    border:1px solid #334155;
-    font-size:13px;
+    text-align:center;
+    color:#94a3b8;
+    margin-top:18px;
 }
 
 /* =========================
    FINAL
 ========================= */
 
-#endingScreen{
+#ending{
     display:none;
-    min-height:100vh;
+    position:fixed;
+    inset:0;
+    z-index:100;
     align-items:center;
     justify-content:center;
-    padding:20px;
-    background:
-        radial-gradient(circle,#172554,#020617 70%);
+    padding:25px;
+    background:rgba(2,4,10,.96);
 }
 
-.endingBox{
+.ending-box{
     width:min(700px,100%);
-    padding:50px 30px;
     text-align:center;
-    background:#0f172a;
-    border:1px solid #334155;
-    border-radius:28px;
-    box-shadow:0 0 100px rgba(56,189,248,.15);
+    padding:50px 30px;
+    border-radius:25px;
+    background:linear-gradient(145deg,#111b32,#070b14);
+    border:1px solid rgba(255,255,255,.15);
+    box-shadow:0 0 90px rgba(70,100,255,.2);
 }
 
-.endingIcon{
-    font-size:90px;
+.ending-box small{
+    color:#72a7ff;
+    letter-spacing:4px;
 }
 
-.endingBox h1{
-    font-size:clamp(32px,7vw,50px);
+.ending-box h2{
+    font-size:42px;
     margin:15px 0;
 }
 
-.endingNumber{
-    color:#38bdf8;
-    font-weight:bold;
-    margin-bottom:20px;
-}
-
-.endingText{
+.ending-box p{
     color:#cbd5e1;
-    line-height:1.8;
+    line-height:1.7;
     margin-bottom:25px;
 }
 
-.finalStats{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-bottom:25px;
-}
-
-.finalStat{
-    padding:12px 18px;
-    background:#172033;
-    border:1px solid #334155;
-    border-radius:12px;
-}
-
-.secondaryButton{
-    border:1px solid #475569;
-    background:#172033;
-    color:white;
-    padding:13px 20px;
-    border-radius:12px;
+.btn{
+    border:none;
+    padding:13px 22px;
+    border-radius:10px;
+    background:#3977ff;
+    color:#fff;
+    font-weight:bold;
     cursor:pointer;
-    margin-left:8px;
+    margin:5px;
 }
 
 /* =========================
-   TOAST
+   RESPONSIVO
 ========================= */
 
-#toast{
-    position:fixed;
-    left:50%;
-    bottom:25px;
-    transform:translate(-50%,100px);
-    opacity:0;
-    z-index:500;
-    padding:13px 20px;
-    background:#0f172a;
-    border:1px solid #38bdf8;
-    border-radius:12px;
-    transition:.3s;
-}
+@media(max-width:900px){
 
-#toast.show{
-    opacity:1;
-    transform:translate(-50%,0);
-}
-
-/* =========================
-   ANIMAÇÃO PORTA
-========================= */
-
-.doorChoice.opening{
-    animation:doorOpen .8s ease forwards;
-}
-
-@keyframes doorOpen{
-    0%{
-        transform:scale(1);
-        opacity:1;
-    }
-    50%{
-        transform:scale(1.08);
-    }
-    100%{
-        transform:scale(.1);
-        opacity:0;
-    }
-}
-
-/* =========================
-   CONFETES
-========================= */
-
-.confetti{
-    position:fixed;
-    top:-20px;
-    width:8px;
-    height:15px;
-    z-index:1000;
-    animation:fall 3s linear forwards;
-}
-
-@keyframes fall{
-    to{
-        transform:translateY(110vh) rotate(720deg);
-    }
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:800px){
-
-    .scene{
-        height:600px;
+    .choices{
+        grid-template-columns:1fr;
     }
 
-    .doors{
-        gap:12px;
-        bottom:80px;
+    .choice{
+        height:300px;
     }
 
-    .doorChoice{
-        width:110px;
-        height:230px;
-    }
-
-    .door{
-        border-width:8px;
-    }
-
-    .door::before,
-    .door::after{
-        left:13px;
-        right:13px;
-        border-width:4px;
-    }
-
-    .door::before{
-        top:18px;
-    }
-
-    .door::after{
-        bottom:18px;
-    }
-
-    .doorHandle{
-        width:10px;
-        height:10px;
-        right:12px;
-    }
-
-    .doorLabel{
-        font-size:11px;
-    }
-
-    .tree{
-        transform:scale(.7);
-        transform-origin:bottom;
-    }
-
-    .headerInside{
+    header{
         flex-direction:column;
-        align-items:flex-start;
     }
 }
 
 @media(max-width:500px){
 
-    .scene{
-        height:560px;
+    .choice{
+        height:270px;
     }
 
-    .doors{
-        gap:5px;
-        padding:0 8px;
+    .game{
+        padding:20px 13px;
     }
 
-    .doorChoice{
-        width:95px;
-        height:200px;
-    }
-
-    .doorLabel{
-        font-size:9px;
-        padding:6px 8px;
-    }
-
-    .sceneDescription{
-        font-size:13px;
+    .menu-box{
+        padding:40px 20px;
     }
 }
 </style>
@@ -684,70 +885,62 @@ header{
 <body>
 
 
-<!-- ==================================================
+<!-- =================================
      MENU
-================================================== -->
+================================= -->
 
-<section id="startScreen">
+<section id="menu">
 
-    <div class="startBox">
+<div class="menu-box">
 
-        <div class="logo">🧙‍♀️</div>
-
-        <h1>
-            ESCOLHA <span>SEU DESTINO</span>
-        </h1>
-
-        <p>
-            Você está prestes a entrar em uma aventura
-            onde cada porta leva a um destino diferente.
-        </p>
-
-        <div class="features">
-            <div class="feature">🚪 Portas reais</div>
-            <div class="feature">🌎 Cenários</div>
-            <div class="feature">🔀 Escolhas</div>
-            <div class="feature">🏆 20 finais</div>
-            <div class="feature">🔐 Segredos</div>
-        </div>
-
-        <button class="startButton" onclick="startGame()">
-            🚪 ENTRAR NO MUNDO
-        </button>
-
-        <p style="font-size:13px;margin-top:25px;">
-            Jullya Games 💙
-        </p>
-
+    <div class="jullya">
+        JULLYA GAMES
     </div>
+
+    <h1>ESCOLHA SEU DESTINO</h1>
+
+    <p>
+        Sua aventura começa agora.<br>
+        Escolha os lugares que deseja explorar,
+        descubra segredos e tente encontrar
+        todos os <strong>20 finais</strong>.
+    </p>
+
+    <button class="start" onclick="startGame()">
+        🎮 COMEÇAR A AVENTURA
+    </button>
+
+    <p style="font-size:13px;margin-top:25px;">
+        Desenvolvido por Anna Jullya 💙
+    </p>
+
+</div>
 
 </section>
 
 
-<!-- ==================================================
+<!-- =================================
      JOGO
-================================================== -->
+================================= -->
 
-<div id="game">
+<section id="game">
 
 <header>
 
-    <div class="headerInside">
+    <div class="logo">
+        JULLYA GAMES
+    </div>
 
-        <div class="brand">
-            🎮 JULLYA <span>GAMES</span>
+    <div class="stats">
+
+        <div class="stat">
+            ⭐ Pontos:
+            <span id="score">0</span>
         </div>
 
-        <div class="stats">
-
-            <div class="stat">
-                ⭐ Pontos: <span id="score">0</span>
-            </div>
-
-            <div class="stat">
-                🏆 Finais: <span id="endingCount">0</span>/20
-            </div>
-
+        <div class="stat">
+            🏆 Finais:
+            <span id="count">0</span>/20
         </div>
 
     </div>
@@ -755,1170 +948,1063 @@ header{
 </header>
 
 
-<div class="gameContainer">
+<main class="game">
 
-    <div class="scene forest" id="scene">
+    <div class="story">
 
-        <!-- árvores -->
-        <div class="tree tree1"></div>
-        <div class="tree tree2"></div>
+        <h2 id="title">
+            A Encruzilhada
+        </h2>
 
-        <!-- lua -->
-        <div class="moon"></div>
-
-        <!-- informações -->
-        <div class="sceneInfo">
-
-            <div class="sceneTitle" id="sceneTitle">
-                A Floresta Misteriosa
-            </div>
-
-            <div class="sceneDescription" id="sceneDescription">
-                Você acorda em uma floresta desconhecida.
-                Três portas surgem diante de você.
-            </div>
-
-        </div>
-
-
-        <!-- PORTAS -->
-
-        <div class="doors" id="doors"></div>
+        <p id="description">
+            Escolha um dos lugares para começar sua aventura.
+        </p>
 
     </div>
 
 
-    <!-- INVENTÁRIO -->
+    <div class="choices" id="choices"></div>
 
-    <div class="panel">
 
-        <div class="panelTop">
+    <div class="progress">
 
-            <div class="panelTitle">
-                🎒 Itens encontrados
-            </div>
+        <div class="progress-top">
 
-            <div class="progress">
-                🏆 <span id="progressText">0/20</span>
-            </div>
+            <span>
+                Finais descobertos
+            </span>
+
+            <span id="progressText">
+                0/20
+            </span>
 
         </div>
 
-        <div class="inventory" id="inventory">
+        <div class="progress-bar">
 
-            <div class="item">
-                Nada encontrado ainda...
+            <div
+                class="progress-fill"
+                id="progressFill">
             </div>
 
         </div>
 
     </div>
 
-</div>
 
-</div>
-
-
-<!-- ==================================================
-     FINAL
-================================================== -->
-
-<section id="endingScreen">
-
-    <div class="endingBox">
-
-        <div class="endingIcon" id="endingIcon">
-            🏆
-        </div>
-
-        <h1 id="endingTitle">
-            Final
-        </h1>
-
-        <div class="endingNumber" id="endingNumber">
-            FINAL #1
-        </div>
-
-        <p class="endingText" id="endingText"></p>
-
-        <div class="finalStats">
-
-            <div class="finalStat">
-                ⭐ <span id="endingScore">0</span> pontos
-            </div>
-
-            <div class="finalStat">
-                🏆 <span id="endingTotal">0</span>/20 finais
-            </div>
-
-        </div>
-
-        <button class="startButton" onclick="newAdventure()">
-            🔀 ESCOLHER OUTRO DESTINO
-        </button>
-
-        <button class="secondaryButton" onclick="goHome()">
-            🏠 MENU
-        </button>
-
+    <div class="inventory">
+        🎒 Inventário:
+        <span id="inventory">vazio</span>
     </div>
+
+</main>
 
 </section>
 
 
-<div id="toast"></div>
+<!-- =================================
+     FINAL
+================================= -->
+
+<section id="ending">
+
+<div class="ending-box">
+
+    <small id="endingNumber">
+        FINAL
+    </small>
+
+    <h2 id="endingTitle">
+        Final
+    </h2>
+
+    <p id="endingText">
+        ...
+    </p>
+
+    <button class="btn" onclick="continueGame()">
+        🔄 Continuar
+    </button>
+
+    <button
+        class="btn"
+        onclick="location.reload()">
+        🏠 Menu
+    </button>
+
+</div>
+
+</section>
 
 
 <script>
 
-/* ==================================================
+/* =================================
    VARIÁVEIS
-================================================== */
+================================= */
 
-let currentScene = "start";
-let score = 0;
-let inventory = [];
+let score=0;
 
-let discovered = JSON.parse(
-    localStorage.getItem("jullyaDestinos") || "[]"
-);
+let currentScene="start";
+
+let discovered=
+JSON.parse(localStorage.getItem("jullyaDestinos")) || [];
 
 
-/* ==================================================
+/* =================================
    CENAS
-================================================== */
+================================= */
 
-const scenes = {
+const scenes={
 
 start:{
-    title:"A Floresta Misteriosa",
-    description:
-        "Você acorda em uma floresta desconhecida. " +
-        "Diante de você surgem três portas misteriosas.",
-    background:"forest",
-    doors:[
-        {
-            icon:"🌲",
-            label:"FLORESTA",
-            next:"forest"
-        },
-        {
-            icon:"🏰",
-            label:"CASTELO",
-            next:"castle",
-            type:"castle"
-        },
-        {
-            icon:"🕳️",
-            label:"TÚNEL",
-            next:"tunnel",
-            type:"tunnel"
-        }
-    ]
+title:"A Encruzilhada",
+description:
+"Você chegou a uma encruzilhada misteriosa. Três lugares aparecem diante de você. Qual será seu destino?",
+
+choices:[
+
+{
+name:"Cabana Misteriosa",
+desc:"Uma pequena cabana escondida entre as árvores.",
+art:"cabin",
+next:"cabin"
 },
 
-forest:{
-    title:"O Coração da Floresta",
-    description:
-        "A floresta parece viva. Uma cabana, uma ponte " +
-        "e uma enorme árvore aparecem diante de você.",
-    background:"forest",
-    doors:[
-        {
-            icon:"🏚️",
-            label:"CABANA",
-            next:"cabin"
-        },
-        {
-            icon:"🌉",
-            label:"PONTE",
-            next:"bridge",
-            type:"castle"
-        },
-        {
-            icon:"🌳",
-            label:"ÁRVORE",
-            next:"tree",
-            type:"tunnel"
-        }
-    ]
+{
+name:"Castelo Abandonado",
+desc:"Um enorme castelo coberto pela névoa.",
+art:"castle",
+next:"castle"
 },
 
-castle:{
-    title:"O Castelo Antigo",
-    description:
-        "Você chega a um castelo enorme. " +
-        "Há três entradas misteriosas.",
-    background:"castle",
-    doors:[
-        {
-            icon:"🚪",
-            label:"PORTA DOURADA",
-            next:"goldRoom"
-        },
-        {
-            icon:"🗿",
-            label:"ESTÁTUA",
-            next:"statue",
-            type:"castle"
-        },
-        {
-            icon:"🔐",
-            label:"PASSAGEM",
-            next:"castleInside",
-            type:"tunnel"
-        }
-    ]
+{
+name:"Floresta Sombria",
+desc:"Árvores gigantes escondem algo desconhecido.",
+art:"forest",
+next:"forest"
+}
+
+]
 },
 
-tunnel:{
-    title:"O Túnel Escuro",
-    description:
-        "Você entra em um túnel subterrâneo. " +
-        "Três passagens surgem na escuridão.",
-    background:"tunnel",
-    doors:[
-        {
-            icon:"🔥",
-            label:"TOCHA",
-            next:"torch"
-        },
-        {
-            icon:"⬅️",
-            label:"ESQUERDA",
-            next:"leftTunnel",
-            type:"castle"
-        },
-        {
-            icon:"➡️",
-            label:"DIREITA",
-            next:"rightTunnel",
-            type:"tunnel"
-        }
-    ]
-},
 
 cabin:{
-    title:"A Cabana Abandonada",
-    description:
-        "Dentro da cabana há uma chave, um baú " +
-        "e uma porta escondida.",
-    background:"cabin",
-    doors:[
-        {
-            icon:"🔑",
-            label:"PEGAR CHAVE",
-            next:"key"
-        },
-        {
-            icon:"📦",
-            label:"BAÚ",
-            next:"chest",
-            type:"castle"
-        },
-        {
-            icon:"🚪",
-            label:"SAÍDA",
-            ending:6,
-            type:"tunnel"
-        }
-    ]
+title:"A Cabana",
+description:
+"Você entrou na cabana. Existem três lugares que chamam sua atenção.",
+
+choices:[
+
+{
+name:"Porão",
+desc:"Uma escada escura leva para baixo.",
+art:"cave",
+next:"basement"
 },
+
+{
+name:"Quarto",
+desc:"Um objeto estranho brilha sobre a cama.",
+art:"room"
+,
+ending:1
+},
+
+{
+name:"Voltar",
+desc:"Você pode retornar para a floresta.",
+art:"forest",
+next:"forest"
+}
+
+]
+},
+
+
+castle:{
+title:"O Castelo",
+description:
+"Os enormes portões se fecham atrás de você.",
+
+choices:[
+
+{
+name:"Torre",
+desc:"Uma torre muito alta se ergue diante de você.",
+art:"tower",
+ending:2
+},
+
+{
+name:"Salão",
+desc:"Um enorme salão possui três portas antigas.",
+art:"castle",
+next:"hall"
+},
+
+{
+name:"Caverna",
+desc:"Uma passagem escondida leva para baixo do castelo.",
+art:"cave",
+next:"cave"
+}
+
+]
+},
+
+
+forest:{
+title:"A Floresta",
+description:
+"A floresta parece estar viva. Você encontra três caminhos.",
+
+choices:[
+
+{
+name:"Ponte",
+desc:"Uma ponte antiga atravessa um rio.",
+art:"bridge",
+next:"bridge"
+},
+
+{
+name:"Vila",
+desc:"Pequenas casas aparecem entre as árvores.",
+art:"village",
+next:"village"
+},
+
+{
+name:"Árvore Gigante",
+desc:"Uma árvore possui uma entrada em seu tronco.",
+art:"forest",
+ending:3
+}
+
+]
+},
+
+
+basement:{
+title:"O Porão",
+description:
+"O porão é escuro. Três coisas chamam sua atenção.",
+
+choices:[
+
+{
+name:"Túnel Azul",
+desc:"Uma luz azul brilha no fundo.",
+art:"cave",
+next:"blue"
+},
+
+{
+name:"Baú Antigo",
+desc:"Um baú coberto de poeira.",
+art:"treasure",
+ending:4
+},
+
+{
+name:"Parede Secreta",
+desc:"Uma parede parece esconder alguma coisa.",
+art:"secret",
+next:"secret"
+}
+
+]
+},
+
+
+hall:{
+title:"Salão Principal",
+description:
+"Três caminhos aparecem diante de você.",
+
+choices:[
+
+{
+name:"Sala Vermelha",
+desc:"Uma luz vermelha vem de dentro.",
+art:"castle",
+ending:5
+},
+
+{
+name:"Sala Azul",
+desc:"Uma energia estranha está escondida ali.",
+art:"cave",
+ending:6
+},
+
+{
+name:"Sala Dourada",
+desc:"Uma porta dourada possui símbolos antigos.",
+art:"treasure",
+next:"gold"
+}
+
+]
+},
+
+
+cave:{
+title:"A Caverna",
+description:
+"Cristais iluminam as paredes da caverna.",
+
+choices:[
+
+{
+name:"Cristais",
+desc:"Um cristal enorme está brilhando.",
+art:"cave",
+ending:7
+},
+
+{
+name:"Rio Subterrâneo",
+desc:"Um rio passa pelo interior da caverna.",
+art:"bridge",
+ending:8
+},
+
+{
+name:"Passagem Escura",
+desc:"Uma passagem desaparece na escuridão.",
+art:"cave",
+ending:9
+}
+
+]
+},
+
 
 bridge:{
-    title:"A Ponte",
-    description:
-        "A ponte atravessa um rio profundo. " +
-        "Do outro lado existe uma vila misteriosa.",
-    background:"bridge",
-    doors:[
-        {
-            icon:"🏘️",
-            label:"VILA",
-            next:"village"
-        },
-        {
-            icon:"🌊",
-            label:"RIO",
-            next:"river",
-            type:"tunnel"
-        }
-    ]
+title:"A Ponte",
+description:
+"A ponte parece velha, mas talvez aguente seu peso.",
+
+choices:[
+
+{
+name:"Atravessar",
+desc:"Você decide confiar na ponte.",
+art:"bridge",
+ending:10
 },
 
-tree:{
-    title:"A Árvore Gigante",
-    description:
-        "Você sobe na árvore e encontra uma luz azul " +
-        "brilhando no meio da floresta.",
-    background:"forest",
-    doors:[
-        {
-            icon:"🔵",
-            label:"LUZ AZUL",
-            next:"blueLight"
-        },
-        {
-            icon:"🌲",
-            label:"ESCONDER",
-            ending:1,
-            type:"tunnel"
-        }
-    ]
+{
+name:"Seguir o Rio",
+desc:"Você procura outro caminho.",
+art:"bridge",
+ending:11
 },
 
-goldRoom:{
-    title:"A Sala Dourada",
-    description:
-        "O chão está coberto de moedas. " +
-        "No centro da sala existem duas portas.",
-    background:"castle",
-    doors:[
-        {
-            icon:"💰",
-            label:"PEGAR OURO",
-            ending:14
-        },
-        {
-            icon:"💙",
-            label:"VERDADEIRO TESOURO",
-            ending:15,
-            type:"castle"
-        }
-    ]
+{
+name:"Voltar",
+desc:"Você retorna para a floresta.",
+art:"forest",
+next:"forest"
+}
+
+]
 },
 
-statue:{
-    title:"A Estátua Misteriosa",
-    description:
-        "Uma estátua antiga guarda um cristal azul. " +
-        "Há também uma passagem escondida.",
-    background:"castle",
-    doors:[
-        {
-            icon:"💎",
-            label:"CRISTAL",
-            next:"crystal",
-            item:"💎 Cristal azul"
-        },
-        {
-            icon:"🚪",
-            label:"PASSAGEM",
-            next:"castleInside",
-            type:"tunnel"
-        }
-    ]
-},
-
-castleInside:{
-    title:"O Interior do Castelo",
-    description:
-        "Um corredor leva até uma sala gigantesca. " +
-        "Um trono está esperando por alguém.",
-    background:"castle",
-    doors:[
-        {
-            icon:"👑",
-            label:"TRONO",
-            ending:18
-        },
-        {
-            icon:"🚶",
-            label:"CORREDOR",
-            ending:19,
-            type:"castle"
-        }
-    ]
-},
-
-torch:{
-    title:"A Câmara da Tocha",
-    description:
-        "A chama revela uma inscrição antiga na parede.",
-    background:"tunnel",
-    doors:[
-        {
-            icon:"🧭",
-            label:"SEGUIR INSCRIÇÃO",
-            ending:3
-        },
-        {
-            icon:"➡️",
-            label:"CONTINUAR",
-            next:"rightTunnel",
-            type:"tunnel"
-        }
-    ]
-},
-
-leftTunnel:{
-    title:"A Câmara Esquecida",
-    description:
-        "Uma coroa antiga repousa sobre uma pedra.",
-    background:"tunnel",
-    doors:[
-        {
-            icon:"👑",
-            label:"COROA",
-            ending:4,
-            item:"👑 Coroa antiga"
-        },
-        {
-            icon:"🔐",
-            label:"SALA SECRETA",
-            next:"secretRoom",
-            type:"castle"
-        }
-    ]
-},
-
-rightTunnel:{
-    title:"O Lago Subterrâneo",
-    description:
-        "Um lago escuro ocupa toda a caverna. " +
-        "Existe um pequeno barco.",
-    background:"tunnel",
-    doors:[
-        {
-            icon:"🚣",
-            label:"BARCO",
-            ending:5
-        },
-        {
-            icon:"↩️",
-            label:"VOLTAR",
-            next:"tunnel",
-            type:"castle"
-        }
-    ]
-},
-
-key:{
-    title:"A Chave Misteriosa",
-    description:
-        "A chave possui uma estrela gravada. " +
-        "Você percebe uma pequena porta escondida.",
-    background:"cabin",
-    doors:[
-        {
-            icon:"⭐",
-            label:"PORTA SECRETA",
-            next:"secretDoor",
-            item:"🔑 Chave enferrujada"
-        },
-        {
-            icon:"🚪",
-            label:"SAIR",
-            ending:6,
-            type:"castle"
-        }
-    ]
-},
-
-chest:{
-    title:"O Baú",
-    description:
-        "Dentro do baú há um bilhete dizendo: " +
-        "\"A resposta esteve perto de você o tempo todo.\"",
-    background:"cabin",
-    doors:[
-        {
-            icon:"🪞",
-            label:"ESPELHO",
-            ending:7
-        },
-        {
-            icon:"😂",
-            label:"IGNORAR",
-            ending:8,
-            type:"tunnel"
-        }
-    ]
-},
 
 village:{
-    title:"A Vila Abandonada",
-    description:
-        "A vila está vazia. Uma igreja possui uma luz acesa.",
-    background:"village",
-    doors:[
-        {
-            icon:"⛪",
-            label:"IGREJA",
-            ending:15
-        },
-        {
-            icon:"🏠",
-            label:"CASA",
-            next:"house",
-            type:"castle"
-        }
-    ]
+title:"A Vila",
+description:
+"A vila parece abandonada. Mas existem sinais de que alguém esteve aqui.",
+
+choices:[
+
+{
+name:"Igreja",
+desc:"Uma pequena igreja permanece aberta.",
+art:"church",
+ending:12
 },
 
-river:{
-    title:"O Rio",
-    description:
-        "Uma pequena caixa flutua lentamente na água.",
-    background:"bridge",
-    doors:[
-        {
-            icon:"📦",
-            label:"CAIXA",
-            ending:9
-        },
-        {
-            icon:"🌊",
-            label:"SEGUIR RIO",
-            ending:10,
-            type:"tunnel"
-        }
-    ]
+{
+name:"Casa",
+desc:"Uma casa possui uma janela iluminada.",
+art:"cabin",
+ending:13
 },
 
-blueLight:{
-    title:"A Luz Azul",
-    description:
-        "Uma pequena fada está presa dentro de uma esfera mágica.",
-    background:"forest",
-    doors:[
-        {
-            icon:"🧚",
-            label:"LIBERTAR",
-            ending:11
-        },
-        {
-            icon:"🔮",
-            label:"TOCAR",
-            ending:12,
-            type:"castle"
-        }
-    ]
+{
+name:"Praça",
+desc:"Uma estátua misteriosa está no centro.",
+art:"village",
+ending:14
+}
+
+]
 },
 
-crystal:{
-    title:"O Cristal Azul",
-    description:
-        "O cristal começa a brilhar e abre uma passagem.",
-    background:"castle",
-    doors:[
-        {
-            icon:"✨",
-            label:"PASSAGEM",
-            ending:16
-        },
-        {
-            icon:"💎",
-            label:"GUARDAR",
-            ending:17,
-            type:"castle"
-        }
-    ]
+
+blue:{
+title:"A Luz Azul",
+description:
+"A luz está cada vez mais forte.",
+
+choices:[
+
+{
+name:"Entrar na Luz",
+desc:"Você decide descobrir para onde ela leva.",
+art:"cave",
+ending:15
 },
 
-secretDoor:{
-    title:"A Sala Azul",
-    description:
-        "Você abre a porta secreta e encontra uma sala iluminada.",
-    background:"castle",
-    doors:[
-        {
-            icon:"✨",
-            label:"ENTRAR",
-            ending:16
-        },
-        {
-            icon:"🔙",
-            label:"VOLTAR",
-            next:"cabin",
-            type:"tunnel"
-        }
-    ]
+{
+name:"Cristal Azul",
+desc:"Um cristal está preso na parede.",
+art:"cave",
+ending:16
 },
 
-secretRoom:{
-    title:"A Sala Secreta",
-    description:
-        "Mapas cobrem as paredes. Um deles mostra todos os caminhos.",
-    background:"tunnel",
-    doors:[
-        {
-            icon:"🗺️",
-            label:"SEGUIR MAPA",
-            ending:20
-        },
-        {
-            icon:"🔐",
-            label:"DESCOBRIR SEGREDO",
-            ending:20,
-            type:"castle"
-        }
-    ]
+{
+name:"Voltar",
+desc:"Você retorna ao porão.",
+art:"cave",
+next:"basement"
+}
+
+]
 },
 
-house:{
-    title:"A Casa Abandonada",
-    description:
-        "Uma fotografia antiga está sobre uma mesa.",
-    background:"cabin",
-    doors:[
-        {
-            icon:"🖼️",
-            label:"FOTOGRAFIA",
-            ending:7
-        },
-        {
-            icon:"🚪",
-            label:"SAIR",
-            ending:2,
-            type:"castle"
-        }
-    ]
+
+gold:{
+title:"A Sala Dourada",
+description:
+"Tudo aqui parece ter sido construído com ouro.",
+
+choices:[
+
+{
+name:"Tesouro",
+desc:"Uma enorme pilha de ouro está diante de você.",
+art:"treasure",
+ending:17
+},
+
+{
+name:"Cristal",
+desc:"Um cristal gigante está no centro.",
+art:"cave",
+ending:7
+},
+
+{
+name:"Passagem Secreta",
+desc:"Uma pequena passagem está escondida atrás do tesouro.",
+art:"secret",
+next:"secret"
+}
+
+]
+},
+
+
+secret:{
+title:"A Sala Secreta",
+description:
+"Você encontrou um lugar que provavelmente ninguém deveria conhecer.",
+
+choices:[
+
+{
+name:"Trono",
+desc:"Um trono antigo está no centro da sala.",
+art:"secret",
+ending:20
+},
+
+{
+name:"Tesouro",
+desc:"Existe um pequeno baú escondido.",
+art:"treasure",
+ending:18
+},
+
+{
+name:"Voltar",
+desc:"Você decide deixar o lugar.",
+art:"cave",
+next:"basement"
+}
+
+]
+},
+
+
+tower:{
+title:"A Torre",
+description:
+"No topo da torre você encontra algo inesperado.",
+
+choices:[
+
+{
+name:"Observar a Lua",
+desc:"A lua parece estranhamente próxima.",
+art:"night",
+ending:19
+},
+
+{
+name:"Sala Superior",
+desc:"Existe uma pequena sala escondida.",
+art:"castle",
+ending:20
+},
+
+{
+name:"Descer",
+desc:"Você retorna ao castelo.",
+art:"castle",
+next:"castle"
+}
+
+]
 }
 
 };
 
 
-/* ==================================================
+/* =================================
    FINAIS
-================================================== */
+================================= */
 
 const endings={
 
-1:{
-    icon:"🌳",
-    title:"O Observador",
-    text:
-    "Você decidiu ficar escondido na árvore. " +
-    "Quando amanheceu, encontrou o caminho de volta."
-},
+1:["O OBJETO MISTERIOSO",
+"Você encontrou um objeto muito estranho dentro da cabana. Talvez ele tenha uma utilidade que você ainda não descobriu."],
 
-2:{
-    icon:"🌙",
-    title:"A Estrada Sem Fim",
-    text:
-    "Você seguiu pela estrada iluminada pela lua. " +
-    "Depois de muito caminhar, finalmente voltou para casa."
-},
+2:["A TORRE",
+"No topo da torre você encontrou uma sala secreta que não aparece em nenhum mapa."],
 
-3:{
-    icon:"🧭",
-    title:"O Caminho Perdido",
-    text:
-    "Você seguiu a inscrição e descobriu que nem todo caminho leva ao destino esperado."
-},
+3:["A ÁRVORE GIGANTE",
+"Dentro da árvore havia uma passagem escondida. Você descobriu um dos segredos da floresta."],
 
-4:{
-    icon:"👑",
-    title:"A Rainha da Caverna",
-    text:
-    "Você encontrou uma coroa perdida há séculos. " +
-    "As histórias sobre seu nome continuaram por gerações."
-},
+4:["O BAÚ",
+"Você abriu o antigo baú e encontrou uma pequena chave dourada."],
 
-5:{
-    icon:"🚣",
-    title:"O Outro Lado",
-    text:
-    "Você atravessou o lago subterrâneo e encontrou uma saída secreta."
-},
+5:["A SALA VERMELHA",
+"Você entrou na sala vermelha. Quando olhou para trás, a porta havia desaparecido."],
 
-6:{
-    icon:"🚪",
-    title:"A Fuga",
-    text:
-    "Você encontrou uma saída escondida na cabana e escapou da floresta."
-},
+6:["A SALA AZUL",
+"A sala azul estava completamente vazia. Apenas uma mensagem estava escrita na parede."],
 
-7:{
-    icon:"🪞",
-    title:"O Reflexo",
-    text:
-    "No reflexo você percebeu que a pista mais importante sempre esteve com você."
-},
+7:["O CRISTAL",
+"O cristal começou a brilhar em suas mãos. Você acabou de descobrir algo muito importante."],
 
-8:{
-    icon:"😂",
-    title:"FINAL TROLL",
-    text:
-    "Você ignorou completamente a pista. " +
-    "O jogo olha para você e pergunta: \"Por quê?\" 😂"
-},
+8:["O RIO SUBTERRÂNEO",
+"Você seguiu o rio e descobriu uma saída secreta da caverna."],
 
-9:{
-    icon:"📦",
-    title:"A Caixa Misteriosa",
-    text:
-    "Dentro da caixa havia um mapa que mostrava o caminho de volta."
-},
+9:["A PASSAGEM ESCURA",
+"Depois de atravessar a passagem, você encontrou uma saída escondida."],
 
-10:{
-    icon:"🌊",
-    title:"Seguindo o Rio",
-    text:
-    "Você seguiu o rio até chegar ao oceano. " +
-    "Não era exatamente o destino planejado."
-},
+10:["A PONTE",
+"A ponte resistiu! Do outro lado havia uma placa dizendo: 'Você escolheu corretamente.'"],
 
-11:{
-    icon:"🧚",
-    title:"O Amigo Mágico",
-    text:
-    "Você libertou a fada. Ela abriu um portal e levou você para casa."
-},
+11:["O CAMINHO DO RIO",
+"Você seguiu o rio e encontrou uma pequena vila escondida."],
 
-12:{
-    icon:"🔮",
-    title:"O Portal",
-    text:
-    "Ao tocar na esfera, você foi transportado para um mundo desconhecido."
-},
+12:["A IGREJA",
+"Dentro da igreja havia uma mensagem misteriosa sobre sua aventura."],
 
-13:{
-    icon:"🚪",
-    title:"A Porta Dourada",
-    text:
-    "Uma porta escondida atrás do tesouro levou você para fora do castelo."
-},
+13:["A CASA",
+"A casa estava vazia, mas uma fotografia mostrava exatamente o lugar onde você estava."],
 
-14:{
-    icon:"💰",
-    title:"O Caçador de Tesouros",
-    text:
-    "Você escolheu o ouro. Ficou rico, mas nunca descobriu o verdadeiro segredo."
-},
+14:["A ESTÁTUA",
+"A estátua se moveu lentamente e revelou uma passagem subterrânea."],
 
-15:{
-    icon:"💙",
-    title:"O Verdadeiro Tesouro",
-    text:
-    "Você descobriu que o verdadeiro tesouro não era ouro, mas tudo aquilo que aprendeu durante a aventura."
-},
+15:["A LUZ AZUL",
+"Você entrou na luz azul e apareceu em um lugar completamente diferente."],
 
-16:{
-    icon:"✨",
-    title:"O Mundo Secreto",
-    text:
-    "Você atravessou o portal e descobriu um mundo escondido."
-},
+16:["O CRISTAL AZUL",
+"O cristal azul começou a levitar. Talvez você tenha desbloqueado algo maior."],
 
-17:{
-    icon:"💎",
-    title:"O Guardião do Cristal",
-    text:
-    "Você ficou com o cristal e descobriu que ele possuía um poder extraordinário."
-},
+17:["O TESOURO",
+"Você encontrou o tesouro perdido! Mas uma mensagem dizia: 'Este talvez não seja o verdadeiro final.'"],
 
-18:{
-    icon:"👑",
-    title:"O Novo Rei",
-    text:
-    "Você sentou no trono e descobriu que o castelo estava esperando por um novo governante."
-},
+18:["O BAÚ SECRETO",
+"Dentro do baú havia um mapa mostrando lugares que você ainda não visitou."],
 
-19:{
-    icon:"🏰",
-    title:"O Castelo Sem Fim",
-    text:
-    "Você continuou pelos corredores. Quanto mais andava, mais salas apareciam."
-},
+19:["A LUA",
+"Você observou a lua e percebeu algo estranho: havia uma segunda lua escondida atrás das nuvens."],
 
-20:{
-    icon:"🔐",
-    title:"O DESTINO SECRETO",
-    text:
-    "Você encontrou o mapa secreto e descobriu que todos os caminhos estavam conectados desde o começo. " +
-    "Você encontrou um dos finais mais raros do jogo!"
-}
-
+20:["FINAL SECRETO",
+"PARABÉNS! 🎉 Você encontrou um dos finais mais secretos de toda a aventura!"]
 };
 
 
-/* ==================================================
-   INICIAR
-================================================== */
+/* =================================
+   DESENHAR CENÁRIOS
+================================= */
 
-function startGame(){
+function createArt(type){
 
-    document.getElementById("startScreen").style.display="none";
+let html="";
 
-    document.getElementById("game").style.display="block";
+if(type==="cabin"){
 
-    score=0;
+html=`
+<div class="scene-art cabin-art">
 
-    inventory=[];
+<div class="sky"></div>
+<div class="moon"></div>
 
-    currentScene="start";
+<div class="smoke"></div>
 
-    updateStats();
+<div class="cabin-roof"></div>
 
-    renderScene();
+<div class="cabin-house">
+
+<div class="window left"></div>
+<div class="window right"></div>
+<div class="cabin-door"></div>
+
+</div>
+
+<div class="ground"></div>
+
+</div>`;
+
 }
 
 
-/* ==================================================
-   RENDERIZAR CENÁRIO
-================================================== */
+else if(type==="castle"){
 
-function renderScene(){
+html=`
+<div class="scene-art castle-art">
 
-    const data=scenes[currentScene];
+<div class="sky"></div>
+<div class="moon"></div>
 
-    const scene=document.getElementById("scene");
+<div class="castle-wall"></div>
 
-    scene.className="scene "+(data.background||"forest");
+<div class="tower left">
+<div class="tower-top"></div>
+</div>
 
-    document.getElementById("sceneTitle").textContent=
-        data.title;
+<div class="tower right">
+<div class="tower-top"></div>
+</div>
 
-    document.getElementById("sceneDescription").textContent=
-        data.description;
+<div class="castle-door"></div>
 
-    const doors=
-        document.getElementById("doors");
+</div>`;
 
-    doors.innerHTML="";
-
-    data.doors.forEach((choice,index)=>{
-
-        const container=
-            document.createElement("div");
-
-        container.className="doorChoice";
-
-        container.innerHTML=`
-
-            <div class="door ${choice.type||""}">
-
-                <div class="doorHandle"></div>
-
-            </div>
-
-            <div class="doorLabel">
-                ${choice.icon} ${choice.label}
-            </div>
-        `;
-
-        container.onclick=()=>chooseDoor(container,choice);
-
-        doors.appendChild(container);
-
-    });
-
-    updateInventory();
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
 }
 
 
-/* ==================================================
-   ESCOLHER PORTA
-================================================== */
+else if(type==="forest"){
 
-function chooseDoor(element,choice){
+html=`
+<div class="scene-art forest-art">
 
-    if(element.classList.contains("opening")){
-        return;
-    }
+<div class="sky"></div>
+<div class="moon"></div>
 
-    score+=25;
+<div class="star s1"></div>
+<div class="star s2"></div>
+<div class="star s3"></div>
+<div class="star s4"></div>
+<div class="star s5"></div>
 
-    if(choice.item){
+<div class="ground"></div>
 
-        if(!inventory.includes(choice.item)){
+<div class="tree t1">
+<div class="leaves"></div>
+<div class="trunk"></div>
+</div>
 
-            inventory.push(choice.item);
+<div class="tree t2">
+<div class="leaves"></div>
+<div class="trunk"></div>
+</div>
 
-            score+=75;
+<div class="tree t3">
+<div class="leaves"></div>
+<div class="trunk"></div>
+</div>
 
-            showToast(
-                "🎒 Você encontrou: "+
-                choice.item
-            );
-        }
-    }
+<div class="tree t4">
+<div class="leaves"></div>
+<div class="trunk"></div>
+</div>
 
-    element.classList.add("opening");
+<div class="fog"></div>
 
-    setTimeout(()=>{
+</div>`;
 
-        if(choice.ending){
-
-            finishGame(choice.ending);
-
-            return;
-        }
-
-        if(choice.next){
-
-            currentScene=choice.next;
-
-            renderScene();
-        }
-
-        updateStats();
-
-    },650);
 }
 
 
-/* ==================================================
-   INVENTÁRIO
-================================================== */
+else if(type==="bridge"){
 
-function updateInventory(){
+html=`
+<div class="scene-art bridge-art">
 
-    const box=
-        document.getElementById("inventory");
+<div class="sky"></div>
 
-    box.innerHTML="";
+<div class="water"></div>
 
-    if(inventory.length===0){
+<div class="bridge"></div>
+<div class="rope"></div>
 
-        const item=document.createElement("div");
+</div>`;
 
-        item.className="item";
-
-        item.textContent=
-            "🎒 Nada encontrado ainda...";
-
-        box.appendChild(item);
-
-        return;
-    }
-
-    inventory.forEach(item=>{
-
-        const element=
-            document.createElement("div");
-
-        element.className="item";
-
-        element.textContent=item;
-
-        box.appendChild(element);
-
-    });
 }
 
 
-/* ==================================================
-   FINAL
-================================================== */
+else if(type==="village"){
 
-function finishGame(number){
+html=`
+<div class="scene-art village-art">
 
-    const ending=endings[number];
+<div class="sky"></div>
 
-    if(!ending)return;
+<div class="ground"></div>
 
-    score+=100;
+<div class="house h1"></div>
+<div class="house h2"></div>
 
-    const isNew=
-        !discovered.includes(number);
+<div class="lamp"></div>
 
-    if(isNew){
+</div>`;
 
-        discovered.push(number);
-
-        localStorage.setItem(
-            "jullyaDestinos",
-            JSON.stringify(discovered)
-        );
-    }
-
-    document.getElementById("game").style.display="none";
-
-    document.getElementById("endingScreen").style.display="flex";
-
-    document.getElementById("endingIcon").textContent=
-        ending.icon;
-
-    document.getElementById("endingTitle").textContent=
-        ending.title;
-
-    document.getElementById("endingNumber").textContent=
-        "FINAL #"+number;
-
-    document.getElementById("endingText").textContent=
-        ending.text;
-
-    document.getElementById("endingScore").textContent=
-        score;
-
-    document.getElementById("endingTotal").textContent=
-        discovered.length;
-
-    updateProgress();
-
-    if(isNew){
-
-        showToast("🏆 NOVO FINAL DESCOBERTO!");
-
-    }
-
-    if(number===20){
-
-        createConfetti();
-
-    }
 }
 
 
-/* ==================================================
-   NOVA AVENTURA
-================================================== */
+else if(type==="cave"){
 
-function newAdventure(){
+html=`
+<div class="scene-art cave-art">
 
-    document.getElementById("endingScreen").style.display="none";
+<div class="cave-rock"></div>
 
-    document.getElementById("game").style.display="block";
+<div class="crystal c1"></div>
+<div class="crystal c2"></div>
+<div class="crystal c3"></div>
 
-    score=0;
+</div>`;
 
-    inventory=[];
-
-    currentScene="start";
-
-    updateStats();
-
-    renderScene();
 }
 
 
-/* ==================================================
-   MENU
-================================================== */
+else if(type==="church"){
 
-function goHome(){
+html=`
+<div class="scene-art church-art">
 
-    document.getElementById("endingScreen").style.display="none";
+<div class="sky"></div>
 
-    document.getElementById("game").style.display="none";
+<div class="ground"></div>
 
-    document.getElementById("startScreen").style.display="flex";
+<div class="church">
+
+<div class="church-roof"></div>
+
+<div class="church-tower">
+<div class="cross"></div>
+</div>
+
+</div>
+
+</div>`;
+
 }
 
 
-/* ==================================================
+else if(type==="treasure"){
+
+html=`
+<div class="scene-art treasure-art">
+
+<div class="gold"></div>
+
+<div class="coin" style="left:25%;bottom:30%"></div>
+<div class="coin" style="left:70%;bottom:35%"></div>
+<div class="coin" style="left:60%;bottom:25%"></div>
+<div class="coin" style="left:35%;bottom:22%"></div>
+
+</div>`;
+
+}
+
+
+else if(type==="secret"){
+
+html=`
+<div class="scene-art secret-art">
+
+<div class="throne">
+
+<div class="crown">👑</div>
+
+</div>
+
+</div>`;
+
+}
+
+
+else if(type==="tower"){
+
+html=`
+<div class="scene-art castle-art">
+
+<div class="sky"></div>
+<div class="moon"></div>
+
+<div class="tower"
+style="
+left:50%;
+transform:translateX(-50%);
+height:260px;
+width:120px;
+">
+
+<div class="tower-top"
+style="width:128px">
+</div>
+
+</div>
+
+</div>`;
+
+}
+
+
+else if(type==="room"){
+
+html=`
+<div class="scene-art cabin-art">
+
+<div class="sky"></div>
+
+<div class="cabin-house"
+style="bottom:18%;">
+
+<div class="window left"></div>
+
+<div
+style="
+position:absolute;
+width:55px;
+height:55px;
+background:#6b8cff;
+box-shadow:0 0 35px #748fff;
+left:75px;
+top:25px;
+border-radius:50%;
+">
+</div>
+
+</div>
+
+</div>`;
+
+}
+
+
+else if(type==="night"){
+
+html=`
+<div class="scene-art night">
+
+<div class="sky"></div>
+
+<div class="moon"></div>
+
+<div class="star s1"></div>
+<div class="star s2"></div>
+<div class="star s3"></div>
+<div class="star s4"></div>
+<div class="star s5"></div>
+
+</div>`;
+
+}
+
+return html;
+
+}
+
+
+/* =================================
+   CARREGAR CENA
+================================= */
+
+function loadScene(name){
+
+currentScene=name;
+
+const scene=scenes[name];
+
+document.getElementById("title").textContent=scene.title;
+
+document.getElementById("description").textContent=scene.description;
+
+const container=document.getElementById("choices");
+
+container.innerHTML="";
+
+
+scene.choices.forEach((choice,index)=>{
+
+const card=document.createElement("div");
+
+card.className="choice";
+
+card.innerHTML=
+
+createArt(choice.art)+`
+
+<div class="choice-info">
+
+<h3>${choice.name}</h3>
+
+<p>${choice.desc}</p>
+
+<span class="enter">
+CLIQUE PARA EXPLORAR →
+</span>
+
+</div>
+`;
+
+card.onclick=()=>{
+
+if(card.classList.contains("locked")) return;
+
+document
+.querySelectorAll(".choice")
+.forEach(c=>c.classList.add("locked"));
+
+card.classList.add("selected");
+
+setTimeout(()=>{
+
+score+=25;
+
+updateStats();
+
+if(choice.ending){
+
+showEnding(choice.ending);
+
+}else{
+
+loadScene(choice.next);
+
+}
+
+},500);
+
+};
+
+container.appendChild(card);
+
+});
+
+}
+
+
+/* =================================
+   MOSTRAR FINAL
+================================= */
+
+function showEnding(number){
+
+const data=endings[number];
+
+if(!discovered.includes(number)){
+
+discovered.push(number);
+
+localStorage.setItem(
+"jullyaDestinos",
+JSON.stringify(discovered)
+);
+
+score+=100;
+
+}
+
+updateStats();
+
+document.getElementById("endingNumber").textContent=
+"FINAL "+number+" / 20";
+
+document.getElementById("endingTitle").textContent=
+data[0];
+
+document.getElementById("endingText").textContent=
+data[1];
+
+document.getElementById("ending").style.display="flex";
+
+}
+
+
+/* =================================
+   CONTINUAR
+================================= */
+
+function continueGame(){
+
+document.getElementById("ending").style.display="none";
+
+loadScene("start");
+
+}
+
+
+/* =================================
    ESTATÍSTICAS
-================================================== */
+================================= */
 
 function updateStats(){
 
-    document.getElementById("score").textContent=
-        score;
+document.getElementById("score").textContent=score;
 
-    updateProgress();
-}
+document.getElementById("count").textContent=
+discovered.length;
 
-function updateProgress(){
+document.getElementById("progressText").textContent=
+discovered.length+"/20";
 
-    document.getElementById("endingCount").textContent=
-        discovered.length;
+document.getElementById("progressFill").style.width=
+(discovered.length/20*100)+"%";
 
-    document.getElementById("progressText").textContent=
-        discovered.length+"/20";
-}
-
-
-/* ==================================================
-   TOAST
-================================================== */
-
-let toastTimer;
-
-function showToast(text){
-
-    const toast=
-        document.getElementById("toast");
-
-    toast.textContent=text;
-
-    toast.classList.add("show");
-
-    clearTimeout(toastTimer);
-
-    toastTimer=setTimeout(()=>{
-
-        toast.classList.remove("show");
-
-    },2500);
 }
 
 
-/* ==================================================
-   CONFETES
-================================================== */
+/* =================================
+   INICIAR
+================================= */
 
-function createConfetti(){
+function startGame(){
 
-    for(let i=0;i<120;i++){
+document.getElementById("menu").style.display="none";
 
-        const piece=
-            document.createElement("div");
+document.getElementById("game").style.display="block";
 
-        piece.className="confetti";
+score=0;
 
-        piece.style.left=
-            Math.random()*100+"vw";
+updateStats();
 
-        piece.style.background=[
-            "#38bdf8",
-            "#60a5fa",
-            "#facc15",
-            "#22c55e",
-            "#f472b6",
-            "#a78bfa"
-        ][Math.floor(Math.random()*6)];
+loadScene("start");
 
-        piece.style.animationDelay=
-            Math.random()*2+"s";
-
-        document.body.appendChild(piece);
-
-        setTimeout(()=>{
-            piece.remove();
-        },5000);
-    }
 }
-
-
-/* ==================================================
-   TECLADO
-================================================== */
-
-document.addEventListener("keydown",event=>{
-
-    if(
-        document.getElementById("game").style.display!=="block"
-    ){
-        return;
-    }
-
-    const number=parseInt(event.key);
-
-    if(number>=1 && number<=3){
-
-        const doors=
-            document.querySelectorAll(".doorChoice");
-
-        if(doors[number-1]){
-            doors[number-1].click();
-        }
-    }
-});
-
-
-/* ==================================================
-   INICIALIZAÇÃO
-================================================== */
-
-updateProgress();
 
 </script>
 
