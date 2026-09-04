@@ -1,9 +1,10 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Escape Room — A Sala 13</title>
+<title>NÃO CLIQUE!</title>
 
 <style>
 * {
@@ -12,815 +13,291 @@
     padding: 0;
 }
 
-:root {
-    --bg: #070b13;
-    --panel: #101827;
-    --panel2: #162235;
-    --blue: #38bdf8;
-    --blue2: #2563eb;
-    --white: #f8fafc;
-    --gray: #94a3b8;
-    --danger: #ef4444;
-    --green: #22c55e;
-    --gold: #facc15;
-}
-
 body {
+    min-height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
     background:
-        radial-gradient(circle at top, #172554 0%, #070b13 50%, #020617 100%);
-    color: var(--white);
-    min-height: 100vh;
+        radial-gradient(circle at center, #3b0000 0%, #150000 45%, #050505 100%);
+    color: white;
     overflow-x: hidden;
 }
 
-button,
-input {
-    font-family: inherit;
-}
-
-/* =========================
-   TELA INICIAL
-========================= */
-
-#startScreen {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background:
-        radial-gradient(circle at center, #172554, #020617 70%);
-}
-
-.startBox {
-    width: min(700px, 100%);
-    text-align: center;
-    padding: 45px 30px;
-    border: 1px solid #334155;
-    border-radius: 25px;
-    background: rgba(15, 23, 42, 0.94);
-    box-shadow: 0 0 70px rgba(56, 189, 248, .15);
-}
-
-.logo {
-    font-size: 65px;
-    margin-bottom: 10px;
-}
-
-.startBox h1 {
-    font-size: clamp(35px, 7vw, 65px);
-    letter-spacing: 3px;
-}
-
-.startBox h1 span {
-    color: var(--blue);
-}
-
-.startBox p {
-    color: var(--gray);
-    margin: 20px auto;
-    line-height: 1.7;
-    max-width: 570px;
-}
-
-.startInfo {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin: 25px 0;
-}
-
-.info {
-    padding: 10px 15px;
-    border-radius: 12px;
-    background: #172033;
-    color: #cbd5e1;
-}
-
-.mainButton {
-    border: none;
-    padding: 15px 35px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, var(--blue2), var(--blue));
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    cursor: pointer;
-    transition: .2s;
-    box-shadow: 0 8px 25px rgba(37, 99, 235, .25);
-}
-
-.mainButton:hover {
-    transform: translateY(-3px) scale(1.02);
-}
-
-/* =========================
-   JOGO
-========================= */
-
-#game {
-    display: none;
-}
-
 header {
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 100;
-    background: rgba(2, 6, 23, .92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid #1e293b;
-    padding: 13px 20px;
-}
-
-.headerInside {
-    max-width: 1250px;
-    margin: auto;
+    right: 0;
+    z-index: 10;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-}
-
-.title {
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-
-.title span {
-    color: var(--blue);
-}
-
-.stats {
-    display: flex;
-    gap: 10px;
+    gap: 8px;
+    padding: 12px;
     flex-wrap: wrap;
     justify-content: flex-end;
 }
 
-.stat {
-    background: #111827;
-    border: 1px solid #253247;
-    padding: 8px 13px;
-    border-radius: 10px;
-    font-size: 14px;
-}
-
-#timer {
-    color: var(--gold);
-}
-
-#lives {
-    color: #f87171;
-}
-
-/* =========================
-   SALA
-========================= */
-
-.room {
-    position: relative;
-    max-width: 1250px;
-    height: 650px;
-    margin: 25px auto;
-    overflow: hidden;
-    border: 5px solid #263449;
-    border-radius: 20px;
-    background:
-        linear-gradient(
-            180deg,
-            #111827 0%,
-            #182235 63%,
-            #111827 63%,
-            #0f172a 100%
-        );
-    box-shadow:
-        0 20px 70px rgba(0,0,0,.5),
-        inset 0 0 80px rgba(0,0,0,.4);
-}
-
-/* chão */
-.room::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 32%;
-    background:
-        repeating-linear-gradient(
-            90deg,
-            rgba(255,255,255,.025) 0,
-            rgba(255,255,255,.025) 80px,
-            rgba(0,0,0,.04) 80px,
-            rgba(0,0,0,.04) 160px
-        ),
-        #111827;
-    border-top: 3px solid #263449;
-    z-index: 0;
-}
-
-/* janela */
-.window {
-    position: absolute;
-    width: 220px;
-    height: 150px;
-    top: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    background:
-        radial-gradient(circle at 30% 25%, #60a5fa, #172554 65%, #020617);
-    border: 12px solid #334155;
-    box-shadow: 0 0 30px rgba(59,130,246,.2);
-    z-index: 2;
-}
-
-.window::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 7px;
-    background: #334155;
-}
-
-.window::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 7px;
-    background: #334155;
-}
-
-/* relógio */
-.clock {
-    position: absolute;
-    top: 35px;
-    right: 50px;
-    width: 95px;
-    height: 95px;
-    border-radius: 50%;
-    border: 8px solid #475569;
-    background: #020617;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 3;
-    cursor: pointer;
-    box-shadow: 0 5px 20px #000;
-}
-
-.clock::before {
-    content: "12";
-    position: absolute;
-    top: 8px;
-    font-size: 12px;
-}
-
-.clock::after {
-    content: "6";
-    position: absolute;
-    bottom: 8px;
-    font-size: 12px;
-}
-
-.clockHands {
-    width: 5px;
-    height: 30px;
-    background: white;
-    position: absolute;
-    transform-origin: bottom;
-    transform: rotate(25deg);
-}
-
-/* quadro */
-.board {
-    position: absolute;
-    top: 55px;
-    left: 45px;
-    width: 205px;
-    height: 145px;
-    background: #263b2d;
-    border: 12px solid #5b3b24;
-    box-shadow: 0 8px 15px #0008;
-    z-index: 2;
-    padding: 15px;
-    cursor: pointer;
-}
-
-.boardText {
-    font-family: monospace;
-    color: #d9f99d;
-    line-height: 1.6;
-    font-size: 15px;
-}
-
-/* lâmpada */
-.lamp {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 5px;
-    height: 50px;
-    background: #64748b;
-    z-index: 4;
-}
-
-.lampBulb {
-    position: absolute;
-    top: 45px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: #fde68a;
-    box-shadow: 0 0 45px 15px rgba(250,204,21,.25);
-    cursor: pointer;
-    z-index: 5;
-}
-
-/* mesa */
-.table {
-    position: absolute;
-    width: 270px;
-    height: 125px;
-    bottom: 125px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #6b4428;
-    border: 7px solid #422818;
-    border-radius: 8px;
-    z-index: 5;
-    cursor: pointer;
-    box-shadow: 0 15px 15px #0008;
-}
-
-.tableTop {
-    position: absolute;
-    inset: 0;
-    background:
-        repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 18px,
-            rgba(0,0,0,.08) 19px
-        );
-}
-
-.paper {
-    position: absolute;
-    width: 85px;
-    height: 60px;
-    top: 30px;
-    left: 90px;
-    background: #f8fafc;
-    color: #111827;
-    transform: rotate(-6deg);
-    padding: 9px;
-    font-size: 11px;
-    box-shadow: 0 4px 10px #0008;
-}
-
-/* cadeira */
-.chair {
-    position: absolute;
-    width: 80px;
-    height: 95px;
-    bottom: 70px;
-    left: 25%;
-    background: #475569;
-    border: 6px solid #334155;
-    border-radius: 10px;
-    z-index: 4;
-    cursor: pointer;
-}
-
-.chair::before {
-    content: "";
-    position: absolute;
-    left: 10px;
-    right: 10px;
-    bottom: -55px;
-    height: 55px;
-    border-left: 8px solid #334155;
-    border-right: 8px solid #334155;
-}
-
-/* estante */
-.shelf {
-    position: absolute;
-    right: 40px;
-    bottom: 115px;
-    width: 210px;
-    height: 230px;
-    background: #4b2e1d;
-    border: 9px solid #2b1b12;
-    z-index: 4;
-    cursor: pointer;
-}
-
-.shelfLine {
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 8px;
-    background: #2b1b12;
-}
-
-.shelfLine.one { top: 70px; }
-.shelfLine.two { top: 140px; }
-
-.book {
-    position: absolute;
-    bottom: 10px;
-    width: 20px;
-    height: 55px;
-    background: #64748b;
-    border-radius: 2px;
-}
-
-.book:nth-child(1) { left: 15px; }
-.book:nth-child(2) { left: 40px; height: 45px; }
-.book:nth-child(3) { left: 65px; height: 60px; }
-.book:nth-child(4) { left: 92px; height: 50px; }
-.book:nth-child(5) { left: 120px; height: 65px; }
-
-/* porta */
-.door {
-    position: absolute;
-    width: 120px;
-    height: 250px;
-    left: 65px;
-    bottom: 100px;
-    background: #3f291d;
-    border: 10px solid #24160f;
-    z-index: 4;
-    cursor: pointer;
-}
-
-.doorPanel {
-    position: absolute;
-    width: 70px;
-    height: 75px;
-    left: 15px;
-    border: 5px solid #24160f;
-}
-
-.doorPanel.one { top: 20px; }
-.doorPanel.two { top: 115px; }
-
-.handle {
-    position: absolute;
-    right: 12px;
-    top: 125px;
-    width: 13px;
-    height: 13px;
-    border-radius: 50%;
-    background: #facc15;
-}
-
-/* tapete */
-.rug {
-    position: absolute;
-    width: 380px;
-    height: 110px;
-    bottom: 55px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #172554;
-    border: 8px solid #1e3a8a;
-    border-radius: 50%;
-    z-index: 2;
-}
-
-/* mensagens de objetos */
-.objectLabel {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-    transition: .2s;
-}
-
-/* =========================
-   PAINEL INFERIOR
-========================= */
-
-.bottomPanel {
-    max-width: 1250px;
-    margin: 0 auto 30px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-.panel {
-    background: #0f172a;
-    border: 1px solid #263449;
-    border-radius: 18px;
-    padding: 20px;
-}
-
-.panel h2 {
-    font-size: 18px;
-    margin-bottom: 12px;
-}
-
-.inventory {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.item {
-    padding: 8px 11px;
-    background: #172033;
-    border: 1px solid #334155;
-    border-radius: 9px;
+.info {
+    background: rgba(0,0,0,.75);
+    border: 1px solid #444;
+    border-radius: 12px;
+    padding: 9px 13px;
     font-size: 13px;
+    box-shadow: 0 0 15px rgba(0,0,0,.5);
 }
 
-.hintButton {
-    margin-top: 15px;
-    padding: 10px 15px;
-    background: #1e293b;
+.info strong {
+    color: #ff3333;
+}
+
+main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 80px 20px 100px;
+}
+
+h1 {
+    font-size: clamp(42px, 8vw, 90px);
+    color: #ff2222;
+    text-shadow:
+        0 0 10px #ff0000,
+        0 0 30px #ff0000;
+    margin-bottom: 10px;
+    animation: pulseTitle 1.5s infinite;
+}
+
+.subtitle {
+    color: #aaa;
+    font-size: 17px;
+    margin-bottom: 45px;
+}
+
+#counter {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+#clickButton {
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    border: 8px solid #7a0000;
+    background: radial-gradient(circle at 35% 30%, #ff5555, #e00000 45%, #790000 100%);
     color: white;
-    border: 1px solid #475569;
-    border-radius: 10px;
+    font-size: 30px;
+    font-weight: 900;
     cursor: pointer;
+    box-shadow:
+        0 0 20px #ff0000,
+        0 0 60px rgba(255,0,0,.45),
+        inset 0 -15px 20px rgba(0,0,0,.35);
+    transition: transform .08s, filter .2s;
 }
 
-.hintButton:hover {
-    background: #334155;
+#clickButton:hover {
+    filter: brightness(1.15);
+    transform: scale(1.03);
 }
 
-#message {
-    color: #cbd5e1;
-    line-height: 1.5;
-    min-height: 50px;
+#clickButton:active {
+    transform: scale(.92);
 }
 
-.progressBar {
-    height: 10px;
+.progress-container {
+    width: min(500px, 90vw);
+    margin-top: 40px;
+}
+
+.progress-text {
+    display: flex;
+    justify-content: space-between;
+    color: #aaa;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+.progress {
+    width: 100%;
+    height: 12px;
+    background: #222;
     border-radius: 20px;
-    background: #1e293b;
     overflow: hidden;
-    margin-top: 12px;
+    border: 1px solid #444;
 }
 
-#progress {
+.progress-bar {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, #2563eb, #38bdf8);
-    transition: .4s;
+    background: linear-gradient(90deg, #ff0000, #ff5555);
+    transition: width .3s;
 }
 
-/* =========================
-   MODAL
-========================= */
+footer {
+    position: fixed;
+    bottom: 12px;
+    right: 15px;
+    color: #777;
+    font-size: 12px;
+}
 
-.modal {
+/* MODAL */
+
+.modal-bg {
     position: fixed;
     inset: 0;
-    z-index: 500;
+    background: rgba(0,0,0,.85);
     display: none;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    z-index: 50;
     padding: 20px;
-    background: rgba(0,0,0,.75);
-    backdrop-filter: blur(5px);
 }
 
-.modalBox {
-    width: min(500px, 100%);
-    background: #0f172a;
-    border: 1px solid #334155;
+.modal {
+    width: min(500px, 95vw);
+    background: #151515;
+    border: 2px solid #ff2222;
     border-radius: 20px;
     padding: 30px;
     text-align: center;
-    box-shadow: 0 20px 60px #000;
+    box-shadow: 0 0 50px rgba(255,0,0,.5);
+    animation: appear .3s;
 }
 
-.modalBox h2 {
+.modal h2 {
+    color: #ff3333;
+    font-size: 30px;
     margin-bottom: 15px;
-    color: var(--blue);
 }
 
-.modalBox p {
-    color: #cbd5e1;
-    line-height: 1.6;
+.modal p {
+    color: #ddd;
+    line-height: 1.5;
     margin-bottom: 20px;
 }
 
-.modalInput {
+.modal button,
+.code-button {
+    border: none;
+    border-radius: 10px;
+    padding: 13px 22px;
+    background: #e00000;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal button:hover {
+    background: #ff2222;
+}
+
+#codeInput {
     width: 100%;
     padding: 13px;
-    background: #020617;
-    border: 1px solid #334155;
     border-radius: 10px;
+    border: 1px solid #555;
+    background: #080808;
     color: white;
+    text-align: center;
     font-size: 18px;
-    text-align: center;
-    outline: none;
     margin-bottom: 12px;
+    outline: none;
 }
 
-.modalInput:focus {
-    border-color: var(--blue);
+/* CONQUISTAS */
+
+.achievements {
+    position: fixed;
+    left: 15px;
+    top: 15px;
+    z-index: 10;
+    width: 180px;
 }
 
-.modalButtons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.modalButtons button {
-    border: none;
-    padding: 11px 18px;
-    border-radius: 10px;
-    cursor: pointer;
+.achievement-title {
+    color: #ffd700;
     font-weight: bold;
+    margin-bottom: 8px;
 }
 
-.confirm {
-    background: var(--blue2);
-    color: white;
+.achievement {
+    background: rgba(0,0,0,.7);
+    border: 1px solid #333;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    font-size: 11px;
+    color: #777;
 }
 
-.close {
-    background: #334155;
-    color: white;
+.achievement.unlocked {
+    border-color: #ffd700;
+    color: #ffd700;
 }
 
-/* vitória */
-#winScreen {
+/* NOTIFICAÇÃO */
+
+.notification {
     position: fixed;
-    inset: 0;
-    z-index: 2000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background:
-        radial-gradient(circle, #172554, #020617 70%);
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    background: #111;
+    border: 1px solid #ff2222;
+    padding: 13px 20px;
+    border-radius: 10px;
+    z-index: 100;
+    opacity: 0;
+    transition: .4s;
 }
 
-.winBox {
-    width: min(650px, 100%);
-    text-align: center;
-    padding: 45px 30px;
-    border-radius: 25px;
-    background: #0f172a;
-    border: 1px solid #334155;
-    box-shadow: 0 0 100px rgba(34,197,94,.15);
+.notification.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
 }
 
-.winIcon {
-    font-size: 75px;
+.shake {
+    animation: shake .3s;
 }
 
-.winBox h1 {
-    color: var(--green);
-    margin: 10px 0;
-    font-size: 40px;
+@keyframes pulseTitle {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
 }
 
-.score {
-    font-size: 35px;
-    color: var(--gold);
-    margin: 20px 0;
-}
-
-/* confete */
-.confetti {
-    position: fixed;
-    width: 8px;
-    height: 15px;
-    top: -20px;
-    animation: fall 3s linear forwards;
-    z-index: 2500;
-}
-
-@keyframes fall {
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: scale(.8);
+    }
     to {
-        transform: translateY(110vh) rotate(720deg);
+        opacity: 1;
+        transform: scale(1);
     }
 }
 
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 800px) {
-    .room {
-        height: 580px;
-        margin: 15px 10px;
-    }
-
-    .window {
-        width: 150px;
-        height: 110px;
-        top: 40px;
-    }
-
-    .board {
-        left: 20px;
-        top: 40px;
-        width: 150px;
-        height: 110px;
-        padding: 8px;
-    }
-
-    .boardText {
-        font-size: 11px;
-    }
-
-    .clock {
-        right: 20px;
-        width: 70px;
-        height: 70px;
-    }
-
-    .table {
-        width: 220px;
-    }
-
-    .shelf {
-        right: 15px;
-        width: 145px;
-        height: 180px;
-    }
-
-    .door {
-        left: 25px;
-        width: 95px;
-        height: 210px;
-    }
-
-    .chair {
-        left: 18%;
-    }
-
-    .bottomPanel {
-        grid-template-columns: 1fr;
-        margin: 0 10px 20px;
-    }
-
-    .headerInside {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .stats {
-        justify-content: flex-start;
-    }
+@keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
 }
 
-@media (max-width: 500px) {
-    .room {
-        height: 520px;
+@media(max-width:700px) {
+    .achievements {
+        display: none;
     }
 
-    .table {
-        bottom: 100px;
+    header {
+        left: 0;
+        justify-content: center;
+    }
+
+    #clickButton {
         width: 190px;
-        height: 105px;
-    }
-
-    .paper {
-        width: 70px;
-        height: 50px;
-        left: 60px;
-        font-size: 9px;
-    }
-
-    .shelf {
-        transform: scale(.8);
-        transform-origin: bottom right;
-        bottom: 90px;
-    }
-
-    .door {
-        transform: scale(.8);
-        transform-origin: bottom left;
-        bottom: 80px;
-    }
-
-    .chair {
-        transform: scale(.75);
-        bottom: 55px;
-    }
-
-    .rug {
-        width: 270px;
-        height: 80px;
+        height: 190px;
+        font-size: 24px;
     }
 }
 </style>
@@ -828,908 +305,411 @@ header {
 
 <body>
 
-<!-- =========================
-     TELA INICIAL
-========================= -->
-
-<section id="startScreen">
-    <div class="startBox">
-
-        <div class="logo">🔐</div>
-
-        <h1>ESCAPE <span>ROOM</span></h1>
-
-        <p>
-            Você acordou dentro de uma sala misteriosa.
-            A porta está trancada e ninguém parece estar vindo.
-            Existem pistas espalhadas pelo ambiente.
-        </p>
-
-        <p>
-            <strong>Encontre os códigos, resolva os enigmas e escape!</strong>
-        </p>
-
-        <div class="startInfo">
-            <div class="info">🔎 Explore</div>
-            <div class="info">🧩 Resolva</div>
-            <div class="info">🔐 Desbloqueie</div>
-            <div class="info">⏱️ Seja rápido</div>
-        </div>
-
-        <button class="mainButton" onclick="startGame()">
-            🚪 ENTRAR NA SALA
-        </button>
-
-        <p style="font-size:13px;margin-top:25px;">
-            Boa sorte... você vai precisar. 👀
-        </p>
-
-    </div>
-</section>
-
-<!-- =========================
-     JOGO
-========================= -->
-
-<div id="game">
-
 <header>
-    <div class="headerInside">
-
-        <div class="title">
-            🔐 ESCAPE ROOM — <span>A SALA 13</span>
-        </div>
-
-        <div class="stats">
-
-            <div class="stat">
-                ⏱️ <span id="timer">10:00</span>
-            </div>
-
-            <div class="stat">
-                ❤️ <span id="lives">3</span>
-            </div>
-
-            <div class="stat">
-                🏆 <span id="score">0</span>
-            </div>
-
-        </div>
-
-    </div>
+    <div class="info">🖱️ Cliques: <strong id="clicks">0</strong></div>
+    <div class="info">📈 Progresso: <strong id="progress">0%</strong></div>
+    <div class="info">🏆 Conquistas: <strong id="achievementCount">0/6</strong></div>
+    <div class="info">👑 Recorde: <strong id="record">0</strong></div>
 </header>
 
-<!-- SALA -->
+<div class="achievements">
+    <div class="achievement-title">🏆 CONQUISTAS</div>
 
-<div class="room">
-
-    <div class="window"></div>
-
-    <div class="clock" onclick="inspect('clock')">
-        <div class="clockHands"></div>
-    </div>
-
-    <div class="board" onclick="inspect('board')">
-        <div class="boardText">
-            NÃO CONFIE<br>
-            NO QUE<br>
-            SEUS OLHOS<br>
-            VEEM...
-        </div>
-    </div>
-
-    <div class="lamp">
-        <div class="lampBulb" onclick="inspect('lamp')"></div>
-    </div>
-
-    <div class="door" onclick="inspect('door')">
-        <div class="doorPanel one"></div>
-        <div class="doorPanel two"></div>
-        <div class="handle"></div>
-    </div>
-
-    <div class="table" onclick="inspect('table')">
-        <div class="tableTop"></div>
-
-        <div class="paper">
-            <strong>ANOTAÇÃO</strong><br><br>
-            "O tempo revela aquilo que a pressa esconde."
-        </div>
-    </div>
-
-    <div class="chair" onclick="inspect('chair')"></div>
-
-    <div class="shelf" onclick="inspect('shelf')">
-        <div class="book"></div>
-        <div class="book"></div>
-        <div class="book"></div>
-        <div class="book"></div>
-        <div class="book"></div>
-
-        <div class="shelfLine one"></div>
-        <div class="shelfLine two"></div>
-    </div>
-
-    <div class="rug"></div>
-
+    <div class="achievement" id="a1">🔴 Primeiro clique</div>
+    <div class="achievement" id="a2">😈 50 cliques</div>
+    <div class="achievement" id="a3">💯 100 cliques</div>
+    <div class="achievement" id="a4">🔥 500 cliques</div>
+    <div class="achievement" id="a5">👑 1000 cliques</div>
+    <div class="achievement" id="a6">🤯 2000 cliques</div>
 </div>
 
-<!-- PAINÉIS -->
+<main>
 
-<div class="bottomPanel">
+    <h1>NÃO CLIQUE!</h1>
 
-    <div class="panel">
+    <div class="subtitle">
+        Você foi avisado. 👀
+    </div>
 
-        <h2>🎒 Inventário</h2>
+    <div id="counter">
+        Cliques: 0
+    </div>
 
-        <div class="inventory" id="inventory">
-            <div class="item">Nada encontrado ainda...</div>
+    <button id="clickButton">
+        NÃO<br>CLIQUE
+    </button>
+
+    <div class="progress-container">
+        <div class="progress-text">
+            <span>Próximo evento</span>
+            <span id="nextEvent">50 cliques</span>
         </div>
 
-        <button class="hintButton" onclick="showHint()">
-            💡 Pedir uma pista
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </div>
+
+</main>
+
+<footer>
+    Desenvolvido por Anna Jullya ❤️
+</footer>
+
+<!-- MODAL DESAFIO -->
+
+<div class="modal-bg" id="challengeModal">
+
+    <div class="modal">
+
+        <h2 id="challengeTitle">😈 DESAFIO TROLL</h2>
+
+        <p id="challengeText"></p>
+
+        <button onclick="closeChallenge()">
+            CONSEGUI!
         </button>
 
     </div>
 
-    <div class="panel">
-
-        <h2>📜 Registro</h2>
-
-        <div id="message">
-            Explore a sala clicando nos objetos.
-        </div>
-
-        <div class="progressBar">
-            <div id="progress"></div>
-        </div>
-
-    </div>
-
 </div>
 
-</div>
+<!-- MODAL CÓDIGO -->
 
-<!-- =========================
-     MODAL
-========================= -->
+<div class="modal-bg" id="codeModal">
 
-<div class="modal" id="modal">
+    <div class="modal">
 
-    <div class="modalBox">
-
-        <h2 id="modalTitle">🔐 Desafio</h2>
-
-        <p id="modalText"></p>
-
-        <input
-            id="answer"
-            class="modalInput"
-            type="text"
-            autocomplete="off"
-            placeholder="Digite sua resposta"
-        >
-
-        <div class="modalButtons">
-
-            <button class="confirm" onclick="checkAnswer()">
-                CONFIRMAR
-            </button>
-
-            <button class="close" onclick="closeModal()">
-                FECHAR
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- =========================
-     VITÓRIA
-========================= -->
-
-<section id="winScreen">
-
-    <div class="winBox">
-
-        <div class="winIcon">🎉🔓</div>
-
-        <h1>VOCÊ ESCAPOU!</h1>
+        <h2>🔐 CÓDIGO SECRETO</h2>
 
         <p>
-            Parabéns, detetive!
-            Você conseguiu descobrir os segredos da Sala 13.
+            Você chegou a <b>100 cliques!</b><br>
+            Digite o código secreto para ganhar <b>+100 cliques.</b>
         </p>
 
-        <div class="score">
-            <span id="finalScore">0</span> pontos
-        </div>
+        <input
+            id="codeInput"
+            placeholder="Digite o código..."
+            autocomplete="off"
+        >
 
-        <p id="finalMessage"></p>
-
-        <button class="mainButton" onclick="location.reload()">
-            🔄 JOGAR NOVAMENTE
+        <button class="code-button" onclick="checkCode()">
+            RESGATAR +100
         </button>
+
+        <p id="codeMessage"></p>
 
     </div>
 
-</section>
+</div>
+
+<div class="notification" id="notification">
+    Conquista desbloqueada! 🏆
+</div>
 
 <script>
 
-/* ==========================================
-   CONFIGURAÇÕES
-========================================== */
+let clicks = Number(localStorage.getItem("clicks")) || 0;
+let record = Number(localStorage.getItem("record")) || 0;
 
-let timeLeft = 600;
-let timerInterval;
+let challengesDone =
+    Number(localStorage.getItem("challengesDone")) || 0;
 
-let lives = 3;
-let score = 0;
+let codesUsed =
+    Number(localStorage.getItem("codesUsed")) || 0;
 
-let currentChallenge = null;
+const challenges = [
 
-let clues = {
-    board: false,
-    clock: false,
-    lamp: false,
-    table: false,
-    chair: false,
-    shelf: false,
-    door: false
-};
-
-let solved = {
-    first: false,
-    second: false,
-    third: false
-};
-
-const challenges = {
-
-    first: {
-        title: "🧩 PRIMEIRO ENIGMA",
-        text:
-        "Você encontrou uma mensagem no quadro:<br><br>" +
-        "<strong>NÃO CONFIE NO QUE SEUS OLHOS VEEM...</strong><br><br>" +
-        "Abaixo dela existem três palavras escondidas:<br>" +
-        "TEMPO — PORTA — LUZ<br><br>" +
-        "Qual delas deve ser observada primeiro?",
-        answer: "TEMPO"
+    {
+        title: "🧠 DESAFIO DA PACIÊNCIA",
+        text: "Fique 5 segundos sem clicar em absolutamente NADA. Sim, é sério. 😈"
     },
 
-    second: {
-        title: "⏰ SEGUNDO ENIGMA",
-        text:
-        "O relógio parece estar parado.<br><br>" +
-        "Os ponteiros apontam para <strong>10</strong> e <strong>2</strong>.<br><br>" +
-        "Some os dois números e descubra o código.",
-        answer: "12"
+    {
+        title: "👀 DESAFIO SUSPEITO",
+        text: "Olhe para o botão por 3 segundos e pense: 'eu não deveria clicar nisso'."
     },
 
-    third: {
-        title: "🚪 CÓDIGO FINAL",
-        text:
-        "Você encontrou três pistas:<br><br>" +
-        "🕐 O relógio revelou: <strong>12</strong><br>" +
-        "💡 A lâmpada revelou: <strong>3</strong><br>" +
-        "📚 A estante revelou: <strong>7</strong><br><br>" +
-        "Junte os números na ordem em que foram descobertos.",
-        answer: "1237"
+    {
+        title: "😂 DESAFIO TROLL",
+        text: "Dê uma volta pela sala e volte. O botão continuará aqui. Infelizmente."
+    },
+
+    {
+        title: "🤯 DESAFIO IMPOSSÍVEL",
+        text: "Tente convencer alguém de que clicar nesse botão é uma péssima ideia."
+    },
+
+    {
+        title: "😈 PEGADINHA",
+        text: "Agora NÃO clique no botão por 5 segundos... ou talvez você queira clicar?"
+    },
+
+    {
+        title: "🔥 DESAFIO FINAL",
+        text: "Fale em voz alta: 'EU SOU MAIS INTELIGENTE QUE ESSE BOTÃO!'"
+    },
+
+    {
+        title: "💀 QUASE...",
+        text: "Você chegou até aqui. Isso significa que claramente não sabe obedecer. 😂"
+    },
+
+    {
+        title: "🕵️ DESAFIO SECRETO",
+        text: "Encontre alguma coisa vermelha perto de você. O botão aprova."
     }
 
-};
+];
 
-/* ==========================================
-   INICIAR
-========================================== */
+const secretCodes = [
+    "JULLYA100",
+    "NAOCLIQUE",
+    "ANNA100",
+    "TROLL100",
+    "DEUSABENCOE"
+];
 
-function startGame() {
+const button = document.getElementById("clickButton");
 
-    document.getElementById("startScreen").style.display = "none";
-    document.getElementById("game").style.display = "block";
+button.addEventListener("click", () => {
 
-    timerInterval = setInterval(updateTimer, 1000);
+    clicks++;
 
-    message(
-        "A porta está trancada. " +
-        "Clique nos objetos da sala para procurar pistas. 🔎"
-    );
+    if(clicks > record) {
+        record = clicks;
+    }
+
+    save();
+    update();
+
+    button.classList.remove("shake");
+
+    void button.offsetWidth;
+
+    button.classList.add("shake");
+
+    // A cada 50
+    if(clicks % 50 === 0) {
+        showChallenge();
+    }
+
+    // A cada 100
+    if(clicks % 100 === 0) {
+
+        setTimeout(() => {
+            showCode();
+        }, 500);
+
+    }
+
+    checkAchievements();
+
+});
+
+function save() {
+
+    localStorage.setItem("clicks", clicks);
+    localStorage.setItem("record", record);
+    localStorage.setItem("challengesDone", challengesDone);
+    localStorage.setItem("codesUsed", codesUsed);
+
 }
 
-/* ==========================================
-   CRONÔMETRO
-========================================== */
+function update() {
 
-function updateTimer() {
+    document.getElementById("clicks").textContent = clicks;
 
-    timeLeft--;
+    document.getElementById("counter").textContent =
+        "Cliques: " + clicks;
 
-    let minutes = Math.floor(timeLeft / 60);
-    let seconds = timeLeft % 60;
+    document.getElementById("record").textContent =
+        record;
 
-    document.getElementById("timer").textContent =
-        String(minutes).padStart(2, "0") +
-        ":" +
-        String(seconds).padStart(2, "0");
+    let percentage =
+        Math.min((clicks % 50) / 50 * 100, 100);
 
-    if (timeLeft <= 60) {
-        document.getElementById("timer").style.color = "#ef4444";
+    document.getElementById("progress").textContent =
+        Math.floor(percentage) + "%";
+
+    document.getElementById("progressBar").style.width =
+        percentage + "%";
+
+    let next =
+        50 - (clicks % 50);
+
+    if(next === 50) next = 50;
+
+    document.getElementById("nextEvent").textContent =
+        next + " cliques";
+
+    let unlocked = 0;
+
+    for(let i = 1; i <= 6; i++) {
+
+        let required = [
+            1,
+            50,
+            100,
+            500,
+            1000,
+            2000
+        ][i - 1];
+
+        if(clicks >= required) {
+
+            document
+                .getElementById("a" + i)
+                .classList.add("unlocked");
+
+            unlocked++;
+
+        }
+
     }
 
-    if (timeLeft <= 0) {
+    document.getElementById("achievementCount")
+        .textContent = unlocked + "/6";
 
-        clearInterval(timerInterval);
-
-        alert(
-            "⏰ O tempo acabou!\n\n" +
-            "A sala permanece trancada."
-        );
-
-        location.reload();
-    }
 }
 
-/* ==========================================
-   OBJETOS
-========================================== */
+function showChallenge() {
 
-function inspect(object) {
+    let challenge =
+        challenges[challengesDone % challenges.length];
 
-    if (object === "board") {
+    document.getElementById("challengeTitle")
+        .textContent = challenge.title;
 
-        if (!clues.board) {
+    document.getElementById("challengeText")
+        .textContent = challenge.text;
 
-            clues.board = true;
+    document.getElementById("challengeModal")
+        .style.display = "flex";
 
-            addItem("📜 Mensagem do quadro");
+    challengesDone++;
 
-            score += 50;
+    save();
 
-            message(
-                "Você encontrou uma mensagem estranha: " +
-                "NÃO CONFIE NO QUE SEUS OLHOS VEEM..."
-            );
-
-            updateProgress();
-
-        } else {
-
-            message(
-                "O quadro continua dizendo: " +
-                "NÃO CONFIE NO QUE SEUS OLHOS VEEM..."
-            );
-        }
-    }
-
-    else if (object === "clock") {
-
-        if (!clues.clock) {
-
-            clues.clock = true;
-
-            addItem("⏰ Pista do relógio");
-
-            score += 50;
-
-            message(
-                "Os ponteiros apontam para 10 e 2. " +
-                "Talvez você precise somar esses números."
-            );
-
-            updateProgress();
-
-            if (clues.board) {
-                setTimeout(() => openChallenge("second"), 500);
-            }
-
-        } else {
-
-            message("O relógio continua parado em 10:10.");
-        }
-    }
-
-    else if (object === "lamp") {
-
-        if (!clues.lamp) {
-
-            clues.lamp = true;
-
-            addItem("💡 Pista da lâmpada");
-
-            score += 75;
-
-            message(
-                "A lâmpada pisca três vezes. " +
-                "Você encontrou o número 3."
-            );
-
-            updateProgress();
-
-        } else {
-
-            message("A lâmpada pisca três vezes.");
-        }
-    }
-
-    else if (object === "table") {
-
-        if (!clues.table) {
-
-            clues.table = true;
-
-            addItem("📝 Anotação");
-
-            score += 40;
-
-            message(
-                "A anotação diz: " +
-                "\"O tempo revela aquilo que a pressa esconde.\""
-            );
-
-            updateProgress();
-
-        } else {
-
-            message("Não há mais nada sobre a mesa.");
-        }
-    }
-
-    else if (object === "chair") {
-
-        if (!clues.chair) {
-
-            clues.chair = true;
-
-            addItem("🪑 Objeto estranho");
-
-            score += 30;
-
-            message(
-                "Você olhou debaixo da cadeira. " +
-                "Nada... ou talvez tenha encontrado alguma coisa?"
-            );
-
-            updateProgress();
-
-        } else {
-
-            message("A cadeira está vazia.");
-        }
-    }
-
-    else if (object === "shelf") {
-
-        if (!clues.shelf) {
-
-            clues.shelf = true;
-
-            addItem("📚 Pista da estante");
-
-            score += 75;
-
-            message(
-                "Entre os livros você encontrou um papel: " +
-                "O número 7 está circulado."
-            );
-
-            updateProgress();
-
-            if (solved.second && clues.lamp) {
-                setTimeout(() => openChallenge("third"), 500);
-            }
-
-        } else {
-
-            message(
-                "Você já vasculhou a estante. " +
-                "O número 7 continua marcado."
-            );
-        }
-    }
-
-    else if (object === "door") {
-
-        if (!solved.third) {
-
-            message(
-                "🔒 A porta está trancada. " +
-                "Você precisa descobrir o código final."
-            );
-
-            if (
-                solved.first &&
-                solved.second &&
-                clues.lamp &&
-                clues.shelf
-            ) {
-
-                setTimeout(() => openChallenge("third"), 500);
-
-            }
-
-        }
-    }
-
-    updateScore();
 }
 
-/* ==========================================
-   INVENTÁRIO
-========================================== */
+function closeChallenge() {
 
-function addItem(text) {
+    document.getElementById("challengeModal")
+        .style.display = "none";
 
-    const inventory =
-        document.getElementById("inventory");
+    notify("Desafio concluído! 😈");
 
-    if (
-        inventory.children.length === 1 &&
-        inventory.children[0].textContent.includes("Nada")
-    ) {
-        inventory.innerHTML = "";
-    }
-
-    const item = document.createElement("div");
-
-    item.className = "item";
-
-    item.textContent = text;
-
-    inventory.appendChild(item);
 }
 
-/* ==========================================
-   MENSAGEM
-========================================== */
+function showCode() {
 
-function message(text) {
+    document.getElementById("codeModal")
+        .style.display = "flex";
 
-    document.getElementById("message").innerHTML = text;
+    document.getElementById("codeInput")
+        .value = "";
+
+    document.getElementById("codeMessage")
+        .textContent = "";
+
 }
 
-/* ==========================================
-   MODAL
-========================================== */
+function checkCode() {
 
-function openChallenge(type) {
-
-    if (type === "first" && solved.first) return;
-    if (type === "second" && solved.second) return;
-    if (type === "third" && solved.third) return;
-
-    currentChallenge = type;
-
-    const challenge = challenges[type];
-
-    document.getElementById("modalTitle").innerHTML =
-        challenge.title;
-
-    document.getElementById("modalText").innerHTML =
-        challenge.text;
-
-    document.getElementById("answer").value = "";
-
-    document.getElementById("modal").style.display = "flex";
-
-    setTimeout(() => {
-        document.getElementById("answer").focus();
-    }, 100);
-}
-
-function closeModal() {
-
-    document.getElementById("modal").style.display = "none";
-
-    currentChallenge = null;
-}
-
-function checkAnswer() {
-
-    const input =
-        document
-        .getElementById("answer")
+    let input =
+        document.getElementById("codeInput")
         .value
         .trim()
         .toUpperCase();
 
-    if (!currentChallenge) return;
+    if(secretCodes.includes(input)) {
 
-    const correct =
-        challenges[currentChallenge]
-        .answer
-        .toUpperCase();
+        clicks += 100;
 
-    if (input === correct) {
+        codesUsed++;
 
-        if (currentChallenge === "first") {
-
-            solved.first = true;
-
-            score += 200;
-
-            addItem("🔑 Primeiro código");
-
-            message(
-                "✅ Primeiro enigma resolvido! " +
-                "Agora procure pistas relacionadas ao tempo."
-            );
+        if(clicks > record) {
+            record = clicks;
         }
 
-        else if (currentChallenge === "second") {
-
-            solved.second = true;
-
-            score += 250;
-
-            addItem("🔢 Código 12");
-
-            message(
-                "✅ O código 12 estava correto! " +
-                "Agora encontre as últimas pistas."
-            );
-        }
-
-        else if (currentChallenge === "third") {
-
-            solved.third = true;
-
-            score += 500;
-
-            addItem("🚪 CÓDIGO FINAL");
-
-            closeModal();
-
-            setTimeout(winGame, 500);
-
-            return;
-        }
-
-        closeModal();
-
-        updateProgress();
-        updateScore();
-
-    } else {
-
-        lives--;
-
-        document.getElementById("lives").textContent = lives;
-
-        score = Math.max(0, score - 50);
-
-        message(
-            "❌ Código incorreto! " +
-            "Você perdeu uma tentativa."
-        );
-
-        if (lives <= 0) {
-
-            setTimeout(() => {
-
-                alert(
-                    "💀 Suas tentativas acabaram!\n\n" +
-                    "A Sala 13 venceu desta vez."
-                );
-
-                location.reload();
-
-            }, 300);
-        }
-    }
-}
-
-/* ==========================================
-   PROGRESSO
-========================================== */
-
-function updateProgress() {
-
-    let found = 0;
-
-    Object.values(clues).forEach(value => {
-
-        if (value) found++;
-
-    });
-
-    Object.values(solved).forEach(value => {
-
-        if (value) found++;
-
-    });
-
-    const total = 10;
-
-    const percentage =
-        Math.min(100, (found / total) * 100);
-
-    document.getElementById("progress").style.width =
-        percentage + "%";
-}
-
-/* ==========================================
-   SCORE
-========================================== */
-
-function updateScore() {
-
-    document.getElementById("score").textContent =
-        score;
-}
-
-/* ==========================================
-   PISTAS
-========================================== */
-
-function showHint() {
-
-    if (score < 50) {
-
-        message(
-            "💡 Você precisa explorar um pouco mais " +
-            "antes de pedir uma pista."
-        );
-
-        return;
-    }
-
-    score -= 50;
-
-    updateScore();
-
-    if (!solved.first) {
-
-        message(
-            "💡 Dica: comece pelo quadro. " +
-            "Ele parece estar tentando dizer alguma coisa."
-        );
-
-    } else if (!solved.second) {
-
-        message(
-            "💡 Dica: o relógio não está quebrado. " +
-            "Observe os números para os quais os ponteiros apontam."
-        );
-
-    } else if (!clues.lamp) {
-
-        message(
-            "💡 Dica: até a luz da sala pode esconder uma pista."
-        );
-
-    } else if (!clues.shelf) {
-
-        message(
-            "💡 Dica: livros são ótimos lugares para esconder papéis."
-        );
-
-    } else if (!solved.third) {
-
-        message(
-            "💡 Dica final: junte os números encontrados."
-        );
-
-    } else {
-
-        message(
-            "🎉 Você já encontrou tudo!"
-        );
-    }
-}
-
-/* ==========================================
-   VITÓRIA
-========================================== */
-
-function winGame() {
-
-    clearInterval(timerInterval);
-
-    let timeBonus =
-        Math.floor(timeLeft / 10) * 5;
-
-    score += timeBonus;
-
-    document.getElementById("finalScore").textContent =
-        score;
-
-    let finalMessage = "";
-
-    if (score >= 1000) {
-
-        finalMessage =
-            "🏆 DETETIVE LENDÁRIO! " +
-            "Você praticamente nasceu para escapar de salas misteriosas.";
-
-    } else if (score >= 700) {
-
-        finalMessage =
-            "🥇 Excelente! Você resolveu o mistério muito bem.";
-
-    } else {
-
-        finalMessage =
-            "👏 Você conseguiu escapar! " +
-            "Na próxima, tente encontrar todas as pistas.";
-
-    }
-
-    document.getElementById("finalMessage").textContent =
-        finalMessage;
-
-    document.getElementById("winScreen").style.display =
-        "flex";
-
-    createConfetti();
-}
-
-/* ==========================================
-   CONFETES
-========================================== */
-
-function createConfetti() {
-
-    for (let i = 0; i < 100; i++) {
-
-        const confetti =
-            document.createElement("div");
-
-        confetti.className = "confetti";
-
-        confetti.style.left =
-            Math.random() * 100 + "vw";
-
-        confetti.style.animationDelay =
-            Math.random() * 2 + "s";
-
-        confetti.style.transform =
-            "rotate(" +
-            Math.random() * 360 +
-            "deg)";
-
-        document.body.appendChild(confetti);
+        document.getElementById("codeMessage")
+            .style.color = "#55ff55";
+
+        document.getElementById("codeMessage")
+            .textContent =
+            "🎉 CORRETO! +100 CLIQUES!";
+
+        save();
+        update();
 
         setTimeout(() => {
-            confetti.remove();
-        }, 5000);
+
+            document.getElementById("codeModal")
+                .style.display = "none";
+
+        }, 1200);
+
+    } else {
+
+        document.getElementById("codeMessage")
+            .style.color = "#ff4444";
+
+        document.getElementById("codeMessage")
+            .textContent =
+            "❌ Código errado! Tente outro.";
+
     }
+
 }
 
-/* ==========================================
-   TECLA ENTER
-========================================== */
+function checkAchievements() {
 
-document.getElementById("answer")
-.addEventListener("keydown", function(event) {
+    const achievements = [
+        [1, "a1", "Primeiro clique! 🔴"],
+        [50, "a2", "50 cliques! 😈"],
+        [100, "a3", "100 cliques! 💯"],
+        [500, "a4", "500 cliques! 🔥"],
+        [1000, "a5", "1000 cliques! 👑"],
+        [2000, "a6", "2000 cliques! 🤯"]
+    ];
 
-    if (event.key === "Enter") {
+    achievements.forEach(item => {
 
-        checkAnswer();
+        const required = item[0];
+        const id = item[1];
 
-    }
+        if(clicks === required) {
 
-});
+            notify(item[2]);
 
-/* ==========================================
-   INÍCIO AUTOMÁTICO DO PRIMEIRO DESAFIO
-========================================== */
+        }
 
-setTimeout(() => {
+    });
 
-    if (
-        document.getElementById("startScreen")
-        .style
-        .display !== "none"
-    ) {
-        // Nada acontece até o jogador entrar.
-    }
+}
 
-}, 500);
+function notify(text) {
+
+    const notification =
+        document.getElementById("notification");
+
+    notification.textContent = text;
+
+    notification.classList.add("show");
+
+    setTimeout(() => {
+
+        notification.classList.remove("show");
+
+    }, 2500);
+
+}
+
+update();
 
 </script>
 
 </body>
 </html>
+```
