@@ -1,1 +1,1752 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SKZOO World 🐾</title>
 
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at top,#283867 0%,#11162b 45%,#070911 100%);
+    color:white;
+    overflow-x:hidden;
+}
+
+button{
+    border:0;
+    cursor:pointer;
+    color:white;
+    font-weight:bold;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* =========================
+   TELA INICIAL
+========================= */
+
+#startScreen{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:25px;
+}
+
+.startBox{
+    width:min(1000px,100%);
+    text-align:center;
+}
+
+.logo{
+    font-size:clamp(42px,8vw,80px);
+    font-weight:1000;
+    letter-spacing:3px;
+    margin-bottom:8px;
+    text-shadow:0 10px 30px rgba(0,0,0,.5);
+}
+
+.logo span{
+    color:#83adff;
+}
+
+.subtitle{
+    color:#bbc5dd;
+    font-size:18px;
+    margin-bottom:35px;
+}
+
+.petSelection{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+}
+
+.petCard{
+    min-height:205px;
+    padding:15px;
+    border-radius:24px;
+    background:rgba(255,255,255,.07);
+    border:2px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(12px);
+    transition:.25s;
+}
+
+.petCard:hover{
+    transform:translateY(-7px);
+    border-color:#83adff;
+    background:rgba(83,130,230,.15);
+}
+
+.petCard img{
+    width:120px;
+    height:120px;
+    object-fit:contain;
+    display:block;
+    margin:auto;
+}
+
+.petCard h3{
+    margin-top:7px;
+    font-size:17px;
+}
+
+.petCard button{
+    margin-top:10px;
+    padding:9px 18px;
+    border-radius:12px;
+    background:#4169e1;
+    transition:.2s;
+}
+
+.petCard button:hover{
+    background:#6287ee;
+}
+
+/* =========================
+   JOGO
+========================= */
+
+#game{
+    min-height:100vh;
+}
+
+header{
+    height:72px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+    position:sticky;
+    top:0;
+    z-index:30;
+    background:rgba(6,8,17,.85);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(15px);
+}
+
+.headerLogo{
+    font-size:24px;
+    font-weight:1000;
+}
+
+.headerLogo span{
+    color:#83adff;
+}
+
+.money{
+    padding:10px 17px;
+    border-radius:15px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.1);
+}
+
+/* =========================
+   NAVEGAÇÃO
+========================= */
+
+nav{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    padding:15px;
+    flex-wrap:wrap;
+}
+
+.navBtn{
+    padding:11px 18px;
+    border-radius:14px;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.08);
+    transition:.2s;
+}
+
+.navBtn:hover,
+.navBtn.active{
+    background:#4169e1;
+}
+
+/* =========================
+   PÁGINAS
+========================= */
+
+.page{
+    display:none;
+    width:min(1100px,100%);
+    margin:auto;
+    padding:20px;
+}
+
+.page.active{
+    display:block;
+}
+
+.pageTitle{
+    text-align:center;
+    font-size:32px;
+    margin:10px 0 25px;
+}
+
+/* =========================
+   CASA
+========================= */
+
+.house{
+    min-height:520px;
+    position:relative;
+    overflow:hidden;
+    border-radius:30px;
+    background:
+        linear-gradient(
+            180deg,
+            #587ba8 0%,
+            #7895b8 55%,
+            #73594b 56%,
+            #44352d 100%
+        );
+    border:2px solid rgba(255,255,255,.1);
+    box-shadow:0 25px 70px rgba(0,0,0,.4);
+}
+
+.window{
+    position:absolute;
+    top:45px;
+    left:50px;
+    width:135px;
+    height:105px;
+    background:#91c9ef;
+    border:10px solid #453b38;
+    box-shadow:inset 0 0 30px rgba(255,255,255,.3);
+}
+
+.window:before{
+    content:"";
+    position:absolute;
+    width:8px;
+    height:100%;
+    left:50%;
+    transform:translateX(-50%);
+    background:#453b38;
+}
+
+.window:after{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:8px;
+    top:50%;
+    transform:translateY(-50%);
+    background:#453b38;
+}
+
+.sofa{
+    position:absolute;
+    left:40px;
+    bottom:60px;
+    width:240px;
+    height:110px;
+    border-radius:25px 25px 10px 10px;
+    background:#624e63;
+}
+
+.table{
+    position:absolute;
+    right:70px;
+    bottom:105px;
+    width:180px;
+    height:80px;
+    border-radius:50%;
+    background:#684934;
+}
+
+.carpet{
+    position:absolute;
+    left:50%;
+    bottom:18px;
+    transform:translateX(-50%);
+    width:430px;
+    height:130px;
+    border-radius:50%;
+    background:#5c4767;
+    opacity:.75;
+}
+
+.petArea{
+    position:absolute;
+    left:50%;
+    top:44%;
+    transform:translate(-50%,-50%);
+    width:280px;
+    text-align:center;
+    z-index:5;
+}
+
+.petArea img{
+    width:225px;
+    height:225px;
+    object-fit:contain;
+    filter:drop-shadow(0 15px 15px rgba(0,0,0,.4));
+    transition:.3s;
+}
+
+.petArea img:hover{
+    transform:translateY(-8px) scale(1.03);
+}
+
+.petName{
+    display:inline-block;
+    padding:8px 18px;
+    border-radius:15px;
+    background:rgba(0,0,0,.48);
+    font-weight:bold;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-top:20px;
+}
+
+.stat{
+    padding:15px;
+    border-radius:18px;
+    background:rgba(255,255,255,.07);
+}
+
+.statTop{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
+}
+
+.bar{
+    width:100%;
+    height:13px;
+    overflow:hidden;
+    border-radius:20px;
+    background:#22283b;
+}
+
+.fill{
+    width:100%;
+    height:100%;
+    border-radius:20px;
+    transition:.4s;
+}
+
+.hungerFill{
+    background:#ffb84d;
+}
+
+.happyFill{
+    background:#ff6fae;
+}
+
+.energyFill{
+    background:#65b8ff;
+}
+
+.hygieneFill{
+    background:#70e0b1;
+}
+
+.healthFill{
+    background:#ff7373;
+}
+
+.funFill{
+    background:#b084ff;
+}
+
+/* =========================
+   AÇÕES
+========================= */
+
+.actions{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+    margin-top:18px;
+}
+
+.actionBtn{
+    padding:15px 8px;
+    border-radius:17px;
+    background:rgba(255,255,255,.09);
+    border:1px solid rgba(255,255,255,.08);
+    transition:.2s;
+}
+
+.actionBtn:hover{
+    transform:translateY(-4px);
+    background:#4169e1;
+}
+
+.actionIcon{
+    display:block;
+    font-size:27px;
+    margin-bottom:5px;
+}
+
+/* =========================
+   COMIDA / LOJA
+========================= */
+
+.foodGrid,
+.shopGrid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.item{
+    padding:20px;
+    text-align:center;
+    border-radius:22px;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.itemIcon{
+    font-size:50px;
+    margin-bottom:10px;
+}
+
+.item h3{
+    margin-bottom:6px;
+}
+
+.item p{
+    color:#adb8d1;
+    margin-bottom:13px;
+}
+
+.item button{
+    padding:10px 18px;
+    border-radius:12px;
+    background:#4169e1;
+}
+
+.item button:hover{
+    background:#6287ee;
+}
+
+/* =========================
+   LOJA
+========================= */
+
+.accessoryPreview{
+    height:300px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:20px;
+    border-radius:25px;
+    background:rgba(255,255,255,.05);
+}
+
+.accessoryPreview img{
+    width:240px;
+    height:240px;
+    object-fit:contain;
+}
+
+/* =========================
+   PERFIL
+========================= */
+
+.profile{
+    padding:30px;
+    text-align:center;
+    border-radius:25px;
+    background:rgba(255,255,255,.06);
+}
+
+.profile img{
+    width:230px;
+    height:230px;
+    object-fit:contain;
+}
+
+.profile h2{
+    font-size:35px;
+    margin:10px;
+}
+
+.changePet{
+    margin-top:20px;
+    padding:12px 25px;
+    border-radius:13px;
+    background:#4169e1;
+}
+
+.changePet:hover{
+    background:#6287ee;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+#toast{
+    position:fixed;
+    left:50%;
+    bottom:30px;
+    z-index:100;
+    padding:15px 22px;
+    border-radius:15px;
+    background:#171c2d;
+    border:1px solid rgba(255,255,255,.15);
+    box-shadow:0 15px 40px rgba(0,0,0,.4);
+    transform:translate(-50%,120px);
+    opacity:0;
+    transition:.3s;
+}
+
+#toast.show{
+    transform:translate(-50%,0);
+    opacity:1;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media(max-width:850px){
+
+    .petSelection{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .foodGrid,
+    .shopGrid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .actions{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:550px){
+
+    header{
+        padding:0 12px;
+    }
+
+    .headerLogo{
+        font-size:19px;
+    }
+
+    .petCard{
+        min-height:165px;
+    }
+
+    .petCard img{
+        width:85px;
+        height:85px;
+    }
+
+    .house{
+        min-height:430px;
+    }
+
+    .window{
+        left:20px;
+        top:30px;
+        transform:scale(.75);
+        transform-origin:top left;
+    }
+
+    .petArea img{
+        width:180px;
+        height:180px;
+    }
+
+    .sofa{
+        transform:scale(.7);
+        transform-origin:left bottom;
+    }
+
+    .table{
+        transform:scale(.7);
+        transform-origin:right bottom;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .actions{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .foodGrid,
+    .shopGrid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     TELA DE ESCOLHA
+===================================================== -->
+
+<section id="startScreen">
+
+    <div class="startBox">
+
+        <div class="logo">
+            SKZOO <span>WORLD</span> 🐾
+        </div>
+
+        <div class="subtitle">
+            Escolha seu SKZOO e cuide dele todos os dias!
+        </div>
+
+        <div class="petSelection">
+
+            <!-- WOLF CHAN -->
+            <div class="petCard">
+                <img src="wolf-chan.png" alt="Wolf Chan">
+                <h3>Wolf Chan</h3>
+                <button onclick="choosePet('Wolf Chan','wolf-chan.png')">
+                    Escolher
+                </button>
+            </div>
+
+            <!-- LEEBIT -->
+            <div class="petCard">
+                <img src="leebit.png" alt="Leebit">
+                <h3>Leebit</h3>
+                <button onclick="choosePet('Leebit','leebit.png')">
+                    Escolher
+                </button>
+            </div>
+
+            <!-- DWAEKKI -->
+            <div class="petCard">
+                <img src="dwaekki.png" alt="Dwaekki">
+                <h3>Dwaekki</h3>
+                <button onclick="choosePet('Dwaekki','dwaekki.png')">
+                    Escolher
+                </button>
+            </div>
+
+            <!-- JINIRET -->
+            <div class="petCard">
+                <img src="jiniret.png" alt="Jiniret">
+                <h3>Jiniret</h3>
+                <button onclick="choosePet('Jiniret','jiniret.png')">
+                    Escolher
+                </button>
+            </div>
+
+            <!-- HAN QUOKKA -->
+            <div class="petCard">
+                <img src="han-quokka.png" alt="Han Quokka">
+                <h3>Han Quokka</h3>
+                <button onclick="choosePet('Han Quokka','han-quokka.png')">
+                    Escolher
+                </button>
+            </div>
+
+            <!-- BBOKARI -->
+            <div class="petCard">
+                <img src="bbokari.png" alt="BbokAri">
+                <h3>BbokAri</h3>
+                <button onclick="choosePet('BbokAri','bbokari.png')">
+                    Escolher
+                </button>
+            </div>
+
+            <!-- PUPPYM -->
+            <div class="petCard">
+                <img src="puppym.png" alt="PuppyM">
+                <h3>PuppyM</h3>
+                <button onclick="choosePet('PuppyM','puppym.png')">
+                    Escolher
+                </button>
+            </div>
+
+            <!-- FOXI.NY -->
+            <div class="petCard">
+                <img src="foxiny.png" alt="FoxI.Ny">
+                <h3>FoxI.Ny</h3>
+                <button onclick="choosePet('FoxI.Ny','foxiny.png')">
+                    Escolher
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     JOGO
+===================================================== -->
+
+<section id="game" class="hidden">
+
+<header>
+
+    <div class="headerLogo">
+        SKZOO <span>WORLD</span>
+    </div>
+
+    <div class="money">
+        🪙 <span id="coins">100</span>
+    </div>
+
+</header>
+
+
+<nav>
+
+    <button class="navBtn active" onclick="showPage('home',this)">
+        🏠 Casa
+    </button>
+
+    <button class="navBtn" onclick="showPage('food',this)">
+        🍎 Comida
+    </button>
+
+    <button class="navBtn" onclick="showPage('shop',this)">
+        🛍️ Loja
+    </button>
+
+    <button class="navBtn" onclick="showPage('profile',this)">
+        🐾 Meu SKZOO
+    </button>
+
+</nav>
+
+
+<!-- =====================================================
+     CASA
+===================================================== -->
+
+<main id="home" class="page active">
+
+    <h1 class="pageTitle">
+        🏠 Casa de <span id="homeName">SKZOO</span>
+    </h1>
+
+    <div class="house">
+
+        <div class="window"></div>
+
+        <div class="sofa"></div>
+
+        <div class="table"></div>
+
+        <div class="carpet"></div>
+
+        <div class="petArea">
+
+            <img id="petImage" src="" alt="Seu SKZOO">
+
+            <div class="petName" id="petName">
+                SKZOO
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- STATUS -->
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div class="statTop">
+                <span>🍖 Fome</span>
+                <b id="hungerText">100</b>
+            </div>
+
+            <div class="bar">
+                <div id="hungerBar" class="fill hungerFill"></div>
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="statTop">
+                <span>💗 Felicidade</span>
+                <b id="happyText">100</b>
+            </div>
+
+            <div class="bar">
+                <div id="happyBar" class="fill happyFill"></div>
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="statTop">
+                <span>⚡ Energia</span>
+                <b id="energyText">100</b>
+            </div>
+
+            <div class="bar">
+                <div id="energyBar" class="fill energyFill"></div>
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="statTop">
+                <span>🧼 Higiene</span>
+                <b id="hygieneText">100</b>
+            </div>
+
+            <div class="bar">
+                <div id="hygieneBar" class="fill hygieneFill"></div>
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="statTop">
+                <span>❤️ Saúde</span>
+                <b id="healthText">100</b>
+            </div>
+
+            <div class="bar">
+                <div id="healthBar" class="fill healthFill"></div>
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="statTop">
+                <span>🎮 Diversão</span>
+                <b id="funText">100</b>
+            </div>
+
+            <div class="bar">
+                <div id="funBar" class="fill funFill"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- AÇÕES -->
+
+    <div class="actions">
+
+        <button class="actionBtn" onclick="feed(15)">
+            <span class="actionIcon">🍎</span>
+            Alimentar
+        </button>
+
+        <button class="actionBtn" onclick="play()">
+            <span class="actionIcon">🎮</span>
+            Brincar
+        </button>
+
+        <button class="actionBtn" onclick="bath()">
+            <span class="actionIcon">🛁</span>
+            Banho
+        </button>
+
+        <button class="actionBtn" onclick="sleep()">
+            <span class="actionIcon">😴</span>
+            Dormir
+        </button>
+
+        <button class="actionBtn" onclick="pet()">
+            <span class="actionIcon">💗</span>
+            Carinho
+        </button>
+
+    </div>
+
+</main>
+
+
+<!-- =====================================================
+     COMIDA
+===================================================== -->
+
+<main id="food" class="page">
+
+    <h1 class="pageTitle">
+        🍎 Comidinhas
+    </h1>
+
+    <div class="foodGrid">
+
+        <div class="item">
+
+            <div class="itemIcon">🍎</div>
+
+            <h3>Maçã</h3>
+
+            <p>+15 fome</p>
+
+            <button onclick="buyFood('Maçã',15,5)">
+                5 🪙
+            </button>
+
+        </div>
+
+
+        <div class="item">
+
+            <div class="itemIcon">🍗</div>
+
+            <h3>Frango</h3>
+
+            <p>+25 fome</p>
+
+            <button onclick="buyFood('Frango',25,10)">
+                10 🪙
+            </button>
+
+        </div>
+
+
+        <div class="item">
+
+            <div class="itemIcon">🍰</div>
+
+            <h3>Bolo</h3>
+
+            <p>+35 fome +10 felicidade</p>
+
+            <button onclick="buyFood('Bolo',35,20)">
+                20 🪙
+            </button>
+
+        </div>
+
+
+        <div class="item">
+
+            <div class="itemIcon">🍓</div>
+
+            <h3>Morango</h3>
+
+            <p>+20 fome +5 felicidade</p>
+
+            <button onclick="buyFood('Morango',20,8)">
+                8 🪙
+            </button>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- =====================================================
+     LOJA
+===================================================== -->
+
+<main id="shop" class="page">
+
+    <h1 class="pageTitle">
+        🛍️ Loja do SKZOO
+    </h1>
+
+    <div class="accessoryPreview">
+
+        <img id="shopPetImage" src="" alt="SKZOO">
+
+    </div>
+
+
+    <div class="shopGrid">
+
+        <div class="item">
+
+            <div class="itemIcon">🎀</div>
+
+            <h3>Laço</h3>
+
+            <p>Acessório fofo</p>
+
+            <button onclick="buyAccessory('🎀 Laço',30)">
+                30 🪙
+            </button>
+
+        </div>
+
+
+        <div class="item">
+
+            <div class="itemIcon">👑</div>
+
+            <h3>Coroa</h3>
+
+            <p>Para o rei ou rainha</p>
+
+            <button onclick="buyAccessory('👑 Coroa',60)">
+                60 🪙
+            </button>
+
+        </div>
+
+
+        <div class="item">
+
+            <div class="itemIcon">🕶️</div>
+
+            <h3>Óculos</h3>
+
+            <p>SKZOO estiloso</p>
+
+            <button onclick="buyAccessory('🕶️ Óculos',45)">
+                45 🪙
+            </button>
+
+        </div>
+
+
+        <div class="item">
+
+            <div class="itemIcon">🎩</div>
+
+            <h3>Cartola</h3>
+
+            <p>Elegância máxima</p>
+
+            <button onclick="buyAccessory('🎩 Cartola',80)">
+                80 🪙
+            </button>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- =====================================================
+     PERFIL
+===================================================== -->
+
+<main id="profile" class="page">
+
+    <h1 class="pageTitle">
+        🐾 Meu SKZOO
+    </h1>
+
+    <div class="profile">
+
+        <img id="profileImage" src="" alt="Meu SKZOO">
+
+        <h2 id="profileName">
+            SKZOO
+        </h2>
+
+        <p>
+            Seu companheiro no SKZOO World 💙
+        </p>
+
+        <br>
+
+        <p>
+            🪙 Moedas:
+            <b id="profileCoins">100</b>
+        </p>
+
+        <p>
+            ⭐ Nível:
+            <b id="level">1</b>
+        </p>
+
+        <button class="changePet" onclick="changePet()">
+            🔄 Trocar SKZOO
+        </button>
+
+    </div>
+
+</main>
+
+</section>
+
+
+<!-- =====================================================
+     AVISO
+===================================================== -->
+
+<div id="toast"></div>
+
+
+<script>
+
+/* =====================================================
+   DADOS DO JOGO
+===================================================== */
+
+let game = {
+
+    petName:"",
+    petImage:"",
+
+    coins:100,
+
+    hunger:100,
+    happiness:100,
+    energy:100,
+    hygiene:100,
+    health:100,
+    fun:100,
+
+    level:1,
+
+    inventory:[]
+
+};
+
+
+/* =====================================================
+   ESCOLHER SKZOO
+===================================================== */
+
+function choosePet(name,image){
+
+    game.petName=name;
+    game.petImage=image;
+
+    game.coins=100;
+
+    game.hunger=100;
+    game.happiness=100;
+    game.energy=100;
+    game.hygiene=100;
+    game.health=100;
+    game.fun=100;
+
+    game.level=1;
+
+    game.inventory=[];
+
+    saveGame();
+
+    document
+        .getElementById("startScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("game")
+        .classList.remove("hidden");
+
+    updateGame();
+
+    toast("💙 Você escolheu "+name+"!");
+
+}
+
+
+/* =====================================================
+   ATUALIZAR
+===================================================== */
+
+function updateGame(){
+
+    document.getElementById("petImage").src=game.petImage;
+
+    document.getElementById("shopPetImage").src=game.petImage;
+
+    document.getElementById("profileImage").src=game.petImage;
+
+    document.getElementById("petName").textContent=game.petName;
+
+    document.getElementById("homeName").textContent=game.petName;
+
+    document.getElementById("profileName").textContent=game.petName;
+
+    document.getElementById("coins").textContent=game.coins;
+
+    document.getElementById("profileCoins").textContent=game.coins;
+
+    document.getElementById("level").textContent=game.level;
+
+
+    updateStat("hunger",game.hunger);
+
+    updateStat("happy",game.happiness);
+
+    updateStat("energy",game.energy);
+
+    updateStat("hygiene",game.hygiene);
+
+    updateStat("health",game.health);
+
+    updateStat("fun",game.fun);
+
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function updateStat(name,value){
+
+    value=Math.max(
+        0,
+        Math.min(100,value)
+    );
+
+    const bar=document.getElementById(name+"Bar");
+
+    const text=document.getElementById(name+"Text");
+
+    if(bar){
+
+        bar.style.width=value+"%";
+
+    }
+
+    if(text){
+
+        text.textContent=Math.round(value);
+
+    }
+
+}
+
+
+/* =====================================================
+   ALIMENTAR
+===================================================== */
+
+function feed(amount){
+
+    if(game.hunger>=100){
+
+        toast("🍖 Seu SKZOO já está cheio!");
+
+        return;
+
+    }
+
+    game.hunger=Math.min(
+        100,
+        game.hunger+amount
+    );
+
+    game.health=Math.min(
+        100,
+        game.health+3
+    );
+
+    game.fun=Math.min(
+        100,
+        game.fun+2
+    );
+
+    game.coins+=2;
+
+    toast(
+        "🍎 "+game.petName+" comeu!"
+    );
+
+    saveGame();
+
+    updateGame();
+
+}
+
+
+/* =====================================================
+   COMPRAR COMIDA
+===================================================== */
+
+function buyFood(name,amount,cost){
+
+    if(game.coins<cost){
+
+        toast(
+            "🪙 Você não tem moedas suficientes!"
+        );
+
+        return;
+
+    }
+
+    game.coins-=cost;
+
+    game.hunger=Math.min(
+        100,
+        game.hunger+amount
+    );
+
+    game.happiness=Math.min(
+        100,
+        game.happiness+5
+    );
+
+    game.health=Math.min(
+        100,
+        game.health+3
+    );
+
+    toast(
+        "😋 "+name+" servido!"
+    );
+
+    saveGame();
+
+    updateGame();
+
+}
+
+
+/* =====================================================
+   BRINCAR
+===================================================== */
+
+function play(){
+
+    if(game.energy<15){
+
+        toast(
+            "😴 Seu SKZOO está cansado!"
+        );
+
+        return;
+
+    }
+
+    game.fun=Math.min(
+        100,
+        game.fun+25
+    );
+
+    game.happiness=Math.min(
+        100,
+        game.happiness+18
+    );
+
+    game.energy=Math.max(
+        0,
+        game.energy-15
+    );
+
+    game.hunger=Math.max(
+        0,
+        game.hunger-5
+    );
+
+    game.coins+=8;
+
+    toast(
+        "🎮 "+game.petName+" se divertiu!"
+    );
+
+    saveGame();
+
+    updateGame();
+
+}
+
+
+/* =====================================================
+   BANHO
+===================================================== */
+
+function bath(){
+
+    game.hygiene=100;
+
+    game.happiness=Math.min(
+        100,
+        game.happiness+8
+    );
+
+    game.health=Math.min(
+        100,
+        game.health+5
+    );
+
+    toast(
+        "🛁 Banho tomado!"
+    );
+
+    saveGame();
+
+    updateGame();
+
+}
+
+
+/* =====================================================
+   DORMIR
+===================================================== */
+
+function sleep(){
+
+    toast(
+        "😴 "+game.petName+" foi dormir..."
+    );
+
+    game.energy=100;
+
+    game.health=Math.min(
+        100,
+        game.health+10
+    );
+
+    game.happiness=Math.min(
+        100,
+        game.happiness+5
+    );
+
+    saveGame();
+
+    updateGame();
+
+    setTimeout(()=>{
+
+        toast(
+            "☀️ "+game.petName+" acordou!"
+        );
+
+        saveGame();
+
+        updateGame();
+
+    },1500);
+
+}
+
+
+/* =====================================================
+   CARINHO
+===================================================== */
+
+function pet(){
+
+    game.happiness=Math.min(
+        100,
+        game.happiness+15
+    );
+
+    game.fun=Math.min(
+        100,
+        game.fun+8
+    );
+
+    game.coins+=3;
+
+    toast(
+        "💗 "+game.petName+" recebeu carinho!"
+    );
+
+    saveGame();
+
+    updateGame();
+
+}
+
+
+/* =====================================================
+   ACESSÓRIOS
+===================================================== */
+
+function buyAccessory(name,cost){
+
+    if(game.coins<cost){
+
+        toast(
+            "🪙 Faltam moedas!"
+        );
+
+        return;
+
+    }
+
+    game.coins-=cost;
+
+    game.inventory.push(name);
+
+    game.happiness=Math.min(
+        100,
+        game.happiness+10
+    );
+
+    toast(
+        name+" comprado! ✨"
+    );
+
+    saveGame();
+
+    updateGame();
+
+}
+
+
+/* =====================================================
+   TROCAR SKZOO
+===================================================== */
+
+function changePet(){
+
+    const confirmacao=confirm(
+        "Voltar para a seleção de SKZOO?"
+    );
+
+    if(!confirmacao){
+
+        return;
+
+    }
+
+    document
+        .getElementById("game")
+        .classList.add("hidden");
+
+    document
+        .getElementById("startScreen")
+        .classList.remove("hidden");
+
+}
+
+
+/* =====================================================
+   NAVEGAÇÃO
+===================================================== */
+
+function showPage(page,button){
+
+    document
+        .querySelectorAll(".page")
+        .forEach(p=>{
+            p.classList.remove("active");
+        });
+
+    document
+        .getElementById(page)
+        .classList.add("active");
+
+
+    document
+        .querySelectorAll(".navBtn")
+        .forEach(btn=>{
+            btn.classList.remove("active");
+        });
+
+    button.classList.add("active");
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer;
+
+function toast(message){
+
+    const box=document.getElementById("toast");
+
+    box.textContent=message;
+
+    box.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer=setTimeout(()=>{
+
+        box.classList.remove("show");
+
+    },2200);
+
+}
+
+
+/* =====================================================
+   SALVAR
+===================================================== */
+
+function saveGame(){
+
+    localStorage.setItem(
+        "skzooWorldSave",
+        JSON.stringify(game)
+    );
+
+}
+
+
+/* =====================================================
+   CARREGAR
+===================================================== */
+
+function loadGame(){
+
+    const saved=
+        localStorage.getItem(
+            "skzooWorldSave"
+        );
+
+    if(!saved){
+
+        return;
+
+    }
+
+    try{
+
+        game=JSON.parse(saved);
+
+        if(
+            game.petName &&
+            game.petImage
+        ){
+
+            document
+                .getElementById("startScreen")
+                .classList.add("hidden");
+
+            document
+                .getElementById("game")
+                .classList.remove("hidden");
+
+            updateGame();
+
+        }
+
+    }catch(error){
+
+        console.log(
+            "Não foi possível carregar o save."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   PASSAGEM DO TEMPO
+===================================================== */
+
+setInterval(()=>{
+
+    if(!game.petName){
+
+        return;
+
+    }
+
+    game.hunger=Math.max(
+        0,
+        game.hunger-1
+    );
+
+    game.hygiene=Math.max(
+        0,
+        game.hygiene-0.5
+    );
+
+    game.energy=Math.max(
+        0,
+        game.energy-0.5
+    );
+
+    game.fun=Math.max(
+        0,
+        game.fun-0.3
+    );
+
+
+    if(game.hunger<20){
+
+        game.health=Math.max(
+            0,
+            game.health-1
+        );
+
+    }
+
+
+    if(game.hygiene<20){
+
+        game.health=Math.max(
+            0,
+            game.health-0.5
+        );
+
+    }
+
+
+    if(
+        game.hunger>70 &&
+        game.hygiene>70 &&
+        game.happiness>70
+    ){
+
+        game.health=Math.min(
+            100,
+            game.health+0.3
+        );
+
+    }
+
+
+    saveGame();
+
+    updateGame();
+
+},30000);
+
+
+/* =====================================================
+   INICIAR
+===================================================== */
+
+loadGame();
+
+</script>
+
+</body>
+</html>
+```
