@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -1981,17 +1982,12 @@ function bath(){
 
 function sleep(){
 
-    /* Se já estiver dormindo, acorda */
-
     if(game.sleeping){
 
         wakeUp();
 
         return;
     }
-
-
-    /* Começa a dormir */
 
     game.sleeping=true;
 
@@ -2001,22 +1997,39 @@ function sleep(){
 
     lamp.classList.add("off");
 
+    document.getElementById("house")
+        .classList.add("night");
 
-    /*
-       Enquanto dorme, a energia NÃO vai
-       diretamente para 100.
+    game.energy=100;
 
-       Ela vai recuperar aos poucos.
-    */
+    game.health=Math.min(
+        100,
+        game.health+10
+    );
+
+    game.happiness=Math.min(
+        100,
+        game.happiness+5
+    );
 
     checkAchievements();
 
     petBubble("😴 Zzz...");
 
-    toast("🌙 "+game.petName+" foi dormir!");
+    toast("🌙 A luminária apagou. Boa noite!");
 
     saveGame();
     updateGame();
+
+    setTimeout(()=>{
+
+        if(game.sleeping){
+
+            wakeUp();
+
+        }
+
+    },5000);
 
 }
 
@@ -2035,62 +2048,12 @@ function wakeUp(){
 
     updateRoom();
 
-    petBubble("☀️ Bom dia!");
-
     toast("☀️ "+game.petName+" acordou!");
 
     saveGame();
     updateGame();
 
 }
-
-
-/* =====================================================
-   RECUPERAÇÃO DE ENERGIA ENQUANTO DORME
-===================================================== */
-
-setInterval(()=>{
-
-    if(!game.sleeping)
-        return;
-
-
-    /*
-       Recupera 2 pontos de energia por segundo.
-    */
-
-    game.energy=Math.min(
-        100,
-        game.energy+2
-    );
-
-
-    /*
-       Enquanto dorme:
-       - fome não diminui
-       - higiene não diminui
-       - diversão não diminui
-       - saúde não diminui
-       - felicidade não diminui
-    */
-
-
-    if(game.energy>=100){
-
-        game.energy=100;
-
-        wakeUp();
-
-        toast("⚡ Energia totalmente recuperada!");
-
-        return;
-    }
-
-
-    saveGame();
-    updateGame();
-
-},1000);
 
 
 /* =====================================================
@@ -2795,3 +2758,5 @@ loadGame();
 
 </body>
 </html>
+
+```
