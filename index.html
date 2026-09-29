@@ -1462,6 +1462,258 @@ nav{
     }
 }
 
+
+/* =========================
+   MELHORIAS - COMIDA E BRINCADEIRAS
+========================= */
+
+.foodRequestPanel{
+    position:fixed;
+    top:22px;
+    right:22px;
+    z-index:240;
+    width:min(330px,calc(100vw - 44px));
+    padding:15px 17px;
+    border-radius:18px;
+    background:rgba(12,18,34,.96);
+    border:1px solid rgba(110,168,255,.55);
+    box-shadow:0 18px 55px #0009;
+    text-align:left;
+    backdrop-filter:blur(14px);
+}
+
+.foodRequestPanel strong{
+    display:block;
+    color:#8dbbff;
+    margin-bottom:6px;
+}
+
+.foodRequestPanel span{
+    color:#eef4ff;
+    line-height:1.45;
+}
+
+.kitchenOrderList{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+    margin:-5px 0 16px;
+}
+
+.orderChip{
+    padding:8px 11px;
+    border-radius:999px;
+    background:#ffffff0b;
+    border:1px solid var(--border);
+    color:#cbd5e9;
+    font-size:13px;
+}
+
+.orderChip.done{
+    border-color:#70dfb0;
+    color:#78e0ad;
+    background:#70dfb01a;
+}
+
+.orderChip.current{
+    border-color:var(--blue);
+    color:white;
+    background:#4169e133;
+}
+
+.kitchenProgress{
+    height:12px;
+    margin:12px 0 16px;
+    border-radius:20px;
+    overflow:hidden;
+    background:#202638;
+    border:1px solid var(--border);
+}
+
+.kitchenProgress div{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#6ea8ff,#70dfb0);
+    transition:.35s;
+}
+
+.foodChoice.requested{
+    border-color:var(--blue);
+    box-shadow:0 0 0 2px #4169e133;
+}
+
+.foodChoice.prepared{
+    border-color:#70dfb0;
+    background:#70dfb012;
+}
+
+.foodChoice.lockedFood{
+    opacity:.5;
+}
+
+.foodChoice small{
+    display:block;
+    min-height:18px;
+    color:#78e0ad;
+    margin-top:5px;
+}
+
+.kitchenReadyCard{
+    padding:18px;
+    border-radius:22px;
+    background:#70dfb012;
+    border:1px solid #70dfb055;
+}
+
+.kitchenReadyEmoji{
+    font-size:88px;
+    margin:8px 0;
+    animation:readyFoodPop .55s ease;
+}
+
+@keyframes readyFoodPop{
+    0%{transform:scale(.65) rotate(-8deg);opacity:0}
+    70%{transform:scale(1.08) rotate(4deg)}
+    100%{transform:scale(1) rotate(0);opacity:1}
+}
+
+.servingPet{
+    animation:servingPet .55s ease-in-out 3;
+}
+
+@keyframes servingPet{
+    0%,100%{transform:translateY(0) scale(1)}
+    50%{transform:translateY(-10px) scale(1.06)}
+}
+
+.foodReaction{
+    min-height:30px;
+    margin-top:8px;
+    color:#cbd5e9;
+    font-weight:bold;
+}
+
+.playRoom{
+    position:fixed;
+    inset:0;
+    z-index:210;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+    background:rgba(4,8,18,.94);
+}
+
+.playBox{
+    width:min(900px,100%);
+    max-height:92vh;
+    overflow:auto;
+    padding:24px;
+    border-radius:28px;
+    background:linear-gradient(145deg,rgba(255,255,255,.11),rgba(255,255,255,.045));
+    border:1px solid var(--border);
+    box-shadow:0 25px 80px #000b;
+    text-align:center;
+}
+
+.playGameArea{
+    position:relative;
+    min-height:330px;
+    margin:16px 0;
+    border-radius:24px;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 50% 20%,#304b83 0%,transparent 42%),
+        linear-gradient(180deg,#172542,#0d1424);
+    border:1px solid var(--border);
+    touch-action:none;
+}
+
+.playTarget{
+    position:absolute;
+    border:0;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 10px 25px #0007;
+    user-select:none;
+    -webkit-user-select:none;
+}
+
+.playTarget.bubble{
+    width:65px;
+    height:65px;
+    background:#9edcff55;
+    border:2px solid #b9e8ff;
+    font-size:31px;
+}
+
+.playTarget.ball{
+    width:75px;
+    height:75px;
+    background:#ffffff16;
+    font-size:48px;
+}
+
+.playTarget.toy{
+    width:82px;
+    height:82px;
+    background:#ffffff12;
+    font-size:52px;
+}
+
+.playTarget.target{
+    width:90px;
+    height:90px;
+    background:#ffffff10;
+    font-size:50px;
+}
+
+.playTarget.kite{
+    width:80px;
+    height:80px;
+    background:#ffffff10;
+    font-size:52px;
+}
+
+.playScore{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:8px;
+}
+
+.playScore span{
+    padding:8px 12px;
+    border-radius:12px;
+    background:#0004;
+    border:1px solid var(--border);
+}
+
+.playPetHint{
+    color:#c1cbe0;
+    min-height:24px;
+}
+
+@media(max-width:700px){
+    .foodRequestPanel{
+        top:10px;
+        right:10px;
+        width:min(290px,calc(100vw - 20px));
+    }
+
+    .playBox{
+        padding:17px;
+    }
+
+    .playGameArea{
+        min-height:290px;
+    }
+}
+
 </style>
 </head>
 
@@ -1721,7 +1973,7 @@ nav{
 <div class="actions">
 
     <button class="actionBtn"
-            onclick="feed(15)">
+            onclick="openKitchen()">
         <span class="actionIcon">🍎</span>
         Alimentar
     </button>
@@ -1799,48 +2051,212 @@ nav{
 </h1>
 
 <div class="foodGrid">
-
-    <div class="item">
-        <div class="itemIcon">🍎</div>
-        <h3>Maçã</h3>
-        <p>+15 Fome</p>
-        <button onclick="buyFood('Maçã',15,5)">
-            5 🪙
-        </button>
+        <div style="grid-column:1/-1;margin-top:8px">
+            <h2 style="margin:8px 0 2px">🍽️ Comidas</h2>
+        </div>
+                    <div class="item">
+                <div class="itemIcon">🍎</div>
+                <h3>Maçã</h3>
+                <p>+15 Fome · 5 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🍚</div>
+                <h3>Arroz</h3>
+                <p>+20 Fome · 7 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🍝</div>
+                <h3>Macarrão</h3>
+                <p>+25 Fome · 9 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🍕</div>
+                <h3>Pizza</h3>
+                <p>+30 Fome · 15 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🍔</div>
+                <h3>Hambúrguer</h3>
+                <p>+30 Fome · 14 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🍗</div>
+                <h3>Frango</h3>
+                <p>+25 Fome · 10 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🥪</div>
+                <h3>Sanduíche</h3>
+                <p>+22 Fome · 8 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🍳</div>
+                <h3>Ovo</h3>
+                <p>+15 Fome · 5 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🍜</div>
+                <h3>Ramen</h3>
+                <p>+28 Fome · 12 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🌭</div>
+                <h3>Cachorro-quente</h3>
+                <p>+24 Fome · 10 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🥞</div>
+                <h3>Panqueca</h3>
+                <p>+23 Fome · 9 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🥟</div>
+                <h3>Dumplings</h3>
+                <p>+26 Fome · 11 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>
+        <div style="grid-column:1/-1;margin-top:8px">
+            <h2 style="margin:8px 0 2px">🍰 Doces</h2>
+        </div>
+                    <div class="item">
+                <div class="itemIcon">🍰</div>
+                <h3>Bolo</h3>
+                <p>+35 Fome +5 Felicidade · 20 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🧁</div>
+                <h3>Cupcake</h3>
+                <p>+25 Fome +5 Felicidade · 12 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🍪</div>
+                <h3>Cookie</h3>
+                <p>+18 Fome +5 Felicidade · 7 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🍩</div>
+                <h3>Donut</h3>
+                <p>+22 Fome +5 Felicidade · 9 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🍫</div>
+                <h3>Chocolate</h3>
+                <p>+20 Fome +5 Felicidade · 8 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🍨</div>
+                <h3>Sorvete</h3>
+                <p>+24 Fome +5 Felicidade · 10 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🍮</div>
+                <h3>Pudim</h3>
+                <p>+28 Fome +5 Felicidade · 13 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🍓</div>
+                <h3>Morango com chocolate</h3>
+                <p>+30 Fome +5 Felicidade · 14 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>
+        <div style="grid-column:1/-1;margin-top:8px">
+            <h2 style="margin:8px 0 2px">🥤 Bebidas</h2>
+        </div>
+                    <div class="item">
+                <div class="itemIcon">🥛</div>
+                <h3>Leite</h3>
+                <p>+18 Fome · 6 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🧃</div>
+                <h3>Suco</h3>
+                <p>+20 Fome · 7 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🥤</div>
+                <h3>Refrigerante</h3>
+                <p>+15 Fome · 6 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🧋</div>
+                <h3>Milkshake</h3>
+                <p>+28 Fome · 14 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">☕</div>
+                <h3>Chocolate quente</h3>
+                <p>+24 Fome · 10 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🍵</div>
+                <h3>Chá</h3>
+                <p>+18 Fome · 6 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>            <div class="item">
+                <div class="itemIcon">🥤</div>
+                <h3>Vitamina</h3>
+                <p>+25 Fome · 11 🪙</p>
+                <button onclick="openKitchen()">
+                    👩‍🍳 Preparar
+                </button>
+            </div>
     </div>
 
-    <div class="item">
-        <div class="itemIcon">🍗</div>
-        <h3>Frango</h3>
-        <p>+25 Fome</p>
-        <button onclick="buyFood('Frango',25,10)">
-            10 🪙
-        </button>
-    </div>
-
-    <div class="item">
-        <div class="itemIcon">🍰</div>
-        <h3>Bolo</h3>
-        <p>+35 Fome +10 Felicidade</p>
-        <button onclick="buyFood('Bolo',35,20)">
-            20 🪙
-        </button>
-    </div>
-
-    <div class="item">
-        <div class="itemIcon">🍓</div>
-        <h3>Morango</h3>
-        <p>+20 Fome +5 Felicidade</p>
-        <button onclick="buyFood('Morango',20,8)">
-            8 🪙
-        </button>
-    </div>
-
-</div>
-
-<div style="text-align:center;margin-top:18px">
+    <div style="text-align:center;margin-top:18px"><div style="text-align:center;margin-top:18px">
     <button class="hatchBtn" onclick="openKitchen()">
-        🍳 Preparar comida
+        🍳 Ver pedido e preparar refeição
     </button>
 </div>
 
@@ -2270,44 +2686,22 @@ nav{
 
 <section id="kitchenRoom" class="kitchenRoom hidden">
 
+    <div id="foodRequestPanel" class="foodRequestPanel">
+        <strong>💭 Pedido do SKZOO</strong>
+        <span id="foodRequestText">Preparando o pedido...</span>
+    </div>
+
     <div class="interactionBox">
 
-        <h2>🍳 Preparar comida</h2>
+        <h2>🍳 Cozinha do SKZOO</h2>
 
         <p id="kitchenDescription">
-            Escolha uma comida para começar o preparo.
+            Veja o pedido, escolha cada item pedido e prepare tudo antes de servir.
         </p>
 
+        <div id="kitchenOrderList" class="kitchenOrderList"></div>
+
         <div id="foodChoices" class="foodChoices">
-
-            <div class="foodChoice" data-food="apple">
-                <div class="itemIcon">🍎</div>
-                <h3>Maçã</h3>
-                <p>+15 Fome · 5 🪙</p>
-                <button onclick="choosePreparedFood('apple')">Escolher</button>
-            </div>
-
-            <div class="foodChoice" data-food="chicken">
-                <div class="itemIcon">🍗</div>
-                <h3>Frango</h3>
-                <p>+25 Fome · 10 🪙</p>
-                <button onclick="choosePreparedFood('chicken')">Escolher</button>
-            </div>
-
-            <div class="foodChoice" data-food="cake">
-                <div class="itemIcon">🍰</div>
-                <h3>Bolo</h3>
-                <p>+35 Fome · 20 🪙</p>
-                <button onclick="choosePreparedFood('cake')">Escolher</button>
-            </div>
-
-            <div class="foodChoice" data-food="strawberry">
-                <div class="itemIcon">🍓</div>
-                <h3>Morango</h3>
-                <p>+20 Fome · 8 🪙</p>
-                <button onclick="choosePreparedFood('strawberry')">Escolher</button>
-            </div>
-
         </div>
 
         <div id="kitchenWork" class="hidden">
@@ -2316,15 +2710,80 @@ nav{
                 <img id="kitchenPetImage" src="wolf-chan.png" alt="SKZOO">
             </div>
 
-            <div id="kitchenStage" class="kitchenStage">
+            <div id="kitchenCurrentName" class="kitchenStage">
                 Preparando...
+            </div>
+
+            <div id="kitchenStage" class="kitchenStage">
+                Vamos começar!
+            </div>
+
+            <div class="kitchenProgress">
+                <div id="kitchenProgressBar"></div>
             </div>
 
             <div class="interactionButtons">
 
                 <button id="kitchenActionButton"
                         onclick="doKitchenStep()">
-                    🔪 Começar preparo
+                    👩‍🍳 Começar preparo
+                </button>
+
+                <button class="backInteraction"
+                        onclick="backToKitchenChoices()">
+                    ↩️ Voltar aos itens
+                </button>
+
+            </div>
+
+        </div>
+
+        <div id="kitchenReady" class="hidden">
+
+            <div class="kitchenReadyCard">
+
+                <div id="kitchenReadyEmoji" class="kitchenReadyEmoji">🍽️</div>
+
+                <div id="kitchenReadyTitle" class="kitchenStage">
+                    ✨ Item pronto para servir!
+                </div>
+
+                <div class="foodReaction">
+                    O preparo terminou! Continue com os outros itens do pedido.
+                </div>
+
+            </div>
+
+            <div class="interactionButtons" style="margin-top:15px">
+
+                <button onclick="continueKitchenOrder()">
+                    👩‍🍳 Preparar próximo item
+                </button>
+
+            </div>
+
+        </div>
+
+        <div id="kitchenServe" class="hidden">
+
+            <div class="kitchenReadyCard">
+
+                <div style="font-size:78px;margin:8px 0">🍽️</div>
+
+                <div class="kitchenStage">
+                    ✅ Todos os itens do pedido estão prontos!
+                </div>
+
+                <div id="kitchenServeSummary" class="foodReaction">
+                    Refeição completa pronta para o SKZOO.
+                </div>
+
+            </div>
+
+            <div class="interactionButtons" style="margin-top:15px">
+
+                <button onclick="servePreparedMeal()">
+                    🍽️ SERVIR REFEIÇÃO
                 </button>
 
                 <button class="backInteraction"
@@ -2336,28 +2795,52 @@ nav{
 
         </div>
 
-        <div id="kitchenReady" class="hidden">
+        <div id="kitchenBack" class="interactionButtons" style="margin-top:15px">
+            <button class="backInteraction"
+                    onclick="closeKitchen()">
+                ↩️ Fechar cozinha
+            </button>
+        </div>
 
-            <div class="kitchenVisual">
-                <div style="font-size:90px">🍽️</div>
-            </div>
+    </div>
 
-            <div class="kitchenStage">
-                ✨ Comida pronta! Entregue ao SKZOO.
-            </div>
+</section>
 
-            <div class="interactionButtons">
 
-                <button onclick="servePreparedFood()">
-                    🐾 Entregar comida
-                </button>
+<!-- =====================================================
+     BRINCADEIRAS INTERATIVAS
+===================================================== -->
 
-                <button class="backInteraction"
-                        onclick="closeKitchen()">
-                    ↩️ Voltar
-                </button>
+<section id="playRoom" class="playRoom hidden">
 
-            </div>
+    <div class="playBox">
+
+        <h2>🎮 Hora de brincar!</h2>
+
+        <p id="playDescription">
+            Participe da brincadeira com seu SKZOO.
+        </p>
+
+        <div class="playScore">
+            <span>⭐ Pontos: <b id="playScore">0</b></span>
+            <span>🎯 Meta: <b id="playGoal">0</b></span>
+        </div>
+
+        <div id="playGameArea" class="playGameArea"></div>
+
+        <div id="playPetHint" class="playPetHint">
+            Vamos brincar! 🐾
+        </div>
+
+        <div class="interactionButtons" style="margin-top:15px">
+
+            <button id="playStartButton" onclick="startPlayActivity()">
+                ▶️ Começar brincadeira
+            </button>
+
+            <button class="backInteraction" onclick="closePlayRoom()">
+                ↩️ Sair
+            </button>
 
         </div>
 
@@ -2922,50 +3405,14 @@ function updateStat(name,value){
 
 function feed(amount){
 
-    if(game.hunger>=100){
+    /*
+       A alimentação agora exige preparação.
+       Mantemos a função antiga para não quebrar
+       referências existentes, mas ela não entrega
+       comida diretamente.
+    */
 
-        toast(
-            "🍖 "+
-            getPetName(game.currentPet)+
-            " já está cheio!"
-        );
-
-        return;
-    }
-
-    game.hunger=
-        Math.min(
-            100,
-            game.hunger+amount
-        );
-
-    game.health=
-        Math.min(
-            100,
-            game.health+3
-        );
-
-    game.fun=
-        Math.min(
-            100,
-            game.fun+2
-        );
-
-    game.coins+=2;
-
-    game.stats.feeds++;
-
-    levelUpCheck();
-    checkAchievements();
-
-    toast(
-        "🍎 "+
-        getPetName(game.currentPet)+
-        " comeu!"
-    );
-
-    saveGame();
-    updateGame();
+    openKitchen();
 
 }
 
@@ -2976,55 +3423,13 @@ function feed(amount){
 
 function buyFood(name,amount,cost){
 
-    if(game.coins<cost){
+    /*
+       Compatibilidade com o sistema antigo:
+       clicar em uma comida nunca entrega diretamente.
+       A ação sempre leva para a cozinha e para o pedido.
+    */
 
-        toast(
-            "🪙 Você não tem moedas suficientes!"
-        );
-
-        return;
-    }
-
-    if(game.hunger>=100){
-
-        toast(
-            "🍖 Seu SKZOO já está cheio!"
-        );
-
-        return;
-    }
-
-    game.coins-=cost;
-
-    game.hunger=
-        Math.min(
-            100,
-            game.hunger+amount
-        );
-
-    game.happiness=
-        Math.min(
-            100,
-            game.happiness+5
-        );
-
-    game.health=
-        Math.min(
-            100,
-            game.health+3
-        );
-
-    game.stats.feeds++;
-
-    levelUpCheck();
-    checkAchievements();
-
-    toast(
-        "😋 "+name+" servido!"
-    );
-
-    saveGame();
-    updateGame();
+    openKitchen();
 
 }
 
@@ -3044,51 +3449,10 @@ function play(){
         );
 
         return;
+
     }
 
-    game.fun=
-        Math.min(
-            100,
-            game.fun+25
-        );
-
-    game.happiness=
-        Math.min(
-            100,
-            game.happiness+18
-        );
-
-    game.energy=
-        Math.max(
-            0,
-            game.energy-15
-        );
-
-    game.hunger=
-        Math.max(
-            0,
-            game.hunger-5
-        );
-
-    game.coins+=8;
-
-    game.stats.plays++;
-
-    levelUpCheck();
-    checkAchievements();
-
-    petBubble(
-        "🎮 De novo! De novo!"
-    );
-
-    toast(
-        "🎮 "+
-        getPetName(game.currentPet)+
-        " se divertiu!"
-    );
-
-    saveGame();
-    updateGame();
+    openPlayRoom();
 
 }
 
@@ -3750,34 +4114,232 @@ function changeRoom(room,button){
 ===================================================== */
 
 const preparedFoods={
+
     apple:{
-        name:"Maçã",
-        emoji:"🍎",
-        amount:15,
-        cost:5
+        name:"Maçã",emoji:"🍎",type:"comida",amount:15,cost:5,happiness:3,
+        steps:["🍎 Separar a maçã","🔪 Preparar a fruta","🍽️ Montar o prato"]
+    },
+    rice:{
+        name:"Arroz",emoji:"🍚",type:"comida",amount:20,cost:7,happiness:3,
+        steps:["🍚 Separar os ingredientes","🥣 Preparar o arroz","🔥 Finalizar no fogão"]
+    },
+    pasta:{
+        name:"Macarrão",emoji:"🍝",type:"comida",amount:25,cost:9,happiness:4,
+        steps:["🍝 Separar massa e ingredientes","🥣 Preparar o molho","🔥 Cozinhar e finalizar"]
+    },
+    pizza:{
+        name:"Pizza",emoji:"🍕",type:"comida",amount:30,cost:15,happiness:6,
+        steps:["🥫 Separar ingredientes","🍕 Montar a pizza","🔥 Assar a pizza"]
+    },
+    burger:{
+        name:"Hambúrguer",emoji:"🍔",type:"comida",amount:30,cost:14,happiness:6,
+        steps:["🥩 Preparar os ingredientes","🍔 Montar o hambúrguer","🔥 Finalizar o preparo"]
     },
     chicken:{
-        name:"Frango",
-        emoji:"🍗",
-        amount:25,
-        cost:10
+        name:"Frango",emoji:"🍗",type:"comida",amount:25,cost:10,happiness:4,
+        steps:["🍗 Separar e temperar","🥣 Preparar o frango","🔥 Assar e finalizar"]
     },
+    sandwich:{
+        name:"Sanduíche",emoji:"🥪",type:"comida",amount:22,cost:8,happiness:4,
+        steps:["🍞 Separar os ingredientes","🥪 Montar o sanduíche","✨ Finalizar e servir"]
+    },
+    egg:{
+        name:"Ovo",emoji:"🍳",type:"comida",amount:15,cost:5,happiness:3,
+        steps:["🥚 Separar o ovo","🥣 Preparar a mistura","🔥 Fritar e finalizar"]
+    },
+    ramen:{
+        name:"Ramen",emoji:"🍜",type:"comida",amount:28,cost:12,happiness:5,
+        steps:["🍜 Separar os ingredientes","🥣 Preparar o caldo","🔥 Cozinhar e montar"]
+    },
+    hotdog:{
+        name:"Cachorro-quente",emoji:"🌭",type:"comida",amount:24,cost:10,happiness:5,
+        steps:["🌭 Separar os ingredientes","🥖 Montar o cachorro-quente","🔥 Aquecer e finalizar"]
+    },
+    pancake:{
+        name:"Panqueca",emoji:"🥞",type:"comida",amount:23,cost:9,happiness:5,
+        steps:["🥚 Misturar os ingredientes","🥣 Preparar a massa","🔥 Fazer a panqueca"]
+    },
+    dumplings:{
+        name:"Dumplings",emoji:"🥟",type:"comida",amount:26,cost:11,happiness:5,
+        steps:["🥟 Separar os ingredientes","🥣 Montar os dumplings","🔥 Cozinhar e finalizar"]
+    },
+
     cake:{
-        name:"Bolo",
-        emoji:"🍰",
-        amount:35,
-        cost:20
+        name:"Bolo",emoji:"🍰",type:"doce",amount:35,cost:20,happiness:10,
+        steps:["🍰 Separar os ingredientes","🥣 Misturar a massa","🔥 Assar o bolo"]
     },
-    strawberry:{
-        name:"Morango",
-        emoji:"🍓",
-        amount:20,
-        cost:8
+    cupcake:{
+        name:"Cupcake",emoji:"🧁",type:"doce",amount:25,cost:12,happiness:8,
+        steps:["🧁 Separar os ingredientes","🥣 Misturar a massa","🔥 Assar os cupcakes"]
+    },
+    cookie:{
+        name:"Cookie",emoji:"🍪",type:"doce",amount:18,cost:7,happiness:7,
+        steps:["🍪 Separar os ingredientes","🥣 Misturar a massa","🔥 Assar os cookies"]
+    },
+    donut:{
+        name:"Donut",emoji:"🍩",type:"doce",amount:22,cost:9,happiness:8,
+        steps:["🍩 Preparar a massa","🥣 Modelar os donuts","✨ Finalizar com cobertura"]
+    },
+    chocolate:{
+        name:"Chocolate",emoji:"🍫",type:"doce",amount:20,cost:8,happiness:8,
+        steps:["🍫 Separar o chocolate","🥣 Derreter e misturar","❄️ Resfriar e finalizar"]
+    },
+    icecream:{
+        name:"Sorvete",emoji:"🍨",type:"doce",amount:24,cost:10,happiness:9,
+        steps:["🍨 Escolher o sabor","🥣 Preparar a mistura","❄️ Gelar e montar"]
+    },
+    pudding:{
+        name:"Pudim",emoji:"🍮",type:"doce",amount:28,cost:13,happiness:9,
+        steps:["🍮 Separar os ingredientes","🥣 Misturar o pudim","🔥 Cozinhar e finalizar"]
+    },
+    strawberry_choco:{
+        name:"Morango com chocolate",emoji:"🍓",type:"doce",amount:30,cost:14,happiness:11,
+        steps:["🍓 Escolher os morangos","🍫 Preparar o chocolate","✨ Cobrir e finalizar"]
+    },
+
+    milk:{
+        name:"Leite",emoji:"🥛",type:"bebida",amount:18,cost:6,happiness:3,
+        steps:["🥛 Separar o leite","🥣 Preparar a bebida","🥤 Colocar no copo"]
+    },
+    juice:{
+        name:"Suco",emoji:"🧃",type:"bebida",amount:20,cost:7,happiness:4,
+        steps:["🍓 Escolher a fruta","🧃 Preparar o suco","🥤 Colocar no copo"]
+    },
+    soda:{
+        name:"Refrigerante",emoji:"🥤",type:"bebida",amount:15,cost:6,happiness:3,
+        steps:["🥤 Escolher o refrigerante","🧊 Preparar o copo","✨ Servir gelado"]
+    },
+    milkshake:{
+        name:"Milkshake",emoji:"🧋",type:"bebida",amount:28,cost:14,happiness:9,
+        steps:["🧋 Escolher o sabor","🥣 Bater o milkshake","🥤 Colocar no copo"]
+    },
+    hot_chocolate:{
+        name:"Chocolate quente",emoji:"☕",type:"bebida",amount:24,cost:10,happiness:8,
+        steps:["🍫 Escolher o chocolate","🥣 Misturar e aquecer","☕ Colocar na caneca"]
+    },
+    tea:{
+        name:"Chá",emoji:"🍵",type:"bebida",amount:18,cost:6,happiness:5,
+        steps:["🍵 Escolher o chá","💧 Preparar a infusão","☕ Servir na xícara"]
+    },
+    smoothie:{
+        name:"Vitamina",emoji:"🥤",type:"bebida",amount:25,cost:11,happiness:7,
+        steps:["🍓 Escolher as frutas","🥣 Bater a vitamina","🥤 Colocar no copo"]
     }
+
 };
+
+const foodOrderPatterns=[
+    ["comida"],
+    ["comida","bebida"],
+    ["comida","doce"],
+    ["comida","bebida","doce"]
+];
 
 let preparedFood=null;
 let kitchenStep=0;
+let kitchenOrder=[];
+let kitchenPrepared=[];
+let kitchenPaid={};
+let kitchenServing=false;
+
+
+function getFoodsByType(type){
+
+    return Object.keys(preparedFoods)
+        .filter(id=>preparedFoods[id].type===type);
+
+}
+
+
+function randomFoodOfType(type,exclude=[]){
+
+    const options=
+        getFoodsByType(type)
+        .filter(id=>!exclude.includes(id));
+
+    return options[
+        Math.floor(Math.random()*options.length)
+    ];
+
+}
+
+
+function createKitchenOrder(){
+
+    const pattern=
+        foodOrderPatterns[
+            Math.floor(
+                Math.random()*foodOrderPatterns.length
+            )
+        ];
+
+    const chosen=[];
+
+    pattern.forEach(type=>{
+        const id=randomFoodOfType(type,chosen);
+        if(id) chosen.push(id);
+    });
+
+    return chosen;
+}
+
+
+function renderKitchenOrder(){
+
+    const list=
+        document.getElementById("kitchenOrderList");
+
+    const request=
+        document.getElementById("foodRequestText");
+
+    if(!list||!request)
+        return;
+
+    const names=
+        kitchenOrder.map(id=>preparedFoods[id].name);
+
+    if(names.length===1){
+
+        request.textContent=
+            "Eu quero "+names[0]+"! 🥺";
+
+    }else if(names.length===2){
+
+        request.textContent=
+            "Eu quero "+names[0]+" e "+names[1]+"! 😋";
+
+    }else{
+
+        request.textContent=
+            "Eu quero "+names[0]+", "+names[1]+" e "+names[2]+"! 🥺💙";
+
+    }
+
+    list.innerHTML="";
+
+    kitchenOrder.forEach(id=>{
+
+        const food=preparedFoods[id];
+
+        const chip=document.createElement("div");
+
+        chip.className="orderChip";
+
+        if(kitchenPrepared.includes(id))
+            chip.classList.add("done");
+
+        if(preparedFood && preparedFood===food)
+            chip.classList.add("current");
+
+        chip.textContent=
+            (kitchenPrepared.includes(id)?"✓ ":"")+
+            food.emoji+" "+food.name;
+
+        list.appendChild(chip);
+
+    });
+
+}
 
 
 function openKitchen(){
@@ -3791,10 +4353,27 @@ function openKitchen(){
     if(!room||!image)
         return;
 
+    if(game.hunger>=100){
+
+        toast(
+            "🍖 "+
+            getPetName(game.currentPet)+
+            " já está cheio!"
+        );
+
+        return;
+
+    }
+
     image.src=getCurrentPet().image;
 
     preparedFood=null;
     kitchenStep=0;
+    kitchenPrepared=[];
+    kitchenPaid={};
+    kitchenServing=false;
+
+    kitchenOrder=createKitchenOrder();
 
     document
         .getElementById("foodChoices")
@@ -3809,11 +4388,84 @@ function openKitchen(){
         .classList.add("hidden");
 
     document
+        .getElementById("kitchenServe")
+        .classList.add("hidden");
+
+    document
+        .getElementById("kitchenBack")
+        .classList.remove("hidden");
+
+    document
         .getElementById("kitchenDescription")
         .textContent=
-        "Escolha uma comida para começar o preparo.";
+        "Veja o pedido e prepare todos os itens antes de servir.";
 
     room.classList.remove("hidden");
+
+    renderKitchenChoices();
+    renderKitchenOrder();
+
+}
+
+
+function renderKitchenChoices(){
+
+    const box=
+        document.getElementById("foodChoices");
+
+    if(!box)
+        return;
+
+    box.innerHTML="";
+
+    const orderIds=new Set(kitchenOrder);
+
+    Object.entries(preparedFoods).forEach(([id,food])=>{
+
+        const card=
+            document.createElement("div");
+
+        const requested=
+            orderIds.has(id);
+
+        const done=
+            kitchenPrepared.includes(id);
+
+        card.className=
+            "foodChoice"+
+            (requested?" requested":"")+
+            (!requested?" lockedFood":"")+
+            (done?" prepared":"");
+
+        card.innerHTML=`
+            <div class="itemIcon">${food.emoji}</div>
+            <h3>${food.name}</h3>
+            <p>+${food.amount} Fome · ${food.cost} 🪙</p>
+            <small>
+                ${
+                    done
+                    ?"✓ Preparado"
+                    :requested
+                    ?"💭 Está no pedido"
+                    :"Não foi pedido"
+                }
+            </small>
+            <button
+                ${(!requested||done)?"disabled":""}
+                onclick="choosePreparedFood('${id}')">
+                ${
+                    done
+                    ?"✓ Pronto"
+                    :requested
+                    ?"👩‍🍳 Preparar"
+                    :"🔒 Não pedido"
+                }
+            </button>
+        `;
+
+        box.appendChild(card);
+
+    });
 
 }
 
@@ -3826,23 +4478,44 @@ function choosePreparedFood(id){
     if(!food)
         return;
 
+    if(!kitchenOrder.includes(id)){
+
+        toast(
+            "💭 "+food.name+
+            " não está no pedido do SKZOO."
+        );
+
+        return;
+
+    }
+
+    if(kitchenPrepared.includes(id)){
+
+        toast("✅ "+food.name+" já está pronto!");
+
+        return;
+
+    }
+
     if(game.coins<food.cost){
 
         toast(
-            "🪙 Você não tem moedas suficientes!"
+            "🪙 Você não tem moedas suficientes para preparar "+
+            food.name+"!"
         );
 
         return;
+
     }
 
-    if(game.hunger>=100){
+    /*
+       O custo é pago no início do preparo.
+       Assim o mesmo item nunca é cobrado novamente
+       ao servir a refeição.
+    */
 
-        toast(
-            "🍖 Seu SKZOO já está cheio!"
-        );
-
-        return;
-    }
+    game.coins-=food.cost;
+    kitchenPaid[id]=true;
 
     preparedFood=food;
     kitchenStep=0;
@@ -3860,11 +4533,23 @@ function choosePreparedFood(id){
         .classList.add("hidden");
 
     document
+        .getElementById("kitchenServe")
+        .classList.add("hidden");
+
+    document
+        .getElementById("kitchenCurrentName")
+        .textContent=
+        food.emoji+" "+food.name;
+
+    document
         .getElementById("kitchenDescription")
         .textContent=
-        "Vamos preparar "+food.name+"!";
+        "Prepare o item seguindo todas as etapas.";
 
     updateKitchen();
+
+    updateGame();
+    saveGame();
 
 }
 
@@ -3874,35 +4559,35 @@ function updateKitchen(){
     if(!preparedFood)
         return;
 
-    const stageNames=[
-        "🔪 Corte e organize os ingredientes.",
-        "🥣 Misture e prepare a receita.",
-        "🔥 Finalize o preparo no fogão."
-    ];
-
-    const buttonTexts=[
-        "🔪 Cortar ingredientes",
-        "🥣 Misturar",
-        "🔥 Finalizar preparo"
-    ];
-
     const stage=
-        document.getElementById(
-            "kitchenStage"
-        );
+        document.getElementById("kitchenStage");
 
     const button=
-        document.getElementById(
-            "kitchenActionButton"
-        );
+        document.getElementById("kitchenActionButton");
 
-    if(kitchenStep<3){
+    const progress=
+        document.getElementById("kitchenProgressBar");
+
+    if(kitchenStep<preparedFood.steps.length){
 
         stage.textContent=
-            stageNames[kitchenStep];
+            preparedFood.steps[kitchenStep];
 
         button.textContent=
-            buttonTexts[kitchenStep];
+            kitchenStep===0
+            ?"👩‍🍳 Começar etapa"
+            :"➡️ Fazer esta etapa";
+
+        if(progress){
+
+            progress.style.width=
+                (
+                    kitchenStep/
+                    preparedFood.steps.length*
+                    100
+                )+"%";
+
+        }
 
     }
 
@@ -3911,22 +4596,49 @@ function updateKitchen(){
 
 function doKitchenStep(){
 
-    if(!preparedFood || kitchenStep>=3)
+    if(!preparedFood)
+        return;
+
+    if(kitchenStep>=preparedFood.steps.length)
         return;
 
     kitchenStep++;
 
-    if(kitchenStep<3){
+    const total=
+        preparedFood.steps.length;
+
+    const progress=
+        document.getElementById("kitchenProgressBar");
+
+    if(progress){
+
+        progress.style.width=
+            (kitchenStep/total*100)+"%";
+
+    }
+
+    if(kitchenStep<total){
 
         updateKitchen();
 
         toast(
-            "🍳 Continue preparando!"
+            "🍳 "+preparedFood.name+
+            ": etapa "+kitchenStep+" de "+total+"!"
         );
 
         return;
 
     }
+
+    const readyFood=
+        preparedFood;
+
+    kitchenPrepared.push(
+        readyFood.id ||
+        Object.keys(preparedFoods).find(
+            id=>preparedFoods[id]===readyFood
+        )
+    );
 
     document
         .getElementById("kitchenWork")
@@ -3937,84 +4649,258 @@ function doKitchenStep(){
         .classList.remove("hidden");
 
     document
+        .getElementById("kitchenReadyEmoji")
+        .textContent=
+        readyFood.emoji;
+
+    document
+        .getElementById("kitchenReadyTitle")
+        .textContent=
+        "✨ "+readyFood.name+
+        " está pronto para servir!";
+
+    document
         .getElementById("kitchenDescription")
         .textContent=
-        "A comida foi preparada com carinho!";
+        "Item preparado! Agora continue com o restante do pedido.";
+
+    preparedFood=null;
+    kitchenStep=0;
+
+    renderKitchenOrder();
 
     toast(
-        "✨ "+preparedFood.name+" está pronta!"
+        "✨ "+readyFood.name+
+        " está pronto para servir!"
     );
 
 }
 
 
-function servePreparedFood(){
+function backToKitchenChoices(){
 
-    if(!preparedFood)
+    preparedFood=null;
+    kitchenStep=0;
+
+    document
+        .getElementById("kitchenWork")
+        .classList.add("hidden");
+
+    document
+        .getElementById("kitchenReady")
+        .classList.add("hidden");
+
+    document
+        .getElementById("kitchenServe")
+        .classList.add("hidden");
+
+    document
+        .getElementById("foodChoices")
+        .classList.remove("hidden");
+
+    document
+        .getElementById("kitchenDescription")
+        .textContent=
+        "Escolha o próximo item do pedido para preparar.";
+
+    renderKitchenChoices();
+    renderKitchenOrder();
+
+}
+
+
+function continueKitchenOrder(){
+
+    preparedFood=null;
+    kitchenStep=0;
+
+    if(
+        kitchenPrepared.length>=
+        kitchenOrder.length
+    ){
+
+        document
+            .getElementById("kitchenReady")
+            .classList.add("hidden");
+
+        document
+            .getElementById("kitchenServe")
+            .classList.remove("hidden");
+
+        document
+            .getElementById("kitchenBack")
+            .classList.add("hidden");
+
+        document
+            .getElementById("kitchenDescription")
+            .textContent=
+            "Todos os itens estão prontos!";
+
+        document
+            .getElementById("kitchenServeSummary")
+            .textContent=
+            kitchenOrder
+                .map(id=>preparedFoods[id].emoji+" "+preparedFoods[id].name)
+                .join(" · ");
+
+        renderKitchenOrder();
+
         return;
 
-    if(game.coins<preparedFood.cost){
+    }
+
+    document
+        .getElementById("kitchenReady")
+        .classList.add("hidden");
+
+    document
+        .getElementById("foodChoices")
+        .classList.remove("hidden");
+
+    document
+        .getElementById("kitchenBack")
+        .classList.remove("hidden");
+
+    document
+        .getElementById("kitchenDescription")
+        .textContent=
+        "Escolha outro item do pedido para continuar.";
+
+    renderKitchenChoices();
+    renderKitchenOrder();
+
+}
+
+
+function servePreparedMeal(){
+
+    if(kitchenServing)
+        return;
+
+    if(
+        kitchenPrepared.length<
+        kitchenOrder.length
+    ){
+
+        const missing=
+            kitchenOrder
+                .filter(id=>!kitchenPrepared.includes(id))
+                .map(id=>preparedFoods[id].name);
 
         toast(
-            "🪙 Você não tem moedas suficientes!"
+            "🍽️ Ainda falta preparar: "+
+            missing.join(", ")+"!"
         );
 
         return;
+
     }
 
     if(game.hunger>=100){
 
         toast(
-            "🍖 Seu SKZOO já está cheio!"
+            "🍖 "+
+            getPetName(game.currentPet)+
+            " já está cheio!"
         );
 
         return;
+
     }
 
-    game.coins-=
-        preparedFood.cost;
+    kitchenServing=true;
+
+    const petImage=
+        document.getElementById("kitchenPetImage");
+
+    const allFood=
+        kitchenOrder.map(id=>preparedFoods[id]);
+
+    const totalAmount=
+        allFood.reduce(
+            (sum,food)=>sum+food.amount,
+            0
+        );
+
+    const totalHappy=
+        allFood.reduce(
+            (sum,food)=>sum+food.happiness,
+            0
+        );
 
     game.hunger=
         Math.min(
             100,
-            game.hunger+preparedFood.amount
+            game.hunger+totalAmount
         );
 
     game.happiness=
         Math.min(
             100,
-            game.happiness+5
+            game.happiness+
+            Math.min(25,totalHappy)
         );
 
     game.health=
         Math.min(
             100,
-            game.health+3
+            game.health+Math.min(10,allFood.length*3)
         );
+
+    game.fun=
+        Math.min(
+            100,
+            game.fun+Math.min(8,allFood.length*2)
+        );
+
+    game.coins+=
+        2*allFood.length;
 
     game.stats.feeds++;
 
     levelUpCheck();
     checkAchievements();
 
-    const name=
-        preparedFood.name;
+    if(petImage){
 
-    preparedFood=null;
-    kitchenStep=0;
+        petImage.classList.add("servingPet");
+
+        setTimeout(()=>{
+            petImage.classList.remove("servingPet");
+        },1700);
+
+    }
+
+    document
+        .getElementById("kitchenDescription")
+        .textContent=
+        "😋 "+getPetName(game.currentPet)+
+        " está comendo e bebendo a refeição!";
+
+    document
+        .getElementById("kitchenServeSummary")
+        .textContent=
+        "😋 "+allFood.map(food=>food.emoji).join(" ")+
+        " Que delícia!";
+
+    petBubble(
+        "😋 Que refeição deliciosa!"
+    );
 
     saveGame();
     updateGame();
 
-    closeKitchen();
+    setTimeout(()=>{
 
-    petBubble(
-        "😋 "+name+" ficou uma delícia!"
-    );
+        toast(
+            "🍽️ Refeição servida! "+
+            getPetName(game.currentPet)+
+            " adorou!"
+        );
 
-    toast(
-        "🍽️ "+name+" entregue ao SKZOO!"
-    );
+        closeKitchen();
+
+    },1600);
 
 }
 
@@ -4027,8 +4913,428 @@ function closeKitchen(){
 
     preparedFood=null;
     kitchenStep=0;
+    kitchenOrder=[];
+    kitchenPrepared=[];
+    kitchenPaid={};
+    kitchenServing=false;
 
 }
+
+
+/* =====================================================
+   BRINCAR - ATIVIDADES INTERATIVAS
+===================================================== */
+
+const playActivities=[
+    {
+        id:"ball",
+        title:"🎾 Pegue a bolinha!",
+        desc:"Clique na bolinha antes que ela fuja.",
+        emoji:"🎾",
+        goal:6,
+        mode:"click"
+    },
+    {
+        id:"bubbles",
+        title:"🫧 Estoure as bolhas!",
+        desc:"Clique nas bolhas para estourá-las.",
+        emoji:"🫧",
+        goal:8,
+        mode:"click"
+    },
+    {
+        id:"toy",
+        title:"🧸 Brinquedo surpresa!",
+        desc:"Clique no brinquedo para brincar com o SKZOO.",
+        emoji:"🧸",
+        goal:7,
+        mode:"click"
+    },
+    {
+        id:"target",
+        title:"🎯 Acerte os alvos!",
+        desc:"Clique nos alvos que aparecem pelo espaço.",
+        emoji:"🎯",
+        goal:6,
+        mode:"click"
+    },
+    {
+        id:"kite",
+        title:"🪁 Pegue a pipa!",
+        desc:"Toque ou clique na pipa para trazê-la de volta.",
+        emoji:"🪁",
+        goal:6,
+        mode:"click"
+    }
+];
+
+let activePlay=null;
+let playScoreValue=0;
+let playPlaying=false;
+let playTimer=null;
+
+
+
+function openPlayRoom(){
+
+    const room=
+        document.getElementById("playRoom");
+
+    if(!room)
+        return;
+
+    activePlay=
+        playActivities[
+            Math.floor(
+                Math.random()*playActivities.length
+            )
+        ];
+
+    playScoreValue=0;
+    playPlaying=false;
+
+    document
+        .getElementById("playDescription")
+        .textContent=
+        activePlay.desc;
+
+    document
+        .getElementById("playScore")
+        .textContent="0";
+
+    document
+        .getElementById("playGoal")
+        .textContent=activePlay.goal;
+
+    document
+        .getElementById("playPetHint")
+        .textContent=
+        getPetName(game.currentPet)+
+        " quer brincar com você! 🐾";
+
+    document
+        .getElementById("playStartButton")
+        .textContent=
+        "▶️ Começar brincadeira";
+
+    document
+        .getElementById("playGameArea")
+        .innerHTML=
+        '<div style="padding-top:130px;color:#aeb9ce">Clique em começar para jogar!</div>';
+
+    room.classList.remove("hidden");
+
+}
+
+
+function startPlayActivity(){
+
+    if(playPlaying)
+        return;
+
+    if(game.energy<15){
+
+        toast(
+            "😴 "+
+            getPetName(game.currentPet)+
+            " ficou cansado!"
+        );
+
+        closePlayRoom();
+        return;
+
+    }
+
+    playPlaying=true;
+    playScoreValue=0;
+
+    document
+        .getElementById("playStartButton")
+        .textContent=
+        "🎮 Brincando...";
+
+    document
+        .getElementById("playPetHint")
+        .textContent=
+        "Muito bem! Continue! 💙";
+
+    updatePlayScore();
+    spawnPlayTarget();
+
+}
+
+
+function updatePlayScore(){
+
+    document
+        .getElementById("playScore")
+        .textContent=
+        playScoreValue;
+
+}
+
+
+function spawnPlayTarget(){
+
+    if(!playPlaying||!activePlay)
+        return;
+
+    const area=
+        document.getElementById("playGameArea");
+
+    area.innerHTML="";
+
+    const target=
+        document.createElement("button");
+
+    target.type="button";
+
+    target.className=
+        "playTarget "+activePlay.mode;
+
+    if(activePlay.id==="bubbles")
+        target.classList.add("bubble");
+
+    if(activePlay.id==="ball")
+        target.classList.add("ball");
+
+    if(activePlay.id==="toy")
+        target.classList.add("toy");
+
+    if(activePlay.id==="target")
+        target.classList.add("target");
+
+    if(activePlay.id==="kite")
+        target.classList.add("kite");
+
+    target.textContent=
+        activePlay.emoji;
+
+    const maxX=
+        Math.max(
+            5,
+            area.clientWidth-target.offsetWidth-5
+        );
+
+    const maxY=
+        Math.max(
+            5,
+            area.clientHeight-target.offsetHeight-5
+        );
+
+    target.style.left=
+        (Math.random()*maxX)+"px";
+
+    target.style.top=
+        (Math.random()*maxY)+"px";
+
+    target.onclick=()=>hitPlayTarget(target);
+
+    area.appendChild(target);
+
+    /* A bolinha e a pipa também podem ser arrastadas. */
+    if(
+        activePlay.id==="ball" ||
+        activePlay.id==="kite"
+    ){
+
+        let dragging=false;
+
+        target.onpointerdown=e=>{
+
+            dragging=true;
+            target.setPointerCapture?.(e.pointerId);
+
+        };
+
+        target.onpointermove=e=>{
+
+            if(!dragging)
+                return;
+
+            const rect=
+                area.getBoundingClientRect();
+
+            const x=
+                e.clientX-
+                rect.left-
+                target.offsetWidth/2;
+
+            const y=
+                e.clientY-
+                rect.top-
+                target.offsetHeight/2;
+
+            target.style.left=
+                Math.max(
+                    0,
+                    Math.min(
+                        area.clientWidth-target.offsetWidth,
+                        x
+                    )
+                )+"px";
+
+            target.style.top=
+                Math.max(
+                    0,
+                    Math.min(
+                        area.clientHeight-target.offsetHeight,
+                        y
+                    )
+                )+"px";
+
+        };
+
+        target.onpointerup=e=>{
+
+            if(dragging){
+
+                dragging=false;
+                hitPlayTarget(target);
+
+            }
+
+        };
+
+    }
+
+}
+
+
+function hitPlayTarget(target){
+
+    if(!playPlaying)
+        return;
+
+    playScoreValue++;
+
+    target.remove();
+
+    updatePlayScore();
+
+    const phrases=[
+        "🐾 Peguei!",
+        "💙 De novo!",
+        "✨ Amei!",
+        "🎮 Muito divertido!",
+        "🥰 Mais uma!"
+    ];
+
+    document
+        .getElementById("playPetHint")
+        .textContent=
+        phrases[
+            Math.floor(
+                Math.random()*phrases.length
+            )
+        ];
+
+    if(playScoreValue>=activePlay.goal){
+
+        finishPlayActivity();
+
+        return;
+
+    }
+
+    spawnPlayTarget();
+
+}
+
+
+function finishPlayActivity(){
+
+    if(!playPlaying)
+        return;
+
+    playPlaying=false;
+
+    clearTimeout(playTimer);
+
+    /*
+       Mantém a recompensa do sistema de brincar
+       que já existia, agora depois da participação.
+    */
+
+    game.fun=
+        Math.min(
+            100,
+            game.fun+25
+        );
+
+    game.happiness=
+        Math.min(
+            100,
+            game.happiness+18
+        );
+
+    game.energy=
+        Math.max(
+            0,
+            game.energy-15
+        );
+
+    game.hunger=
+        Math.max(
+            0,
+            game.hunger-5
+        );
+
+    game.coins+=8;
+
+    game.stats.plays++;
+
+    levelUpCheck();
+    checkAchievements();
+
+    petBubble(
+        "🎮 De novo! De novo!"
+    );
+
+    saveGame();
+    updateGame();
+
+    document
+        .getElementById("playPetHint")
+        .textContent=
+        "🎉 Você conseguiu! "+getPetName(game.currentPet)+
+        " adorou brincar com você!";
+
+    document
+        .getElementById("playStartButton")
+        .textContent=
+        "🔄 Brincar novamente";
+
+    document
+        .getElementById("playGameArea")
+        .innerHTML=
+        '<div style="padding-top:130px;font-size:25px">🎉 🐾 🎉</div>';
+
+    toast(
+        "🎮 "+
+        getPetName(game.currentPet)+
+        " se divertiu muito!"
+    );
+
+}
+
+
+function closePlayRoom(){
+
+    playPlaying=false;
+
+    clearTimeout(playTimer);
+
+    document
+        .getElementById("playRoom")
+        .classList.add("hidden");
+
+    document
+        .getElementById("playGameArea")
+        .innerHTML="";
+
+}
+
 
 /* =====================================================
    DORMIR
