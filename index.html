@@ -1197,6 +1197,271 @@ nav{
     font-weight:bold;
 }
 
+
+/* =========================
+   NOVAS INTERAÇÕES
+========================= */
+
+.bathRoom,
+.kitchenRoom{
+    position:fixed;
+    inset:0;
+    z-index:200;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(4,8,18,.94);
+}
+
+.interactionBox{
+    width:min(900px,100%);
+    max-height:92vh;
+    overflow:auto;
+    padding:25px;
+    border-radius:28px;
+    background:linear-gradient(145deg,rgba(255,255,255,.11),rgba(255,255,255,.045));
+    border:1px solid var(--border);
+    box-shadow:0 25px 80px #000b;
+    text-align:center;
+}
+
+.interactionBox h2{
+    margin-bottom:8px;
+}
+
+.interactionBox p{
+    color:#c1cbe0;
+    margin-bottom:18px;
+}
+
+.bathVisual,
+.kitchenVisual{
+    min-height:250px;
+    border-radius:24px;
+    background:linear-gradient(180deg,#9fc8e6 0%,#d9edf7 55%,#7b6254 56%,#4d3b32 100%);
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:18px;
+}
+
+.bathVisual:before{
+    content:"🚿";
+    position:absolute;
+    right:12%;
+    top:20px;
+    font-size:70px;
+}
+
+.bathVisual img,
+.kitchenVisual img{
+    width:210px;
+    height:210px;
+    object-fit:contain;
+    filter:drop-shadow(0 15px 12px #0006);
+}
+
+.bathPet{
+    animation:bathPetFloat 1.8s ease-in-out infinite;
+}
+
+@keyframes bathPetFloat{
+    0%,100%{transform:translateY(2px)}
+    50%{transform:translateY(-5px)}
+}
+
+.bathEffects{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    font-size:30px;
+}
+
+.bathEffects.showSoap:after{
+    content:"🫧 🧼 🫧";
+    position:absolute;
+    left:50%;
+    top:28%;
+    transform:translateX(-50%);
+    animation:bathEffect .8s ease-out;
+}
+
+.bathEffects.showWater:after{
+    content:"💦 💦 💦";
+    position:absolute;
+    left:50%;
+    top:18%;
+    transform:translateX(-50%);
+    animation:bathEffect .8s ease-out;
+}
+
+.bathEffects.showDry:after{
+    content:"💨 ✨ 💨";
+    position:absolute;
+    left:50%;
+    top:30%;
+    transform:translateX(-50%);
+    animation:bathEffect .8s ease-out;
+}
+
+.bathEffects.showPerfume:after{
+    content:"🌸 ✨ 🌸";
+    position:absolute;
+    left:50%;
+    top:28%;
+    transform:translateX(-50%);
+    animation:bathEffect .8s ease-out;
+}
+
+@keyframes bathEffect{
+    0%{opacity:0;transform:translate(-50%,15px) scale(.7)}
+    50%{opacity:1}
+    100%{opacity:0;transform:translate(-50%,-25px) scale(1.1)}
+}
+
+.interactionSteps{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-bottom:18px;
+}
+
+.interactionStep{
+    padding:12px 8px;
+    border-radius:15px;
+    background:#0003;
+    border:1px solid var(--border);
+    color:#aeb9ce;
+}
+
+.interactionStep.active{
+    border-color:var(--blue);
+    color:white;
+    background:#4169e133;
+}
+
+.interactionStep.done{
+    border-color:#70dfb0;
+    color:#78e0ad;
+}
+
+.interactionButtons{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.interactionButtons button,
+.foodChoice button{
+    padding:12px 20px;
+    border-radius:13px;
+    background:var(--blue2);
+}
+
+.interactionButtons button:disabled{
+    opacity:.45;
+    cursor:not-allowed;
+}
+
+.backInteraction{
+    background:#ffffff12!important;
+    border:1px solid var(--border)!important;
+}
+
+.foodChoices{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin:15px 0 20px;
+}
+
+.foodChoice{
+    padding:16px 10px;
+    border-radius:18px;
+    background:var(--glass);
+    border:1px solid var(--border);
+}
+
+.foodChoice.selected{
+    border-color:var(--blue);
+    background:#4169e133;
+}
+
+.foodChoice .itemIcon{
+    font-size:45px;
+}
+
+.foodChoice p{
+    min-height:0;
+    margin:5px 0 10px;
+    font-size:13px;
+}
+
+.kitchenVisual{
+    background:linear-gradient(180deg,#d8b58b 0%,#f0d5ad 55%,#765441 56%,#4b3529 100%);
+}
+
+.kitchenVisual:before{
+    content:"🍳";
+    position:absolute;
+    right:13%;
+    top:25px;
+    font-size:65px;
+}
+
+.kitchenStage{
+    font-weight:bold;
+    margin-bottom:15px;
+    color:#dce7fb;
+}
+
+.careHeart{
+    position:fixed;
+    z-index:250;
+    pointer-events:none;
+    font-size:22px;
+    animation:careHeart .9s ease-out forwards;
+}
+
+@keyframes careHeart{
+    0%{opacity:1;transform:translate(-50%,0) scale(.7)}
+    100%{opacity:0;transform:translate(-50%,-55px) scale(1.2)}
+}
+
+.petArea.caring img{
+    animation:carePet .35s ease-in-out;
+}
+
+@keyframes carePet{
+    0%,100%{transform:translateY(0) scale(1)}
+    50%{transform:translateY(-5px) scale(1.04)}
+}
+
+@media(max-width:700px){
+    .interactionSteps{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .foodChoices{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .bathVisual,
+    .kitchenVisual{
+        min-height:220px;
+    }
+
+    .bathVisual img,
+    .kitchenVisual img{
+        width:170px;
+        height:170px;
+    }
+}
+
 </style>
 </head>
 
@@ -1573,6 +1838,12 @@ nav{
 
 </div>
 
+<div style="text-align:center;margin-top:18px">
+    <button class="hatchBtn" onclick="openKitchen()">
+        🍳 Preparar comida
+    </button>
+</div>
+
 </main>
 
 
@@ -1665,6 +1936,90 @@ nav{
         </button>
 
         <div id="stateHat"
+             class="equipmentState">
+            Não comprado
+        </div>
+
+    </div>
+
+
+    <div class="item">
+
+        <div class="itemIcon">🧢</div>
+
+        <h3>Boné</h3>
+
+        <p>Estilo casual</p>
+
+        <button id="buyCap"
+                onclick="buyAccessory('cap','🧢','Boné',35)">
+            35 🪙
+        </button>
+
+        <div id="stateCap"
+             class="equipmentState">
+            Não comprado
+        </div>
+
+    </div>
+
+
+    <div class="item">
+
+        <div class="itemIcon">🌸</div>
+
+        <h3>Presilha</h3>
+
+        <p>Um toque delicado</p>
+
+        <button id="buyClip"
+                onclick="buyAccessory('clip','🌸','Presilha',40)">
+            40 🪙
+        </button>
+
+        <div id="stateClip"
+             class="equipmentState">
+            Não comprado
+        </div>
+
+    </div>
+
+
+    <div class="item">
+
+        <div class="itemIcon">🧣</div>
+
+        <h3>Cachecol</h3>
+
+        <p>Quentinho e estiloso</p>
+
+        <button id="buyScarf"
+                onclick="buyAccessory('scarf','🧣','Cachecol',55)">
+            55 🪙
+        </button>
+
+        <div id="stateScarf"
+             class="equipmentState">
+            Não comprado
+        </div>
+
+    </div>
+
+
+    <div class="item">
+
+        <div class="itemIcon">🎒</div>
+
+        <h3>Mini mochila</h3>
+
+        <p>Pronto para aventuras</p>
+
+        <button id="buyBag"
+                onclick="buyAccessory('bag','🎒','Mini mochila',70)">
+            70 🪙
+        </button>
+
+        <div id="stateBag"
              class="equipmentState">
             Não comprado
         </div>
@@ -1866,6 +2221,151 @@ nav{
 </section>
 
 
+<!-- =====================================================
+     BANHEIRO
+===================================================== -->
+
+<section id="bathRoom" class="bathRoom hidden">
+
+    <div class="interactionBox">
+
+        <h2>🛁 Hora do banho</h2>
+
+        <p id="bathDescription">
+            Faça cada etapa na ordem para deixar o SKZOO limpinho.
+        </p>
+
+        <div class="bathVisual">
+            <img id="bathPetImage" class="bathPet" src="wolf-chan.png" alt="SKZOO">
+            <div id="bathEffects" class="bathEffects"></div>
+        </div>
+
+        <div class="interactionSteps">
+            <div id="bathStep1" class="interactionStep active">🧼<br>Sabonete</div>
+            <div id="bathStep2" class="interactionStep">🚿<br>Enxaguar</div>
+            <div id="bathStep3" class="interactionStep">🧴<br>Secar</div>
+            <div id="bathStep4" class="interactionStep">🌸<br>Perfume</div>
+        </div>
+
+        <div class="interactionButtons">
+            <button id="bathActionButton" onclick="doBathStep()">
+                🧼 Passar sabonete
+            </button>
+
+            <button id="bathBackButton"
+                    class="backInteraction hidden"
+                    onclick="closeBathRoom()">
+                ↩️ Voltar
+            </button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     COZINHA
+===================================================== -->
+
+<section id="kitchenRoom" class="kitchenRoom hidden">
+
+    <div class="interactionBox">
+
+        <h2>🍳 Preparar comida</h2>
+
+        <p id="kitchenDescription">
+            Escolha uma comida para começar o preparo.
+        </p>
+
+        <div id="foodChoices" class="foodChoices">
+
+            <div class="foodChoice" data-food="apple">
+                <div class="itemIcon">🍎</div>
+                <h3>Maçã</h3>
+                <p>+15 Fome · 5 🪙</p>
+                <button onclick="choosePreparedFood('apple')">Escolher</button>
+            </div>
+
+            <div class="foodChoice" data-food="chicken">
+                <div class="itemIcon">🍗</div>
+                <h3>Frango</h3>
+                <p>+25 Fome · 10 🪙</p>
+                <button onclick="choosePreparedFood('chicken')">Escolher</button>
+            </div>
+
+            <div class="foodChoice" data-food="cake">
+                <div class="itemIcon">🍰</div>
+                <h3>Bolo</h3>
+                <p>+35 Fome · 20 🪙</p>
+                <button onclick="choosePreparedFood('cake')">Escolher</button>
+            </div>
+
+            <div class="foodChoice" data-food="strawberry">
+                <div class="itemIcon">🍓</div>
+                <h3>Morango</h3>
+                <p>+20 Fome · 8 🪙</p>
+                <button onclick="choosePreparedFood('strawberry')">Escolher</button>
+            </div>
+
+        </div>
+
+        <div id="kitchenWork" class="hidden">
+
+            <div class="kitchenVisual">
+                <img id="kitchenPetImage" src="wolf-chan.png" alt="SKZOO">
+            </div>
+
+            <div id="kitchenStage" class="kitchenStage">
+                Preparando...
+            </div>
+
+            <div class="interactionButtons">
+
+                <button id="kitchenActionButton"
+                        onclick="doKitchenStep()">
+                    🔪 Começar preparo
+                </button>
+
+                <button class="backInteraction"
+                        onclick="closeKitchen()">
+                    ↩️ Voltar
+                </button>
+
+            </div>
+
+        </div>
+
+        <div id="kitchenReady" class="hidden">
+
+            <div class="kitchenVisual">
+                <div style="font-size:90px">🍽️</div>
+            </div>
+
+            <div class="kitchenStage">
+                ✨ Comida pronta! Entregue ao SKZOO.
+            </div>
+
+            <div class="interactionButtons">
+
+                <button onclick="servePreparedFood()">
+                    🐾 Entregar comida
+                </button>
+
+                <button class="backInteraction"
+                        onclick="closeKitchen()">
+                    ↩️ Voltar
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
 <div id="toast"></div>
 
 
@@ -1962,7 +2462,11 @@ let game = {
         bow:false,
         crown:false,
         glasses:false,
-        hat:false
+        hat:false,
+        cap:false,
+        clip:false,
+        scarf:false,
+        bag:false
     },
 
     equipped:null,
@@ -2375,6 +2879,7 @@ function updateGame(){
     updateLevelProgress();
     renderCollection();
     updateHatchButton();
+    setupDirectPetCare();
 
 }
 
@@ -2592,39 +3097,207 @@ function play(){
    BANHO
 ===================================================== */
 
+let bathStep=0;
+
 function bath(){
 
-    game.hygiene=100;
+    bathStep=0;
 
-    game.happiness=
-        Math.min(
-            100,
-            game.happiness+8
-        );
+    const room=
+        document.getElementById("bathRoom");
 
-    game.health=
-        Math.min(
-            100,
-            game.health+5
-        );
+    const image=
+        document.getElementById("bathPetImage");
 
-    game.stats.baths++;
+    if(!room||!image)
+        return;
 
-    levelUpCheck();
-    checkAchievements();
+    image.src=getCurrentPet().image;
+
+    room.classList.remove("hidden");
+
+    updateBathRoom();
 
     petBubble(
-        "🛁 Que banho bom!"
+        "🛁 Vamos tomar banho!"
     );
 
-    toast(
-        "✨ "+
-        getPetName(game.currentPet)+
-        " está limpinho!"
-    );
+}
 
-    saveGame();
-    updateGame();
+
+function updateBathRoom(){
+
+    const action=
+        document.getElementById(
+            "bathActionButton"
+        );
+
+    const back=
+        document.getElementById(
+            "bathBackButton"
+        );
+
+    const description=
+        document.getElementById(
+            "bathDescription"
+        );
+
+    const effects=
+        document.getElementById(
+            "bathEffects"
+        );
+
+    const steps=[
+        ["🧼 Passar sabonete","Passe o sabonete no SKZOO."],
+        ["🚿 Enxaguar","Agora enxague todo o sabonete."],
+        ["🧴 Secar","Seque o SKZOO com a toalha."],
+        ["🌸 Passar perfume","Finalize com um pouquinho de perfume."]
+    ];
+
+    document
+        .querySelectorAll(".interactionStep")
+        .forEach((el,index)=>{
+            el.classList.toggle(
+                "active",
+                index===bathStep
+            );
+
+            el.classList.toggle(
+                "done",
+                index<bathStep
+            );
+        });
+
+    if(bathStep<4){
+
+        action.classList.remove("hidden");
+
+        action.disabled=false;
+
+        action.textContent=steps[bathStep][0];
+
+        description.textContent=
+            steps[bathStep][1];
+
+        back.classList.add("hidden");
+
+    }else{
+
+        action.classList.add("hidden");
+
+        back.classList.remove("hidden");
+
+        description.textContent=
+            "✨ Banho completo! O SKZOO está limpinho e cheiroso.";
+
+    }
+
+    if(effects)
+        effects.className="bathEffects";
+
+}
+
+
+function doBathStep(){
+
+    if(bathStep>=4)
+        return;
+
+    const effects=
+        document.getElementById(
+            "bathEffects"
+        );
+
+    const effectNames=[
+        "showSoap",
+        "showWater",
+        "showDry",
+        "showPerfume"
+    ];
+
+    if(effects)
+        effects.classList.add(
+            effectNames[bathStep]
+        );
+
+    const hygieneGain=[
+        20,
+        25,
+        20,
+        35
+    ][bathStep];
+
+    game.hygiene=
+        Math.min(
+            100,
+            game.hygiene+hygieneGain
+        );
+
+    bathStep++;
+
+    if(bathStep===4){
+
+        game.hygiene=100;
+
+        game.happiness=
+            Math.min(
+                100,
+                game.happiness+8
+            );
+
+        game.health=
+            Math.min(
+                100,
+                game.health+5
+            );
+
+        game.stats.baths++;
+
+        levelUpCheck();
+        checkAchievements();
+
+        saveGame();
+        updateGame();
+
+        petBubble(
+            "🌸 Que cheirinho bom!"
+        );
+
+        toast(
+            "✨ "+
+            getPetName(game.currentPet)+
+            " terminou o banho!"
+        );
+
+    }else{
+
+        saveGame();
+        updateGame();
+
+        toast(
+            "🛁 Próxima etapa!"
+        );
+
+    }
+
+    updateBathRoom();
+
+}
+
+
+function closeBathRoom(){
+
+    document
+        .getElementById("bathRoom")
+        .classList.add("hidden");
+
+    if(bathStep>=4){
+
+        petBubble(
+            "🐾 Estou limpinho!"
+        );
+
+    }
 
 }
 
@@ -2680,6 +3353,124 @@ function pet(){
 
 }
 
+
+
+/* =====================================================
+   CARINHO COM MOVIMENTO
+===================================================== */
+
+let careLastTime=0;
+
+function createCareHeart(event){
+
+    const heart=
+        document.createElement("div");
+
+    heart.className="careHeart";
+
+    const emojis=[
+        "💗",
+        "💖",
+        "💕",
+        "💙"
+    ];
+
+    heart.textContent=
+        emojis[
+            Math.floor(
+                Math.random()*emojis.length
+            )
+        ];
+
+    let x=event.clientX;
+    let y=event.clientY;
+
+    if(event.touches && event.touches[0]){
+
+        x=event.touches[0].clientX;
+        y=event.touches[0].clientY;
+
+    }
+
+    heart.style.left=x+"px";
+    heart.style.top=y+"px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },900);
+
+}
+
+
+function directPetCare(event){
+
+    if(!event)
+        return;
+
+    const now=Date.now();
+
+    if(now-careLastTime<120)
+        return;
+
+    careLastTime=now;
+
+    game.happiness=
+        Math.min(
+            100,
+            game.happiness+1
+        );
+
+    game.fun=
+        Math.min(
+            100,
+            game.fun+.5
+        );
+
+    const petArea=
+        document.querySelector(".petArea");
+
+    if(petArea){
+
+        petArea.classList.remove("caring");
+
+        void petArea.offsetWidth;
+
+        petArea.classList.add("caring");
+
+    }
+
+    createCareHeart(event);
+
+    saveGame();
+    updateGame();
+
+}
+
+
+function setupDirectPetCare(){
+
+    const image=
+        document.getElementById("petImage");
+
+    if(!image || image.dataset.careReady)
+        return;
+
+    image.dataset.careReady="true";
+
+    image.addEventListener(
+        "pointermove",
+        directPetCare
+    );
+
+    image.addEventListener(
+        "touchmove",
+        directPetCare,
+        {passive:true}
+    );
+
+}
 
 /* =====================================================
    ACESSÓRIOS
@@ -2764,7 +3555,11 @@ function updateAccessory(){
         bow:"🎀",
         crown:"👑",
         glasses:"🕶️",
-        hat:"🎩"
+        hat:"🎩",
+        cap:"🧢",
+        clip:"🌸",
+        scarf:"🧣",
+        bag:"🎒"
 
     };
 
@@ -2816,6 +3611,42 @@ function updateShop(){
             "🎩",
             "Cartola",
             80
+        ],
+
+        [
+            "cap",
+            "buyCap",
+            "stateCap",
+            "🧢",
+            "Boné",
+            35
+        ],
+
+        [
+            "clip",
+            "buyClip",
+            "stateClip",
+            "🌸",
+            "Presilha",
+            40
+        ],
+
+        [
+            "scarf",
+            "buyScarf",
+            "stateScarf",
+            "🧣",
+            "Cachecol",
+            55
+        ],
+
+        [
+            "bag",
+            "buyBag",
+            "stateBag",
+            "🎒",
+            "Mini mochila",
+            70
         ]
 
     ];
@@ -2912,6 +3743,292 @@ function changeRoom(room,button){
 
 }
 
+
+
+/* =====================================================
+   PREPARAR COMIDA
+===================================================== */
+
+const preparedFoods={
+    apple:{
+        name:"Maçã",
+        emoji:"🍎",
+        amount:15,
+        cost:5
+    },
+    chicken:{
+        name:"Frango",
+        emoji:"🍗",
+        amount:25,
+        cost:10
+    },
+    cake:{
+        name:"Bolo",
+        emoji:"🍰",
+        amount:35,
+        cost:20
+    },
+    strawberry:{
+        name:"Morango",
+        emoji:"🍓",
+        amount:20,
+        cost:8
+    }
+};
+
+let preparedFood=null;
+let kitchenStep=0;
+
+
+function openKitchen(){
+
+    const room=
+        document.getElementById("kitchenRoom");
+
+    const image=
+        document.getElementById("kitchenPetImage");
+
+    if(!room||!image)
+        return;
+
+    image.src=getCurrentPet().image;
+
+    preparedFood=null;
+    kitchenStep=0;
+
+    document
+        .getElementById("foodChoices")
+        .classList.remove("hidden");
+
+    document
+        .getElementById("kitchenWork")
+        .classList.add("hidden");
+
+    document
+        .getElementById("kitchenReady")
+        .classList.add("hidden");
+
+    document
+        .getElementById("kitchenDescription")
+        .textContent=
+        "Escolha uma comida para começar o preparo.";
+
+    room.classList.remove("hidden");
+
+}
+
+
+function choosePreparedFood(id){
+
+    const food=
+        preparedFoods[id];
+
+    if(!food)
+        return;
+
+    if(game.coins<food.cost){
+
+        toast(
+            "🪙 Você não tem moedas suficientes!"
+        );
+
+        return;
+    }
+
+    if(game.hunger>=100){
+
+        toast(
+            "🍖 Seu SKZOO já está cheio!"
+        );
+
+        return;
+    }
+
+    preparedFood=food;
+    kitchenStep=0;
+
+    document
+        .getElementById("foodChoices")
+        .classList.add("hidden");
+
+    document
+        .getElementById("kitchenWork")
+        .classList.remove("hidden");
+
+    document
+        .getElementById("kitchenReady")
+        .classList.add("hidden");
+
+    document
+        .getElementById("kitchenDescription")
+        .textContent=
+        "Vamos preparar "+food.name+"!";
+
+    updateKitchen();
+
+}
+
+
+function updateKitchen(){
+
+    if(!preparedFood)
+        return;
+
+    const stageNames=[
+        "🔪 Corte e organize os ingredientes.",
+        "🥣 Misture e prepare a receita.",
+        "🔥 Finalize o preparo no fogão."
+    ];
+
+    const buttonTexts=[
+        "🔪 Cortar ingredientes",
+        "🥣 Misturar",
+        "🔥 Finalizar preparo"
+    ];
+
+    const stage=
+        document.getElementById(
+            "kitchenStage"
+        );
+
+    const button=
+        document.getElementById(
+            "kitchenActionButton"
+        );
+
+    if(kitchenStep<3){
+
+        stage.textContent=
+            stageNames[kitchenStep];
+
+        button.textContent=
+            buttonTexts[kitchenStep];
+
+    }
+
+}
+
+
+function doKitchenStep(){
+
+    if(!preparedFood || kitchenStep>=3)
+        return;
+
+    kitchenStep++;
+
+    if(kitchenStep<3){
+
+        updateKitchen();
+
+        toast(
+            "🍳 Continue preparando!"
+        );
+
+        return;
+
+    }
+
+    document
+        .getElementById("kitchenWork")
+        .classList.add("hidden");
+
+    document
+        .getElementById("kitchenReady")
+        .classList.remove("hidden");
+
+    document
+        .getElementById("kitchenDescription")
+        .textContent=
+        "A comida foi preparada com carinho!";
+
+    toast(
+        "✨ "+preparedFood.name+" está pronta!"
+    );
+
+}
+
+
+function servePreparedFood(){
+
+    if(!preparedFood)
+        return;
+
+    if(game.coins<preparedFood.cost){
+
+        toast(
+            "🪙 Você não tem moedas suficientes!"
+        );
+
+        return;
+    }
+
+    if(game.hunger>=100){
+
+        toast(
+            "🍖 Seu SKZOO já está cheio!"
+        );
+
+        return;
+    }
+
+    game.coins-=
+        preparedFood.cost;
+
+    game.hunger=
+        Math.min(
+            100,
+            game.hunger+preparedFood.amount
+        );
+
+    game.happiness=
+        Math.min(
+            100,
+            game.happiness+5
+        );
+
+    game.health=
+        Math.min(
+            100,
+            game.health+3
+        );
+
+    game.stats.feeds++;
+
+    levelUpCheck();
+    checkAchievements();
+
+    const name=
+        preparedFood.name;
+
+    preparedFood=null;
+    kitchenStep=0;
+
+    saveGame();
+    updateGame();
+
+    closeKitchen();
+
+    petBubble(
+        "😋 "+name+" ficou uma delícia!"
+    );
+
+    toast(
+        "🍽️ "+name+" entregue ao SKZOO!"
+    );
+
+}
+
+
+function closeKitchen(){
+
+    document
+        .getElementById("kitchenRoom")
+        .classList.add("hidden");
+
+    preparedFood=null;
+    kitchenStep=0;
+
+}
 
 /* =====================================================
    DORMIR
