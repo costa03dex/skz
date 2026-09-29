@@ -1135,6 +1135,68 @@ nav{
         height:100px;
     }
 }
+
+
+.house.sleeping:after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(3,7,20,.58);
+    pointer-events:none;
+    z-index:5;
+}
+
+.petArea.sleeping{
+    z-index:12;
+}
+
+.petArea.sleeping img{
+    animation:petSleeping 2.2s ease-in-out infinite;
+}
+
+.petArea.sleeping:after{
+    content:"💤";
+    position:absolute;
+    left:50%;
+    top:-28px;
+    transform:translateX(35px);
+    font-size:32px;
+    animation:sleepZzz 1.8s ease-in-out infinite;
+    z-index:25;
+    pointer-events:none;
+}
+
+@keyframes petSleeping{
+    0%,100%{
+        transform:translateY(5px) scale(.98);
+    }
+    50%{
+        transform:translateY(13px) scale(.98);
+    }
+}
+
+@keyframes sleepZzz{
+    0%{
+        opacity:.35;
+        transform:translate(25px,10px) scale(.85);
+    }
+    50%{
+        opacity:1;
+        transform:translate(35px,-4px) scale(1);
+    }
+    100%{
+        opacity:.2;
+        transform:translate(45px,-18px) scale(1.12);
+    }
+}
+
+.sleepStatus{
+    margin-top:8px;
+    color:#cbd5e9;
+    font-size:14px;
+    font-weight:bold;
+}
+
 </style>
 </head>
 
@@ -1417,6 +1479,17 @@ nav{
         Carinho
     </button>
 
+    <button id="sleepButton"
+            class="actionBtn"
+            onclick="toggleSleep()">
+        <span class="actionIcon">💤</span>
+        Dormir
+    </button>
+
+</div>
+
+<div id="sleepStatus" class="sleepStatus hidden">
+    💤 Dormindo... Energia sendo recuperada.
 </div>
 
 
@@ -1876,6 +1949,7 @@ let game = {
     hunger:100,
     happiness:100,
     energy:100,
+    sleeping:false,
     hygiene:100,
     health:100,
     fun:100,
@@ -2291,6 +2365,8 @@ function updateGame(){
     updateStat("hygiene",game.hygiene);
     updateStat("health",game.health);
     updateStat("fun",game.fun);
+
+    updateSleep();
 
     updateRoom();
     updateAccessory();
@@ -2833,6 +2909,118 @@ function changeRoom(room,button){
         });
 
     button.classList.add("active");
+
+}
+
+
+/* =====================================================
+   DORMIR
+===================================================== */
+
+function toggleSleep(){
+
+    if(game.sleeping){
+
+        wakeUp();
+
+        return;
+
+    }
+
+    if(game.energy>=100){
+
+        toast(
+            "⚡ "+getPetName(game.currentPet)+
+            " já está com a energia cheia!"
+        );
+
+        return;
+
+    }
+
+    game.sleeping=true;
+
+    saveGame();
+    updateGame();
+
+    toast(
+        "🌙 "+getPetName(game.currentPet)+
+        " foi dormir!"
+    );
+
+}
+
+
+function wakeUp(){
+
+    game.sleeping=false;
+
+    saveGame();
+    updateGame();
+
+    toast(
+        "☀️ "+getPetName(game.currentPet)+
+        " acordou!"
+    );
+
+}
+
+
+function updateSleep(){
+
+    const house=
+        document.getElementById(
+            "house"
+        );
+
+    const petArea=
+        document.querySelector(
+            ".petArea"
+        );
+
+    const button=
+        document.getElementById(
+            "sleepButton"
+        );
+
+    const status=
+        document.getElementById(
+            "sleepStatus"
+        );
+
+    if(!house || !petArea || !button || !status)
+        return;
+
+    house.classList.toggle(
+        "sleeping",
+        game.sleeping
+    );
+
+    petArea.classList.toggle(
+        "sleeping",
+        game.sleeping
+    );
+
+    status.classList.toggle(
+        "hidden",
+        !game.sleeping
+    );
+
+    if(game.sleeping){
+
+        button.innerHTML=`
+            <span class="actionIcon">☀️</span>
+            Acordar
+        `;
+
+    }else{
+
+        button.innerHTML=`
+            <span class="actionIcon">💤</span>
+            Dormir
+        `;
+
+    }
 
 }
 
@@ -3775,11 +3963,38 @@ setInterval(()=>{
             game.hygiene-.5
         );
 
-    game.energy=
-        Math.max(
-            0,
-            game.energy-.5
+    if(game.sleeping){
+
+        game.energy=
+            Math.min(
+                100,
+                game.energy+5
+            );
+
+    }else{
+
+        game.energy=
+            Math.max(
+                0,
+                game.energy-.5
+            );
+
+    }
+
+    if(
+        game.sleeping &&
+        game.energy>=100
+    ){
+
+        game.energy=100;
+        game.sleeping=false;
+
+        toast(
+            "☀️ "+getPetName(game.currentPet)+
+            " acordou com a energia cheia!"
         );
+
+    }
 
     game.fun=
         Math.max(
